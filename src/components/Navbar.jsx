@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import logo from '../assets/logo.jpeg';
+import logo from '../assets/finlit-logo.png';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [language, setLanguage] = useState('English');
 
   return (
-    <nav className="sticky top-0 bg-slate-200 shadow-md z-10 p-4">
+    <nav className="fixed top-5 left-1/2 transform -translate-x-1/2 bg-[#10355fd9] rounded-xl shadow-lg px-8 py-1 flex items-center justify-between z-50" style={{ maxWidth: '90vw', width: 'calc(100% - 40px)' }}>
       <div className="container mx-auto flex justify-between items-center">
         {/* Left: Logo */}
         <Link to="/">
@@ -25,11 +25,6 @@ const Navbar = () => {
               key={name}
               to={path}
               className="text-white font-semibold px-2 py-1"
-              style={{
-                background:
-                  'linear-gradient(90deg, rgba(2, 0, 36, 0.9) 0%, rgba(14, 14, 110, 0.9) 36%, rgba(0, 212, 255, 0.9) 100%)',
-                borderRadius: '10px',
-              }}
             >
               {name}
             </Link>
@@ -40,11 +35,6 @@ const Navbar = () => {
         <div className="flex items-center space-x-6">
           <button
             className="text-white font-semibold px-4 py-2 transition duration-200 hover:opacity-90"
-            style={{
-              background:
-                'linear-gradient(90deg, rgba(2, 0, 36, 0.9) 0%, rgba(14, 14, 110, 0.9) 36%, rgba(0, 212, 255, 0.9) 100%)',
-              borderRadius: '10px',
-            }}
           >
             Login / Get Started
           </button>
