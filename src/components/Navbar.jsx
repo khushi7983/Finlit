@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import logo from '../assets/logo.jpeg';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [language, setLanguage] = useState('English');
@@ -8,14 +9,21 @@ const Navbar = () => {
     <nav className="sticky top-0 bg-slate-200 shadow-md z-10 p-4">
       <div className="container mx-auto flex justify-between items-center">
         {/* Left: Logo */}
-        <img src={logo} alt="FinLit Logo" className="h-20 w-auto ml-4" />
+        <Link to="/">
+          <img src={logo} alt="FinLit Logo" className="h-20 w-auto ml-4" />
+        </Link>
 
         {/* Center: Nav Links */}
         <div className="flex space-x-6">
-          {['Home', 'About Us', 'What We Do', 'Our Achievements'].map(item => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase().replace(/ /g, '-')}`}
+          {[
+            { name: 'Home', path: '/' },
+            { name: 'About Us', path: '/about' },
+            { name: 'What We Do', path: '/what-we-do' },
+            { name: 'Our Achievements', path: '/awards' }
+          ].map(({ name, path }) => (
+            <Link
+              key={name}
+              to={path}
               className="text-white font-semibold px-2 py-1"
               style={{
                 background:
@@ -23,8 +31,8 @@ const Navbar = () => {
                 borderRadius: '10px',
               }}
             >
-              {item}
-            </a>
+              {name}
+            </Link>
           ))}
         </div>
 
@@ -48,7 +56,6 @@ const Navbar = () => {
           >
             <option>English</option>
             <option>Hindi</option>
-           
           </select>
         </div>
       </div>

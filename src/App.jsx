@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
@@ -16,26 +17,32 @@ import FloatingSupport from './components/FloatingSupport.jsx';
 
 function App() {
   return (
-    <div className=""
-     style =  {{
-        background: 'linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(14, 14, 110, 1) 36%, rgba(0, 212, 255, 1) 100%)',
-      }}
+    <Router>
+      <div
+        style={{
+          background: 'linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(14, 14, 110, 1) 36%, rgba(0, 212, 255, 1) 100%)',
+        }}
       >
-      <Navbar />
-      <Hero />
-      <AboutUs />
-      <AppShowcase />
-      <FinancialLiteracy />
-      <ESGSection />
-      <Offerings />
-      <WhatWeDo />
-      <HowItWorks />
-      <Testimonials />
-      <Awards />
-      <FAQ />
-      <Footer />
-      <FloatingSupport />
-    </div>
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/app-showcase" element={<AppShowcase />} />
+          <Route path="/financial-literacy" element={<FinancialLiteracy />} />
+          <Route path="/esg" element={<ESGSection />} />
+          <Route path="/offerings" element={<Offerings />} />
+          <Route path="/what-we-do" element={<WhatWeDo />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/awards" element={<Awards />} />
+          <Route path="/faq" element={<FAQ />} />
+        </Routes>
+
+        <Footer />
+        <FloatingSupport />
+      </div>
+    </Router>
   );
 }
 
