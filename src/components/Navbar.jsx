@@ -1,12 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import logo from '../assets/finlit-logo.png';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [language, setLanguage] = useState('English');
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 30) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="fixed top-5 left-1/2 transform -translate-x-1/2 bg-[#10355fd9] rounded-xl shadow-lg px-8 py-1 flex items-center justify-between z-50" style={{ maxWidth: '90vw', width: 'calc(100% - 40px)' }}>
+    <nav
+      className={
+        `z-50 flex items-center justify-between shadow-lg px-8 transition-all duration-300 ` +
+        (isSticky
+          ? 'fixed top-0 left-1/2 transform -translate-x-1/2 bg-[#10355f] rounded-xl py-1'
+          : 'fixed top-5 left-1/2 transform -translate-x-1/2 bg-[#10355fd9] rounded-xl py-1')
+      }
+      style={{ maxWidth: '90vw', width: 'calc(100% - 40px)' }}
+    >
       <div className="container mx-auto flex justify-between items-center">
         {/* Left: Logo */}
         <Link to="/">
