@@ -30,7 +30,7 @@ const Footer = () => (
     <div className="absolute top-0 left-0 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl"></div>
     <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
 
-    <div className="relative z-10">
+    <div className="relative z-10 ">
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Top Section - Brand & Newsletter */}
@@ -221,7 +221,7 @@ const Footer = () => (
         </div>
 
         {/* Legal Links */}
-        <div className="border-t border-white/10 pt-8">
+        <div className="pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex flex-wrap gap-6">
               {['Terms of Service', 'Privacy Policy', 'Cookie Policy', 'Disclaimer'].map(item => (
@@ -242,7 +242,7 @@ const Footer = () => (
       </div>
 
       {/* Bottom Copyright */}
-      <div className="border-t border-white/10 bg-slate-900/50 backdrop-blur-sm">
+      <div className="bg-slate-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-slate-400 text-sm">
