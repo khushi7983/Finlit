@@ -1,5 +1,8 @@
 import React from "react";
-import { Play, Download, BookOpen, TrendingUp, Users, Target, ChevronRight, Star } from "lucide-react";
+import { Play, BookOpen, TrendingUp, Users, Target, ChevronRight, Star } from "lucide-react";
+import Offerings from "./Offerings";
+import phone from "../../assets/phone.mp4";
+import finance from "../../assets/finance.gif";
 import Investing from "./Investing";
 import TestimonialsSection from "./TestimonialsSection";
 
@@ -18,86 +21,99 @@ const Hero = () => (
          
         </div>
 
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
-          {/* Left: Enhanced Content */}
-          <div className="w-full lg:w-1/2 text-center lg:text-left">
-            <div className="mb-6">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 leading-tight">
-                <span className="text-slate-800">Master Your</span>
-                <br />
-                <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
-                  Money
-                </span>
-                <br />
-                <span className="text-slate-800">in Minutes</span>
-              </h1>
-              <p className="text-xl sm:text-2xl text-slate-600 mb-8 max-w-2xl font-light leading-relaxed">
-                Free financial literacy courses by SEBI-empanelled experts. 
-                <span className="font-medium text-slate-700"> No finance background? No worries!</span>
-              </p>
-            </div>
+    {/* Main Flex Layout */}
+    <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
+      {/* Left: Text and Buttons */}
+      <div className="w-full lg:w-1/2 text-center lg:text-left">
+        <div className="mb-6">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 leading-tight">
+            <span className="text-slate-800">Master Your</span>
+            <br />
+            <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
+              Money
+            </span>
+            <br />
+            <span className="text-slate-800">in Minutes</span>
+          </h1>
+          <p className="text-xl sm:text-2xl text-slate-600 mb-8 max-w-2xl font-light leading-relaxed">
+            Free financial literacy courses by SEBI-empanelled experts. 
+            <span className="font-medium text-slate-700"> No finance background? No worries!</span>
+          </p>
+        </div>
 
-            {/* Stats Row */}
-            <div className="grid grid-cols-3 gap-4 mb-10">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-slate-800">50K+</div>
-                <div className="text-sm text-slate-600">Active Users</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-slate-800">100+</div>
-                <div className="text-sm text-slate-600">Free Courses</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-slate-800">4.8★</div>
-                <div className="text-sm text-slate-600">User Rating</div>
-              </div>
-            </div>
-
-            {/* Enhanced CTAs */}
-            <div className="flex flex-col sm:flex-row lg:justify-start justify-center gap-4">
-              <button className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative flex items-center gap-2">
-                  <Download className="w-5 h-5" />
-                  Download App
-                </div>
-              </button>
-              <button className="group border-2 border-slate-800 text-slate-800 px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-slate-800 hover:text-white hover:scale-105 transition-all duration-300 flex items-center gap-2 justify-center">
-                <BookOpen className="w-5 h-5" />
-                Start Learning
-                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
+        {/* Stats Row */}
+        <div className="grid grid-cols-3 gap-4 mb-10">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-slate-800">50K+</div>
+            <div className="text-sm text-slate-600">Active Users</div>
           </div>
-
-          {/* Right: Enhanced Video with Frame */}
-          <div className="w-full lg:w-1/2 relative">
-            <div className="relative">
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -left-4 w-full h-full bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-3xl opacity-20"></div>
-              <div className="absolute -bottom-4 -right-4 w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl opacity-10"></div>
-              
-              {/* Video placeholder with enhanced styling */}
-              <div className="relative bg-white rounded-3xl shadow-2xl p-2 transform hover:scale-105 transition-transform duration-500">
-                <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl aspect-[9/16] max-w-[400px] mx-auto flex items-center justify-center">
-                  <div className="text-center">
-                    <Play className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-                    <p className="text-slate-600 font-medium">App Demo Video</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-slate-800">100+</div>
+            <div className="text-sm text-slate-600">Free Courses</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-slate-800">4.8★</div>
+            <div className="text-sm text-slate-600">User Rating</div>
           </div>
         </div>
-      </div>
-    </section>
 
-    {/* Our Aspirations Section - Enhanced */}
-    <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-24 px-6 md:px-12 overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M50 50l20-20v40l-20-20z\' fill=\'%23ffffff\' fill-opacity=\'0.1\'/%3E%3C/svg%3E')] bg-repeat"></div>
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row lg:justify-start justify-center gap-4">
+          <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.app" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center gap-2">
+              <BookOpen className="w-5 h-5" />
+              FinLit Learn
+            </div>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center gap-2">
+              <TrendingUp className="w-5 h-5" />
+              FinLit Invest
+            </div>
+          </a>
+        </div>
       </div>
+
+     {/* Right: Enhanced Video/Image with Frame */}
+{/* Right Side: App Demo Video with Frame */}
+<div className="w-full lg:w-1/2 flex justify-center items-center relative">
+  <div className="relative max-w-[320px] w-full">
+    {/* Decorative Gradient Backgrounds */}
+    <div className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-3xl opacity-20 z-0" />
+    <div className="absolute -bottom-6 -right-6 w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl opacity-10 z-0" />
+
+    {/* Actual Video in Frame */}
+    <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+      <video
+        src={phone} // Make sure this path is correct and the file exists
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full h-auto object-cover rounded-2xl"
+      />
+    </div>
+  </div>
+</div>
+
+    </div>
+  </div>
+</section>
+
+
+  {/* Our Aspirations Section - Enhanced */}
+<section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-24 px-6 md:px-12 overflow-hidden">
+  {/* Background Pattern */}
+  <div className="absolute inset-0 opacity-5">
+    <div
+      className="absolute inset-0 bg-repeat"
+      style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50l20-20v40l-20-20z' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E")`,
+      }}
+    ></div>
+  </div>
       
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
@@ -231,8 +247,11 @@ const Hero = () => (
         </div>
       </div>
     </section>
-
+    {/* Render Offerings section directly below Hero */}
     <Investing />
+    
+    <Offerings />
+
 
     <TestimonialsSection />
     
