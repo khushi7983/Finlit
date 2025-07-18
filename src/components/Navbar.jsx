@@ -23,8 +23,8 @@ const Navbar = () => {
       className={
         `z-50 flex items-center justify-between shadow-lg px-8 transition-all duration-300 ` +
         (isSticky
-          ? 'fixed top-0 left-1/2 transform -translate-x-1/2 bg-[#10355f] rounded-xl py-1'
-          : 'fixed top-5 left-1/2 transform -translate-x-1/2 bg-[#10355fd9] rounded-xl py-1')
+          ? 'fixed top-0 left-1/2 transform -translate-x-1/2 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-xl py-1'
+          : 'fixed top-5 left-1/2 transform -translate-x-1/2 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-xl py-1')
       }
       style={{ maxWidth: '90vw', width: 'calc(100% - 40px)' }}
     >
