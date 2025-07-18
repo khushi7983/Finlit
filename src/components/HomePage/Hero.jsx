@@ -124,6 +124,7 @@
 // export default Hero;
 import React from "react";
 import { Play, Download, BookOpen, TrendingUp, Users, Target, ChevronRight, Star } from "lucide-react";
+import Supporters from './Supporters';
 
 const Hero = () => (
   <>
@@ -311,6 +312,7 @@ const Hero = () => (
                   when it comes to money.
                 </p>
               </div>
+                           
 
               {/* Feature List */}
               <div className="grid sm:grid-cols-2 gap-4">
@@ -360,6 +362,14 @@ const Hero = () => (
           </div>
         </div>
       </div>
+      <div>
+  {/* ...Your existing Hero section */}
+
+  <Supporters />
+
+  {/* ...Other sections below it */}
+</div>
+
     </section>
   </>
 );
