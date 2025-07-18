@@ -9,6 +9,7 @@ body {
   font-family: 'Arial', sans-serif;
 }
 
+
 /* Ensure Tailwind's container is centered */
 .container {
   max-width: 1200px;
