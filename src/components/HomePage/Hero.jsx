@@ -79,20 +79,16 @@ const Hero = () => (
      {/* Right: Enhanced Video/Image with Frame */}
 {/* Right Side: App Demo Video with Frame */}
 <div className="w-full lg:w-1/2 flex justify-center items-center relative">
-  <div className="relative max-w-[320px] w-full">
-    {/* Decorative Gradient Backgrounds */}
-    <div className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-3xl opacity-20 z-0" />
-    <div className="absolute -bottom-6 -right-6 w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl opacity-10 z-0" />
-
-    {/* Actual Video in Frame */}
-    <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+  <div className="relative max-w-[320px] w-full bg-transparent">
+    {/* Only the video, no border, no shadow, no rounded corners */}
+    <div className="relative z-10 overflow-hidden">
       <video
         src={phone} // Make sure this path is correct and the file exists
         autoPlay
         loop
         muted
         playsInline
-        className="w-full h-auto object-cover rounded-2xl"
+        className="w-full h-auto object-cover"
       />
     </div>
   </div>
