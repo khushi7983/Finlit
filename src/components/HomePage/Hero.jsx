@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Play, BookOpen, TrendingUp, Users, Target, ChevronRight, Star } from "lucide-react";
+import Offerings from "./Offerings";
 import phone from "../../assets/phone.mp4";
 import finance from "../../assets/finance.gif";
 
@@ -251,6 +252,8 @@ const Hero = () => (
         </div>
       </div>
     </section>
+    {/* Render Offerings section directly below Hero */}
+    <Offerings />
   </>
 );
 

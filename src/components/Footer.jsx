@@ -242,7 +242,7 @@ const Footer = () => (
       </div>
 
       {/* Bottom Copyright */}
-      <div className="border-t border-white/10 bg-slate-900/50 backdrop-blur-sm">
+      <div className="bg-slate-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-slate-400 text-sm">
