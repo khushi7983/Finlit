@@ -4,6 +4,7 @@ import { Play, BookOpen, TrendingUp, Users, Target, ChevronRight, Star } from "l
 import Offerings from "./Offerings";
 import phone from "../../assets/phone.mp4";
 import finance from "../../assets/finance.gif";
+import Journey from "./Journey";
 
 const Hero = () => (
   <>
@@ -253,7 +254,10 @@ const Hero = () => (
       </div>
     </section>
     {/* Render Offerings section directly below Hero */}
+
+        <Journey/>
     <Offerings />
+
   </>
 );
 
