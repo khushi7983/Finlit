@@ -1,16 +1,12 @@
 import React from "react";
-<<<<<<< HEAD
 import { Play, Download, BookOpen, TrendingUp, Users, Target, ChevronRight, Star } from "lucide-react";
 import Supporters from './Supporters';
-=======
-import { Play, BookOpen, TrendingUp, Users, Target, ChevronRight, Star } from "lucide-react";
 import Offerings from "./Offerings";
 import phone from "../../assets/phone.mp4";
 import finance from "../../assets/finance.gif";
 import Investing from "./Investing";
 import TestimonialsSection from "./TestimonialsSection";
 import Journey from "./Journey";
->>>>>>> 552b2d39647724987493b79d542eacf6e5e2485a
 
 const Hero = () => (
   <>
@@ -252,13 +248,14 @@ const Hero = () => (
       <div>
   {/* ...Your existing Hero section */}
 
-  <Supporters />
 
   {/* ...Other sections below it */}
 </div>
 
     </section>
     {/* Render Offerings section directly below Hero */}
+    <Journey/>
+  <Supporters />
     <Offerings />
   </>
 );
