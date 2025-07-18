@@ -1,27 +1,26 @@
-
 import React from "react";
 import { Play, BookOpen, TrendingUp, Users, Target, ChevronRight, Star } from "lucide-react";
 import Offerings from "./Offerings";
 import phone from "../../assets/phone.mp4";
 import finance from "../../assets/finance.gif";
+import Investing from "./Investing";
+import TestimonialsSection from "./TestimonialsSection";
 import Journey from "./Journey";
 
 const Hero = () => (
   <>
-<section className="relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20 md:py-32 overflow-hidden">
-  {/* Background Elements */}
-  <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23f1f5f9\' fill-opacity=\'0.4\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'1\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
-  <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-1000"></div>
-
-  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    {/* Trust Badge */}
-    <div className="text-center mb-8">
-      <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg border border-white/20">
-        <Star className="w-4 h-4 text-yellow-500 fill-current" />
-        <span className="text-sm font-medium text-slate-700">SEBI Empanelled Experts</span>
-        <Star className="w-4 h-4 text-yellow-500 fill-current" />
-      </div>
-    </div>
+    {/* Main Hero Section */}
+    <section className="relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20 md:py-32 overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23f1f5f9\' fill-opacity=\'0.4\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'1\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
+      {/* <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div> */}
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-1000"></div>
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Trust Badge */}
+        <div className="text-center mb-8">
+         
+        </div>
 
     {/* Main Flex Layout */}
     <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
@@ -81,20 +80,16 @@ const Hero = () => (
      {/* Right: Enhanced Video/Image with Frame */}
 {/* Right Side: App Demo Video with Frame */}
 <div className="w-full lg:w-1/2 flex justify-center items-center relative">
-  <div className="relative max-w-[320px] w-full">
-    {/* Decorative Gradient Backgrounds */}
-    <div className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-3xl opacity-20 z-0" />
-    <div className="absolute -bottom-6 -right-6 w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl opacity-10 z-0" />
-
-    {/* Actual Video in Frame */}
-    <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+  <div className="relative max-w-[320px] w-full bg-transparent">
+    {/* Only the video, no border, no shadow, no rounded corners */}
+    <div className="relative z-10 overflow-hidden">
       <video
         src={phone} // Make sure this path is correct and the file exists
         autoPlay
         loop
         muted
         playsInline
-        className="w-full h-auto object-cover rounded-2xl"
+        className="w-full h-auto object-cover"
       />
     </div>
   </div>
@@ -182,10 +177,6 @@ const Hero = () => (
             {/* Left: Enhanced Content */}
             <div className="space-y-8">
               <div>
-                <div className="inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
-                  <BookOpen className="w-4 h-4 text-yellow-600" />
-                  <span className="text-sm font-medium text-yellow-700">Learn the Basics</span>
-                </div>
                 <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-slate-800">
                   What is Financial Literacy?
                 </h2>
@@ -254,10 +245,7 @@ const Hero = () => (
       </div>
     </section>
     {/* Render Offerings section directly below Hero */}
-
-        <Journey/>
     <Offerings />
-
   </>
 );
 

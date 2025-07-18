@@ -10,6 +10,7 @@ body {
   background: #101828;
 }
 
+
 /* Ensure Tailwind's container is centered */
 .container {
   max-width: 1200px;

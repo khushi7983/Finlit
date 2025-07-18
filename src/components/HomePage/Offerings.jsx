@@ -28,7 +28,7 @@ const offerings = [
 ];
 
 const Offerings = () => (
-  <section id="offerings" className="relative py-24 px-4 md:px-8 bg-gradient-to-b from-[#10355f] to-[#1e293b] overflow-hidden">
+  <section id="offerings" className="relative py-24 px-4 md:px-8 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
     <div className="relative z-10 max-w-7xl mx-auto">
       <h2 className="text-4xl sm:text-5xl font-black text-center mb-12 text-white tracking-tight">
         Our <span className="relative inline-block">
