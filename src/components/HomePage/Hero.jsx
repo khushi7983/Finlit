@@ -253,6 +253,7 @@ const Hero = () => (
 </div>
 
     </section>
+    <Investing />
     {/* Render Offerings section directly below Hero */}
     <Journey/>
   <Supporters />
