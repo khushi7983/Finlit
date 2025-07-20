@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Hero from './components/HomePage/Hero';
 import OurStory from './components/AboutUs/OurStory';
 import Blogs from './components/WhatWeDo/Blogs';
+import Sidebar from './components/WhatWeDo/Sidebar';
 // Acheivements is empty — skipping for now
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/about-us" element={<OurStory />} />
-          <Route path="/what-we-do" element={<Blogs />} />
+          <Route path="/what-we-do" element={<Sidebar />} />
           {/* <Route path="/achievements" element={<Achievements />} /> */}
         </Routes>
         <Footer />
