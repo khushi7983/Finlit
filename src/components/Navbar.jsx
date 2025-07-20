@@ -38,7 +38,7 @@ const Navbar = () => {
         <div className="flex space-x-6">
           {[
             { name: 'Home', path: '/' },
-            { name: 'About Us', path: '/about' },
+            { name: 'Our Story', path: '/about-us' },
             { name: 'What We Do', path: '/what-we-do' },
             { name: 'Our Achievements', path: '/awards' }
           ].map(({ name, path }) => (
