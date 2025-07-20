@@ -7,6 +7,7 @@ import finance from "../../assets/finance.gif";
 import Investing from "./Investing";
 import TestimonialsSection from "./TestimonialsSection";
 import Journey from "./Journey";
+import FAQ from "./FAQ";
 
 const Hero = () => (
   <>
@@ -258,6 +259,7 @@ const Hero = () => (
     <Journey/>
   <Supporters />
     <Offerings />
+    < FAQ />
   </>
 );
 
