@@ -129,7 +129,7 @@ const FinLitStory = () => {
           <img
             src={journey}
             alt="FinLit Project"
-            className="mt-6 w-full max-w-xs object-cover"
+            className="mt-6 w-full max-w-xs object-cover rounded-lg shadow-lg"
           />
         </div>
       </div>
