@@ -259,6 +259,7 @@ const Hero = () => (
     <Journey/>
   <Supporters />
     <Offerings />
+    <TestimonialsSection />
     < FAQ />
   </>
 );
