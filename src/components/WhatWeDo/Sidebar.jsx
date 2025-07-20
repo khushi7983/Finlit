@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faBars, 
-  faGraduationCap, 
-  faMicrophone, 
-  faNewspaper, 
-  faBookOpen, 
-  faQuestion, 
-  faMapSigns 
+import {
+  faBars,
+  faGraduationCap,
+  faMicrophone,
+  faNewspaper,
+  faBookOpen,
+  faQuestion,
+  faMapSigns
 } from '@fortawesome/free-solid-svg-icons';
+
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
