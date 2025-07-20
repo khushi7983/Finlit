@@ -41,23 +41,28 @@ const Faq = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen px-6 md:px-20 py-12">
-      <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F1F3E] mb-10 text-center">
+    <div
+      className="min-h-screen px-6 md:px-20 py-16"
+      style={{
+        background: "linear-gradient(to bottom, #0f172a, #1e293b)" // dark blue gradient
+      }}
+    >
+      <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-12 text-center">
         FAQs
       </h2>
 
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8">
         {FAQ.map((faq, index) => (
           <div
             key={index}
-            className="py-6 border-b border-gray-200 cursor-pointer"
+            className={`py-4 border-b border-gray-300 cursor-pointer transition-all duration-300`}
             onClick={() => toggleFaq(index)}
           >
-            <h3 className="text-lg md:text-xl font-semibold text-[#0F1F3E] hover:bg-[#FFF5E5] p-2 rounded-md text-left">
+            <h3 className="text-lg md:text-xl font-semibold text-gray-800">
               {faq.question}
             </h3>
             {activeIndex === index && (
-              <p className="mt-3 text-gray-700 whitespace-pre-line bg-[#f9f9f9] p-4 rounded-md shadow-sm text-left">
+              <p className="mt-3 text-gray-700 whitespace-pre-line">
                 {faq.answer}
               </p>
             )}
