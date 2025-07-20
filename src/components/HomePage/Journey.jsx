@@ -1,9 +1,9 @@
 import React from 'react';
 
 const Journey = () => (
-  <section id="journey" className="relative py-24 px-4 md:px-8 bg-gradient-to-b from-[#10355f] to-[#1e293b] overflow-hidden">
+  <section id="journey" className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-24 px-6 md:px-12 overflow-hidden">
     <div className="relative z-10 max-w-4xl mx-auto">
-      <h2 className="text-4xl sm:text-5xl font-black text-center mb-12 text-white tracking-tight">
+      <h2 className="text-3xl sm:text-5xl font-black text-center mb-12 text-white tracking-tight">
         Our <span className="relative inline-block">
           Journey of Digital Wellbeing
           <span className="absolute left-0 -bottom-1 w-full h-2 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-80 rounded-full -z-10"></span>
