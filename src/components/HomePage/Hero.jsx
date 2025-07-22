@@ -39,7 +39,7 @@ const Hero = () => (
             <span className="text-slate-800">in Minutes</span>
           </h1>
           <p className="text-xl sm:text-2xl text-slate-600 mb-8 max-w-2xl font-light leading-relaxed">
-            Free financial literacy courses by SEBI-empanelled experts. 
+             Empowering  You, One Financial Decision at a Time. 
             <span className="font-medium text-slate-700"> No finance background? No worries!</span>
           </p>
         </div>
