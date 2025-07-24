@@ -69,7 +69,7 @@ const Hero = () => (
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeInOut" }}
           >
-            Free financial literacy courses by SEBI-empanelled experts. 
+             Empowering  You, One Financial Decision at a Time. 
             <span className="font-medium text-slate-700"> No finance background? No worries!</span>
           </motion.p>
         </div>
@@ -96,7 +96,25 @@ const Hero = () => (
         </motion.div>
 
         {/* CTAs */}
-        <motion.div 
+        <div className="flex flex-col sm:flex-row lg:justify-start justify-center gap-4">
+          <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.app" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center gap-2">
+              <BookOpen className="w-5 h-5" />
+              FinLit Learn
+            </div>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center gap-2">
+              <TrendingUp className="w-5 h-5" />
+              FinLit Invest
+            </div>
+          </a>
+        </div>
+
+
+                <motion.div 
           className="flex flex-col sm:flex-row lg:justify-start justify-center gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
