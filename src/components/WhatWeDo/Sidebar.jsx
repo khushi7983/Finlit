@@ -29,7 +29,7 @@ const StickyNavSidebar = ({ children }) => {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({ behavior: 'smooth' });
     }
     if (window.innerWidth < 768) {
       setIsOpen(false);
@@ -85,25 +85,17 @@ const StickyNavSidebar = ({ children }) => {
           w-80 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 
           text-white shadow-2xl border-r border-white/10
           md:sticky md:top-0 md:h-screen md:translate-x-0
-          fixed top-0 left-0 h-full z-50 
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-          overflow-y-auto
+          overflow-y-auto scrollbar-minimal
         `}
       >
-        {/* Header */}
-        <div className="p-6  sticky top-0 z-10">
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
-            What We Do
-          </h2>
-          <p className="text-slate-300 mt-2">
-            Simplify your finances with FinLit
-          </p>
-        </div>
+        {/* Top Padding for Navbar */}
+        <div className="pt-8 md:pt-12" />
 
         {/* Navigation */}
-        <nav className="p-6 flex-1">
-          <ul className="space-y-3">
+        <nav className="p-6 flex-1 mt-2">
+          <ul className="space-y-3 mt-4">
             {navItems.map((item) => {
               const IconComponent = item.icon;
               const isActive = activeSection === item.id;
@@ -116,8 +108,8 @@ const StickyNavSidebar = ({ children }) => {
                       group flex items-center p-4 rounded-xl transition-all duration-300 
                       border backdrop-blur-sm relative overflow-hidden
                       ${isActive 
-                        ? 'bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 border-yellow-400/30 scale-105 shadow-lg shadow-yellow-500/10' 
-                        : 'border-transparent hover:bg-gradient-to-r hover:from-blue-600/20 hover:to-purple-600/20 hover:scale-105 hover:border-white/10'
+                        ? 'border border-white/30 scale-105 shadow-lg shadow-white/10'
+                        : 'border-transparent hover:bg-white/10 hover:scale-105 hover:border-white/10'
                       }
                     `}
                     aria-label={`Navigate to ${item.label}`}
@@ -125,7 +117,7 @@ const StickyNavSidebar = ({ children }) => {
                   >
                     {/* Active indicator */}
                     {isActive && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-yellow-400 to-yellow-600"></div>
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-white/40"></div>
                     )}
                     
                     <div className={`
@@ -135,14 +127,14 @@ const StickyNavSidebar = ({ children }) => {
                         : 'bg-gradient-to-br from-yellow-400/20 to-yellow-600/20 group-hover:scale-110'
                       }
                     `}>
-                      <IconComponent className={`w-5 h-5 ${isActive ? 'text-yellow-300' : 'text-yellow-400'}`} />
+                      <IconComponent className={`w-5 h-5 ${isActive ? 'text-white' : 'text-yellow-400'}`} />
                     </div>
                     <div className="flex-1">
                       <span className={`
                         transition-colors duration-300 font-medium
                         ${isActive 
-                          ? 'text-yellow-300 font-semibold' 
-                          : 'text-white group-hover:text-yellow-400'
+                          ? 'text-white font-semibold' 
+                          : 'text-white group-hover:text-blue-400'
                         }
                       `}>
                         {item.label}
@@ -181,74 +173,95 @@ const StickyNavSidebar = ({ children }) => {
   );
 };
 
-// Example usage component showing how to structure your content
+// Example usage component
 const WhatWeDoPage = () => {
   return (
-    <StickyNavSidebar>
-      <div className="p-8 space-y-0">
-        {/* Your individual components go here with proper IDs */}
-        <section id="micro-courses" className="min-h-screen">
-          {/* <MicroCoursesComponent /> */}
-          <div className="flex items-center justify-center h-screen">
-            <div className="text-center text-white">
-              <h2 className="text-4xl font-bold mb-4">FinLit Micro-courses</h2>
-              <MicroCourses />
-              <p className="text-xl text-slate-300">Your MicroCoursesComponent goes here</p>
+    <>
+      {/* Add custom scrollbar styles */}
+      <style jsx>{`
+        .scrollbar-minimal {
+          /* For Webkit browsers (Chrome, Safari, Edge) */
+          scrollbar-width: thin; /* For Firefox */
+          scrollbar-color: rgba(255, 255, 255, 0.2) transparent; /* For Firefox */
+        }
+
+        .scrollbar-minimal::-webkit-scrollbar {
+          width: 6px; /* Thin scrollbar */
+        }
+
+        .scrollbar-minimal::-webkit-scrollbar-track {
+          background: transparent; /* Transparent track */
+        }
+
+        .scrollbar-minimal::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.2); /* Subtle white thumb */
+          border-radius: 3px; /* Rounded edges */
+        }
+
+        .scrollbar-minimal::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.4); /* Slightly brighter on hover */
+        }
+      `}</style>
+
+      <StickyNavSidebar>
+        <div className="p-8 space-y-0">
+          <section id="micro-courses" className="min-h-screen">
+            <div className="flex items-center justify-center h-screen">
+              <div className="text-center text-white">
+                <h2 className="text-4xl font-bold mb-4">FinLit Micro-courses</h2>
+                <MicroCourses />
+                <p className="text-xl text-slate-300">Your MicroCoursesComponent goes here</p>
+              </div>
             </div>
-          </div>
-        </section>
-        
-        <section id="financially-speaking" className="min-h-screen">
-          {/* <FinanciallySpeakingComponent /> */}
-          <div className="flex items-center justify-center h-screen">
-            <div className="text-center text-white">
-              <h2 className="text-4xl font-bold mb-4">Financially Speaking</h2>
-              <p className="text-xl text-slate-300">Your FinanciallySpeakingComponent goes here</p>
+          </section>
+          
+          <section id="financially-speaking" className="min-h-screen">
+            <div className="flex items-center justify-center h-screen">
+              <div className="text-center text-white">
+                <h2 className="text-4xl font-bold mb-4">Financially Speaking</h2>
+                <p className="text-xl text-slate-300">Your FinanciallySpeakingComponent goes here</p>
+              </div>
             </div>
-          </div>
-        </section>
-        
-        <section id="finlit-blogs" className="min-h-screen">
-          {/* <BlogsComponent /> */}
-          <div className="flex items-center justify-center h-screen">
-            <div className="text-center text-white">
-              <h2 className="text-4xl font-bold mb-4">FinLit Blogs</h2>
-              <p className="text-xl text-slate-300">Your BlogsComponent goes here</p>
+          </section>
+          
+          <section id="finlit-blogs" className="min-h-screen">
+            <div className="flex items-center justify-center h-screen">
+              <div className="text-center text-white">
+                <h2 className="text-4xl font-bold mb-4">FinLit Blogs</h2>
+                <p className="text-xl text-slate-300">Your BlogsComponent goes here</p>
+              </div>
             </div>
-          </div>
-        </section>
-        
-        <section id="finterms" className="min-h-screen">
-          {/* <FinTermsComponent /> */}
-          <div className="flex items-center justify-center h-screen">
-            <div className="text-center text-white">
-              <h2 className="text-4xl font-bold mb-4">FinTerms</h2>
-              <p className="text-xl text-slate-300">Your FinTermsComponent goes here</p>
+          </section>
+          
+          <section id="finterms" className="min-h-screen">
+            <div className="flex items-center justify-center h-screen">
+              <div className="text-center text-white">
+                <h2 className="text-4xl font-bold mb-4">FinTerms</h2>
+                <p className="text-xl text-slate-300">Your FinTermsComponent goes here</p>
+              </div>
             </div>
-          </div>
-        </section>
-        
-        <section id="faqs" className="min-h-screen">
-          {/* <FAQsComponent /> */}
-          <div className="flex items-center justify-center h-screen">
-            <div className="text-center text-white">
-              <h2 className="text-4xl font-bold mb-4">FAQs</h2>
-              <p className="text-xl text-slate-300">Your FAQsComponent goes here</p>
+          </section>
+          
+          <section id="faqs" className="min-h-screen">
+            <div className="flex items-center justify-center h-screen">
+              <div className="text-center text-white">
+                <h2 className="text-4xl font-bold mb-4">FAQs</h2>
+                <p className="text-xl text-slate-300">Your FAQsComponent goes here</p>
+              </div>
             </div>
-          </div>
-        </section>
-        
-        <section id="finlit-journey" className="min-h-screen">
-          {/* <FinLitJourneyComponent /> */}
-          <div className="flex items-center justify-center h-screen">
-            <div className="text-center text-white">
-              <h2 className="text-4xl font-bold mb-4">FinLit Journey</h2>
-              <p className="text-xl text-slate-300">Your FinLitJourneyComponent goes here</p>
+          </section>
+          
+          <section id="finlit-journey" className="min-h-screen">
+            <div className="flex items-center justify-center h-screen">
+              <div className="text-center text-white">
+                <h2 className="text-4xl font-bold mb-4">FinLit Journey</h2>
+                <p className="text-xl text-slate-300">Your FinLitJourneyComponent goes here</p>
+              </div>
             </div>
-          </div>
-        </section>
-      </div>
-    </StickyNavSidebar>
+          </section>
+        </div>
+      </StickyNavSidebar>
+    </>
   );
 };
 
