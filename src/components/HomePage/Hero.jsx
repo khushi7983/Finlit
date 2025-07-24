@@ -9,6 +9,8 @@ import Investing from "./Investing";
 import TestimonialsSection from "./TestimonialsSection";
 import Journey from "./Journey";
 import FAQ from "./FAQ";
+import playstoreIcon from '../../assets/playstore.png';
+import appleIcon from '../../assets/apple.png';
 
 const containerVariant = {
   hidden: { opacity: 0 },
@@ -95,46 +97,85 @@ const Hero = () => (
           </div>
         </motion.div>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row lg:justify-start justify-center gap-4">
-          <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.app" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative flex items-center gap-2">
-              <BookOpen className="w-5 h-5" />
-              FinLit Learn
+        {/* FinLit Learn and FinLit Invest Buttons with Ratings */}
+        <div className="flex flex-col sm:flex-row lg:justify-start justify-center gap-10">
+          {/* FinLit Learn Group */}
+          <div className="flex flex-col items-center gap-3">
+            <a href="#" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative flex items-center gap-2">
+                <BookOpen className="w-5 h-5" />
+                FinLit Learn
+              </div>
+            </a>
+            <div className="flex flex-row gap-3 mt-1">
+              {/* App Store Button */}
+              <a
+                href="#"
+                className="flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow hover:bg-gray-100 transition group"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={appleIcon} alt="Apple" className="w-5 h-5" />
+                {/* <span className="font-bold text-slate-900">4.7</span> */}
+                {/* <span className="text-yellow-500">★</span> */}
+                <span className="text-xs text-slate-700 ml-1">App store</span>
+              </a>
+              {/* Play Store Button */}
+              <a
+                href="https://play.google.com/store/apps/details?id=com.thefinlitproject.app"
+                className="flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow hover:bg-gray-100 transition group"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={playstoreIcon} alt="Play Store" className="w-5 h-5" />
+                {/* <span className="font-bold text-slate-900">4.7</span>
+                <span className="text-yellow-500">★</span> */}
+                <span className="text-xs text-slate-700 ml-1">Play store</span>
+              </a>
             </div>
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative flex items-center gap-2">
-              <TrendingUp className="w-5 h-5" />
-              FinLit Invest
+          </div>
+          {/* FinLit Invest Group */}
+          <div className="flex flex-col items-center gap-3">
+            <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative flex items-center gap-2">
+                <TrendingUp className="w-5 h-5" />
+                FinLit Invest
+              </div>
+            </a>
+            <div className="flex flex-row gap-3 mt-1">
+              {/* App Store Button */}
+              <a
+                href="#"
+                className="flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow hover:bg-gray-100 transition group"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={appleIcon} alt="Apple" className="w-5 h-5" />
+                {/* <span className="font-bold text-slate-900">4.7</span>
+                <span className="text-yellow-500">★</span> */}
+                <span className="text-xs text-slate-700 ml-1">App store</span>
+              </a>
+              {/* Play Store Button */}
+              <a
+                href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest"
+                className="flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow hover:bg-gray-100 transition group"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={playstoreIcon} alt="Play Store" className="w-5 h-5" />
+                {/* <span className="font-bold text-slate-900">4.7</span>
+                <span className="text-yellow-500">★</span> */}
+                <span className="text-xs text-slate-700 ml-1">Play store</span>
+              </a>
             </div>
-          </a>
+          </div>
         </div>
-
-
-                <motion.div 
-          className="flex flex-col sm:flex-row lg:justify-start justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: "easeInOut" }}
-        >
-          <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.app" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative flex items-center gap-2">
-              <BookOpen className="w-5 h-5" />
-              FinLit Learn
-            </div>
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative flex items-center gap-2">
-              <TrendingUp className="w-5 h-5" />
-              FinLit Invest
-            </div>
-          </a>
-        </motion.div>
+       
+         
+          {/* Ratings Row */}
+         
       </motion.div>
 
      {/* Right: Enhanced Video/Image with Frame */}
