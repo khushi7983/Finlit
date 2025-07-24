@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 
 const TestimonialsSection = () => {
@@ -137,19 +138,19 @@ const TestimonialsSection = () => {
     if (!carousel) return;
 
     let animationId;
-    let scrollAmount = 0;
     const scrollSpeed = 0.5; // Slower speed for better readability
-    const cardWidth = 320; // Account for card width + gap
-    const totalWidth = testimonials.length * cardWidth;
+
+    const duplicatedTestimonials = [...testimonials, ...testimonials];
+    const totalWidth = duplicatedTestimonials.length * (320 + 24); // card width + gap
+
+    carousel.style.width = `${totalWidth}px`;
+    let scrollAmount = 0;
 
     const animate = () => {
       scrollAmount += scrollSpeed;
-      
-      // Reset position when we've scrolled through all original testimonials
-      if (scrollAmount >= totalWidth) {
+      if (scrollAmount >= totalWidth / 2) {
         scrollAmount = 0;
       }
-      
       carousel.style.transform = `translateX(-${scrollAmount}px)`;
       animationId = requestAnimationFrame(animate);
     };
@@ -164,7 +165,13 @@ const TestimonialsSection = () => {
   }, []);
 
   return (
-    <section className="bg-gradient-to-br from-slate-50 to-white py-20 px-6 md:px-12 overflow-hidden">
+    <motion.section 
+      className="bg-gradient-to-br from-slate-50 to-white py-20 px-6 md:px-12 overflow-hidden"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8 }}
+    >
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
           <h2 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-4">
@@ -176,28 +183,26 @@ const TestimonialsSection = () => {
           </div>
         </div>
 
-        <div className="relative w-full">
+        <div className="relative w-full overflow-hidden group">
           <div
             ref={carouselRef}
-            className="flex items-start gap-6"
+            className="flex items-start gap-6 group-hover:[animation-play-state:paused]"
             style={{ willChange: 'transform' }}
           >
             {[...testimonials, ...testimonials].map((testimonial, index) => (
               <div
                 key={index}
-                className="flex-none bg-white rounded-2xl p-6 shadow-lg border border-slate-200 w-80 h-48 hover:shadow-xl transition-shadow duration-300"
+                className="flex-none bg-white rounded-2xl p-6 shadow-lg border border-slate-200 w-80 h-auto min-h-[192px] hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between"
               >
-                <div className="h-full flex flex-col justify-between">
-                  <p className="text-slate-600 text-sm mb-4 italic line-clamp-4 leading-relaxed">
-                    "{testimonial.text}"
-                  </p>
-                  <div className="mt-auto">
-                    <div className="font-semibold text-slate-800 text-sm truncate">
-                      {testimonial.name}
-                    </div>
-                    <div className="text-xs text-slate-500 truncate">
-                      {testimonial.title}
-                    </div>
+                <p className="text-slate-600 text-sm mb-4 italic leading-relaxed">
+                  "{testimonial.text}"
+                </p>
+                <div className="mt-auto pt-4 border-t border-slate-100">
+                  <div className="font-semibold text-slate-800 text-sm truncate">
+                    {testimonial.name}
+                  </div>
+                  <div className="text-xs text-slate-500 truncate">
+                    {testimonial.title}
                   </div>
                 </div>
               </div>
@@ -205,16 +210,7 @@ const TestimonialsSection = () => {
           </div>
         </div>
       </div>
-      
-      <style jsx>{`
-        .line-clamp-4 {
-          display: -webkit-box;
-          -webkit-line-clamp: 4;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-      `}</style>
-    </section>
+    </motion.section>
   );
 };
 
