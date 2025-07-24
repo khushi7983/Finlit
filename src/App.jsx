@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Hero from './components/HomePage/Hero';
 import OurStory from './components/AboutUs/OurStory';
 import Blogs from './components/WhatWeDo/Blogs';
+import Sidebar from './components/WhatWeDo/Sidebar';
 // Acheivements is empty — skipping for now
 
 function App() {
@@ -14,7 +15,6 @@ function App() {
     <Router>
       <div
         style={{
-          background: 'linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(14, 14, 110, 1) 36%, rgba(0, 212, 255, 1) 100%)',
           minHeight: '100vh',
         }}
       >
@@ -22,7 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/about-us" element={<OurStory />} />
-          <Route path="/what-we-do" element={<Blogs />} />
+          <Route path="/what-we-do" element={<Sidebar />} />
           {/* <Route path="/achievements" element={<Achievements />} /> */}
         </Routes>
         <Footer />

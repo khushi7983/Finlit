@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 
 const FAQ = [
   {
@@ -41,30 +43,56 @@ const Faq = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen px-6 md:px-20 py-12">
-      <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F1F3E] mb-10 text-center">
-        FAQs
+    <motion.div
+      className="min-h-screen px-6 md:px-20 py-16 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8 }}
+    >
+      <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-12 text-center">
+        Frequently Asked Questions
       </h2>
 
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto space-y-4">
         {FAQ.map((faq, index) => (
           <div
             key={index}
-            className="py-6 border-b border-gray-200 cursor-pointer"
-            onClick={() => toggleFaq(index)}
+            className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl transition-all duration-300 overflow-hidden`}
           >
-            <h3 className="text-lg md:text-xl font-semibold text-[#0F1F3E] hover:bg-[#FFF5E5] p-2 rounded-md text-left">
-              {faq.question}
-            </h3>
-            {activeIndex === index && (
-              <p className="mt-3 text-gray-700 whitespace-pre-line bg-[#f9f9f9] p-4 rounded-md shadow-sm text-left">
-                {faq.answer}
-              </p>
-            )}
+            <button
+              onClick={() => toggleFaq(index)}
+              className="w-full flex justify-between items-center text-left p-6 cursor-pointer"
+            >
+              <h3 className="text-lg md:text-xl font-semibold text-white">
+                {faq.question}
+              </h3>
+              <motion.div
+                animate={{ rotate: activeIndex === index ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ChevronDown className="w-6 h-6 text-yellow-400" />
+              </motion.div>
+            </button>
+            <AnimatePresence>
+              {activeIndex === index && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden"
+                >
+                  <p className="p-6 pt-0 text-slate-300 whitespace-pre-line">
+                    {faq.answer}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,10 +1,9 @@
-
-
-
-import React from "react";
 import { Typewriter } from "react-simple-typewriter";
 import journey from '../../assets/journey.png';
 import Fraternity from "./Fraternity";
+import React from "react";
+import { Typewriter } from "react-simple-typewriter";
+import journey from '../../assets/journey.png';
 
 const FinLitStory = () => {
   return (
@@ -61,12 +60,19 @@ const FinLitStory = () => {
           <img
             src={journey}
             alt="FinLit Project"
+<<<<<<< HEAD
             className="mt-6 w-full max-w-xs object-cover"
           />
         </div>
       </div>
       <Fraternity/>
       
+=======
+            className="mt-6 w-full max-w-xs object-cover rounded-lg shadow-lg"
+          />
+        </div>
+      </div>
+>>>>>>> 84890da1ee9af5134f5702c3714b3a8f1d620353
     </section>
   );
 };

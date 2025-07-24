@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Play, Download, BookOpen, TrendingUp, Users, Target, ChevronRight, Star } from "lucide-react";
 import Supporters from './Supporters';
 import Offerings from "./Offerings";
@@ -8,6 +9,20 @@ import Investing from "./Investing";
 import TestimonialsSection from "./TestimonialsSection";
 import Journey from "./Journey";
 import FAQ from "./FAQ";
+
+const containerVariant = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2, delayChildren: 0.2 }
+  }
+};
+
+const itemVariant = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeInOut" } }
+};
+
 
 const Hero = () => (
   <>
@@ -27,9 +42,19 @@ const Hero = () => (
     {/* Main Flex Layout */}
     <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
       {/* Left: Text and Buttons */}
-      <div className="w-full lg:w-1/2 text-center lg:text-left">
+      <motion.div 
+        className="w-full lg:w-1/2 text-center lg:text-left"
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+      >
         <div className="mb-6">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 leading-tight">
+          <motion.h1 
+            className="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 leading-tight"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
+          >
             <span className="text-slate-800">Master Your</span>
             <br />
             <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
@@ -37,15 +62,25 @@ const Hero = () => (
             </span>
             <br />
             <span className="text-slate-800">in Minutes</span>
-          </h1>
-          <p className="text-xl sm:text-2xl text-slate-600 mb-8 max-w-2xl font-light leading-relaxed">
-            Free financial literacy courses by SEBI-empanelled experts. 
+          </motion.h1>
+          <motion.p 
+            className="text-xl sm:text-2xl text-slate-600 mb-8 max-w-2xl font-light leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeInOut" }}
+          >
+             Empowering  You, One Financial Decision at a Time. 
             <span className="font-medium text-slate-700"> No finance background? No worries!</span>
-          </p>
+          </motion.p>
         </div>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-3 gap-4 mb-10">
+        <motion.div 
+          className="grid grid-cols-3 gap-4 mb-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6, ease: "easeInOut" }}
+        >
           <div className="text-center">
             <div className="text-2xl font-bold text-slate-800">50K+</div>
             <div className="text-sm text-slate-600">Active Users</div>
@@ -58,7 +93,7 @@ const Hero = () => (
             <div className="text-2xl font-bold text-slate-800">4.8★</div>
             <div className="text-sm text-slate-600">User Rating</div>
           </div>
-        </div>
+        </motion.div>
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row lg:justify-start justify-center gap-4">
@@ -77,11 +112,39 @@ const Hero = () => (
             </div>
           </a>
         </div>
-      </div>
+
+
+                <motion.div 
+          className="flex flex-col sm:flex-row lg:justify-start justify-center gap-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8, ease: "easeInOut" }}
+        >
+          <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.app" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center gap-2">
+              <BookOpen className="w-5 h-5" />
+              FinLit Learn
+            </div>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center gap-2">
+              <TrendingUp className="w-5 h-5" />
+              FinLit Invest
+            </div>
+          </a>
+        </motion.div>
+      </motion.div>
 
      {/* Right: Enhanced Video/Image with Frame */}
 {/* Right Side: App Demo Video with Frame */}
-<div className="w-full lg:w-1/2 flex justify-center items-center relative">
+<motion.div 
+  className="w-full lg:w-1/2 flex justify-center items-center relative"
+  initial={{ opacity: 0, x: 50 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8, ease: "easeInOut" }}
+>
   <div className="relative max-w-[320px] w-full bg-transparent">
     {/* Only the video, no border, no shadow, no rounded corners */}
     <div className="relative z-10 overflow-hidden">
@@ -95,7 +158,7 @@ const Hero = () => (
       />
     </div>
   </div>
-</div>
+</motion.div>
 
     </div>
   </div>
@@ -103,7 +166,13 @@ const Hero = () => (
 
 
   {/* Our Aspirations Section - Enhanced */}
-<section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-24 px-6 md:px-12 overflow-hidden">
+<motion.section 
+  className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-24 px-6 md:px-12 overflow-hidden"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.2 }}
+  variants={containerVariant}
+>
   {/* Background Pattern */}
   <div className="absolute inset-0 opacity-5">
     <div
@@ -116,7 +185,7 @@ const Hero = () => (
       
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <motion.div className="text-center mb-16" variants={itemVariant}>
           <div className="inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
             <Target className="w-4 h-4 text-yellow-400" />
             <span className="text-sm font-medium text-yellow-400">Our Vision</span>
@@ -124,11 +193,11 @@ const Hero = () => (
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white">
             Our Aspirations
           </h2>
-        </div>
+        </motion.div>
 
         {/* Enhanced Content Grid */}
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
+          <motion.div className="space-y-6" variants={itemVariant}>
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
               <h3 className="text-2xl font-bold text-white mb-4">The Challenge</h3>
               <p className="text-lg leading-relaxed text-slate-300">
@@ -147,10 +216,13 @@ const Hero = () => (
                 that attaining our set target would not be difficult for us.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Stats Card */}
-          <div className="bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 backdrop-blur-sm rounded-3xl p-8 border border-yellow-500/20">
+          <motion.div 
+            className="bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 backdrop-blur-sm rounded-3xl p-8 border border-yellow-500/20"
+            variants={itemVariant}
+          >
             <div className="text-center">
               <div className="text-6xl font-black text-yellow-400 mb-2">75%</div>
               <div className="text-xl text-white mb-4">of adults are financially illiterate</div>
@@ -166,18 +238,24 @@ const Hero = () => (
                 <div className="text-sm text-slate-400">Timeline</div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
 
     {/* What is Financial Literacy Section - Enhanced */}
-    <section className="bg-gradient-to-br from-slate-50 to-white py-24 px-6 md:px-12">
+    <motion.section 
+      className="bg-gradient-to-br from-slate-50 to-white py-24 px-6 md:px-12"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={containerVariant}
+    >
       <div className="container mx-auto">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left: Enhanced Content */}
-            <div className="space-y-8">
+            <motion.div className="space-y-8" variants={itemVariant}>
               <div>
                 <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-slate-800">
                   What is Financial Literacy?
@@ -218,15 +296,19 @@ const Hero = () => (
                 </div>
               </div>
 
-              <button className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
-                <BookOpen className="w-5 h-5" />
-                Read More
-                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              <button className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-3 py-2 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
+               <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center gap-2">
+              <TrendingUp className="w-5 h-5" />
+              FinLit Invest
             </div>
+          </a>
+              </button>
+            </motion.div>
 
             {/* Right: Enhanced Visual */}
-            <div className="relative">
+            <motion.div className="relative" variants={itemVariant}>
               <div className="relative">
                 {/* Decorative background */}
                 <div className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-3xl opacity-20"></div>
@@ -242,18 +324,17 @@ const Hero = () => (
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
       <div>
-  {/* ...Your existing Hero section */}
 
 
   {/* ...Other sections below it */}
 </div>
 
-    </section>
+    </motion.section>
     <Investing />
     {/* Render Offerings section directly below Hero */}
     <Journey/>
