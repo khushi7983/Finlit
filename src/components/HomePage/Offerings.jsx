@@ -3,28 +3,29 @@ import { motion } from 'framer-motion';
 
 const offerings = [
   {
-    title: 'Financial Education through our APIs',
-    description: 'Get in touch with us now',
+    title: 'Sustainable Investing (ESG Funding)',
+    description: 'Invest in portfolios that support ESG goals—grow your wealth while making a positive impact.',
     link: 'https://api.whatsapp.com/message/6EUW7ZLTHSGCB1?autoload=1&app_absent=0',
-    cta: 'Get in Touch',
+    cta: ' Start Your Impact',
   },
   {
-    title: 'Financially Speaking Talks with Global Experts',
-    description: 'Click here to learn more',
-    link: 'https://www.youtube.com/channel/UCH-nWXtMHz-wmg176HqBSvg',
-    cta: 'Learn More',
+    title: 'Financial Education-as-a-Services FEaaS',
+    description: 'Boost financial literacy with interactive courses and personalized learning for smarter decisions.',
+   link: 'https://play.google.com/store/apps/details?id=com.thefinlitproject.app',
+    cta: 'Discover Courses ',
   },
   {
-    title: 'Financial Investments in Mutual Funds !',
-    description: 'Click here to start investing!',
+    title: 'AI technology for brokers and fintechs',
+    description: 'Enhance trading with AI-powered analytics and automation for better investment results.',
     link: 'https://www.thefinlitproject.com/mfinvestorregistration/',
-    cta: 'Start Investing',
+    cta: ' See Solutions',
   },
   {
-    title: 'Financial Literacy Micro courses and Quizzes',
-    description: 'Now available on the app',
-    link: 'https://play.google.com/store/apps/details?id=com.thefinlitproject.app',
-    cta: 'Get the App',
+    title: 'Financially Speaking podcast',
+    description: 'Hear experts share finance tips and insights—listen anytime on our app or on our social media handles.',
+    
+     link: 'https://www.youtube.com/channel/UCH-nWXtMHz-wmg176HqBSvg',
+    cta: 'Listen Now',
   },
 ];
 
