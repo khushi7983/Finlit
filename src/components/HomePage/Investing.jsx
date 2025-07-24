@@ -70,20 +70,23 @@ const Investing = () => (
 
             <div className="prose prose-lg text-slate-600 max-w-none">
               <p className="text-xl leading-relaxed mb-6">
-                Financial investing is the act of allocating money to assets
-                with the expectation of generating income or profit over time.
-                It involves purchasing assets like stocks, bonds, real estate,
-                or mutual funds to build wealth.
+               Investing made intuitive, inclusive, and intelligent.
+<br/>
+We’ve built tools for Bharat – not just the top 10% of India.
+Whether you're a first-time investor or a micro-entrepreneur, Fin Lit Invest helps you make confident, goal-linked decisions.
+
               </p>
               <p className="text-lg leading-relaxed text-slate-600">
-                Investing is a key component of financial planning, enabling you
-                to grow your savings and achieve long-term financial goals. With
-                the right knowledge, anyone can start investing, no matter their
-                experience level.
+<b>What We Offer:</b><br/>
+                1. Robo-advisory tool: Your financial guide in 3 minutes or less. <br/>
+                2. Portfolio Builder: For those who invest together, grow together.<br/>
+                3. Sentiment analysis insights: Real-time, regional intelligence to guide investment choices. <br/>
+                4.Trusted mutual fund recommendations : AMFI-license: ARN 249730 <br/>
+🛠 Built with compliance. Designed with empathy.
               </p>
             </div>
 
-            {/* Feature List */}
+            {/* Feature List
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
@@ -101,13 +104,28 @@ const Investing = () => (
                 <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
                 <span className="text-slate-700">Risk Management</span>
               </div>
-            </div>
+            </div> */}
 
-            <button className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
-              <BookOpen className="w-5 h-5" />
-              Read More
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            
+
+<div className="flex flex-row gap-4">
+  <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest" target="_blank" rel="noopener noreferrer">
+    <button className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
+      <BookOpen className="w-5 h-5" />
+      Play Store
+      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+    </button>
+  </a>
+
+  <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest" target="_blank" rel="noopener noreferrer">
+    <button className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
+      <BookOpen className="w-5 h-5" />
+      App Store
+      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+    </button>
+  </a>
+</div>
+                    
           </motion.div>
         </div>
       </div>

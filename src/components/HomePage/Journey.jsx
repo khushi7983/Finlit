@@ -4,17 +4,19 @@ const Journey = () => (
   <section id="journey" className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-24 px-6 md:px-12 overflow-hidden">
     <div className="relative z-10 max-w-4xl mx-auto">
       <h2 className="text-3xl sm:text-5xl font-black text-center mb-12 text-white tracking-tight">
-        Our <span className="relative inline-block">
-          Journey of Digital Wellbeing
+            Journey<span className="relative inline-block">
+        of Digital Financial Wellbeing
           <span className="absolute left-0 -bottom-1 w-full h-2 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-80 rounded-full -z-10"></span>
         </span>
       </h2>
       <div className="space-y-6 text-white/90 text-lg leading-relaxed animate-fadeIn">
         <p className="opacity-0 animate-[fadeIn_1s_ease-out_0.2s_forwards]">
+          How technology is a critical lever to solve for financial literacy ? <br/>
           The Fin Lit Project was co-founded by Mrs Neha Misra and Dr DC Misra. After returning from New York, Neha realised that financial literacy was a global concern and even more so in India with a financial literacy rate of just about 25%. At a time when financial markets worldwide were crashing in the wake of COVID-19, The Fin Lit Project was born as an initiative to help people with no financial literacy background take charge of their finances.
         </p>
         <p className="opacity-0 animate-[fadeIn_1s_ease-out_0.4s_forwards]">
           The Fin Lit Project was pre-incubated by NSRCEL, IIM Bangalore and soon won the pitching competition at IIIT Delhi. The Fin Lit Project was incubated at IIIT Delhi with funding from the Department of Science and Technology in October 2020. Being selected for the United Nations Niti Aayog investor consortium in January 2021 was another feature in our cap and it propelled us to push the boundaries of financial literacy leveraging technology.
+          This is exactly how we are addressing this critical gap at The Fin Lit Project.
         </p>
         {/* Only showing the first two paragraphs initially */}
         <div className="mt-8 text-center">

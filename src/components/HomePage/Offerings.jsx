@@ -3,36 +3,36 @@ import { motion } from 'framer-motion';
 
 const offerings = [
   {
-    title: 'Financial Education through our APIs',
-    description: 'Get in touch with us now',
+    title: 'Sustainable Investing (ESG Funding)',
+    description: 'Invest in portfolios that support ESG goals—grow your wealth while making a positive impact.',
     link: 'https://api.whatsapp.com/message/6EUW7ZLTHSGCB1?autoload=1&app_absent=0',
-    cta: 'Get in Touch',
-    icon: '🔗',
-    gradient: 'from-blue-500 to-cyan-500'
-  },
-  {
-    title: 'Financially Speaking Talks with Global Experts',
-    description: 'Click here to learn more',
-    link: 'https://www.youtube.com/channel/UCH-nWXtMHz-wmg176HqBSvg',
-    cta: 'Learn More',
-    icon: '🎯',
-    gradient: 'from-purple-500 to-pink-500'
-  },
-  {
-    title: 'Financial Investments in Mutual Funds !',
-    description: 'Click here to start investing!',
-    link: 'https://www.thefinlitproject.com/mfinvestorregistration/',
-    cta: 'Start Investing',
-    icon: '📈',
+    cta: 'Start Your Impact',
+    icon: '🌱',
     gradient: 'from-green-500 to-emerald-500'
   },
   {
-    title: 'Financial Literacy Micro courses and Quizzes',
-    description: 'Now available on the app',
+    title: 'Financial Education-as-a-Services FEaaS',
+    description: 'Boost financial literacy with interactive courses and personalized learning for smarter decisions.',
     link: 'https://play.google.com/store/apps/details?id=com.thefinlitproject.app',
-    cta: 'Get the App',
+    cta: 'Discover Courses',
     icon: '🎓',
     gradient: 'from-orange-500 to-red-500'
+  },
+  {
+    title: 'AI technology for brokers and fintechs',
+    description: 'Enhance trading with AI-powered analytics and automation for better investment results.',
+    link: 'https://www.thefinlitproject.com/mfinvestorregistration/',
+    cta: 'See Solutions',
+    icon: '🤖',
+    gradient: 'from-blue-500 to-cyan-500'
+  },
+  {
+    title: 'Financially Speaking podcast',
+    description: 'Hear experts share finance tips and insights—listen anytime on our app or on our social media handles.',
+    link: 'https://www.youtube.com/channel/UCH-nWXtMHz-wmg176HqBSvg',
+    cta: 'Listen Now',
+    icon: '🎙️',
+    gradient: 'from-purple-500 to-pink-500'
   },
 ];
 
