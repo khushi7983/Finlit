@@ -240,7 +240,7 @@ const Hero = () => (
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div className="space-y-6" variants={itemVariant}>
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-              <h3 className="text-2xl font-bold text-white mb-4">The Challenge</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">Our Objective</h3>
               <p className="text-lg leading-relaxed text-slate-300">
                 We believe that financial literacy is the skill of managing your finances. 
                 It starts with practicing financial attitude and financial behavior leading to financial capability. 
@@ -253,8 +253,7 @@ const Hero = () => (
               <h3 className="text-2xl font-bold text-white mb-4">Our Goal</h3>
               <p className="text-lg leading-relaxed text-slate-300">
                 We aim to take financial literacy to a minimum forty percent by the end of the next five years. 
-                Though this appears to be a humongous task, we have devised various micro courses in such a way 
-                that attaining our set target would not be difficult for us.
+                To achieve this we have devised Fin Lit Learn(Gamified microcourse self paced learning) and Fin Lit Invest (Tech powered investing in the Indian Financial markets, start with Mutual funds today)
               </p>
             </div>
           </motion.div>
@@ -265,6 +264,8 @@ const Hero = () => (
             variants={itemVariant}
           >
             <div className="text-center">
+               <h3 className="text-2xl font-bold text-white mb-4">The Challenge</h3>
+              
               <div className="text-6xl font-black text-yellow-400 mb-2">75%</div>
               <div className="text-xl text-white mb-4">of adults are financially illiterate</div>
               <div className="text-slate-300 text-lg">According to S&P Global Study</div>
@@ -305,14 +306,18 @@ const Hero = () => (
               
               <div className="prose prose-lg text-slate-600 max-w-none">
                 <p className="text-xl leading-relaxed mb-6">
-                  The term financial literacy refers to a variety of important financial skills and concepts. 
-                  It is nothing but the ability to understand and effectively use various financial skills, 
-                  including personal financial management, budgeting, and investing.
-                </p>
+                  Fin Lit Learn - Bite-sized, India-focused financial education.  
+                  <br />
+                  Forget jargon. Our learning modules are crafted for real people with real goals – in their own language, on their own terms. <br/>
+                  1. Gamified & story-based modules <br/>
+2. Verified by experts, designed for impact
+   </p>
                 <p className="text-lg leading-relaxed text-slate-600">
-                  It is the foundation of your relationship with money, and it is a lifelong journey of learning. 
-                  The earlier you start, the better off you will be, because education is the key to success 
-                  when it comes to money.
+                 ✨ Sample Learning Journeys <br/>
+
+Digital Gold Demystified:Is digital gold safe? Can I gift it? How is it different from a gold loan or jewellery?
+<b> Mutual funds:</b> What’s Right for Me? Lumpsum or SIP? Debt or hybrid? Is ELSS worth it?
+Valuation = value + vision. But how do I calculate it?
                 </p>
               </div>
                            
@@ -337,15 +342,23 @@ const Hero = () => (
                 </div>
               </div>
 
-              <button className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-3 py-2 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
-               <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest" className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative flex items-center gap-2">
-              <TrendingUp className="w-5 h-5" />
-              FinLit Invest
-            </div>
-          </a>
-              </button>
+<div className="flex flex-row gap-4">
+  <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.app" target="_blank" rel="noopener noreferrer">
+    <button className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
+      <BookOpen className="w-5 h-5" />
+      Play Store
+      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+    </button>
+  </a>
+
+  <a href="https://apps.apple.com/us/app/the-fin-lit-project/id1576101765#?platform=iphone" target="_blank" rel="noopener noreferrer">
+    <button className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
+      <BookOpen className="w-5 h-5" />
+      App Store
+      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+    </button>
+  </a>
+</div>
             </motion.div>
 
             {/* Right: Enhanced Visual */}
