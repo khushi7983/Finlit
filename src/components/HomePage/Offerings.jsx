@@ -210,7 +210,7 @@ const Offerings = () => (
               href={offering.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative block rounded-3xl bg-white/10 backdrop-blur-md border border-white/10 shadow-xl hover:shadow-2xl transition-all duration-500 p-8 min-h-[320px] flex flex-col justify-between focus:outline-none focus:ring-4 focus:ring-yellow-200 overflow-hidden"
+              className="group relative rounded-3xl bg-white/10 backdrop-blur-md border border-white/10 shadow-xl hover:shadow-2xl transition-all duration-500 p-8 min-h-[320px] flex flex-col justify-between focus:outline-none focus:ring-4 focus:ring-yellow-200 overflow-hidden"
               style={{ boxShadow: '0 8px 32px 0 rgba(16,53,95,0.10)' }}
               whileHover={{ 
                 y: -8,
