@@ -1,6 +1,7 @@
 import React from "react";
 import { Typewriter } from "react-simple-typewriter";
 import journey from '../../assets/journey.png';
+import Fraternity from "./Fraternity";
 
 const FinLitStory = () => {
   return (
@@ -61,6 +62,7 @@ const FinLitStory = () => {
           />
         </div>
       </div>
+      <Fraternity />
     </section>
   );
 };
