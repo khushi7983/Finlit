@@ -9,6 +9,7 @@ import {
   Map 
 } from 'lucide-react';
 import MicroCourses from './MicroCourses';
+import Terms from './Terms';
 
 const StickyNavSidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -244,10 +245,11 @@ const WhatWeDoPage = () => {
           
           <section id="faqs" className="min-h-screen">
             <div className="flex items-center justify-center h-screen">
-              <div className="text-center text-white">
+              {/* <div className="text-center text-white">
                 <h2 className="text-4xl font-bold mb-4">FAQs</h2>
                 <p className="text-xl text-slate-300">Your FAQsComponent goes here</p>
-              </div>
+              </div> */}
+              <Terms />
             </div>
           </section>
           
