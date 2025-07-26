@@ -21,8 +21,7 @@ import Journey from "./Journey";
 import FAQ from "./FAQ";
 import playstoreIcon from '../../assets/playstore.png';
 import appleIcon from '../../assets/apple.png';
-import playstoreIcon from '../../assets/playstore.png';
-import appleIcon from '../../assets/apple.png';
+
 
 // Animation variants
 const containerVariant = {
