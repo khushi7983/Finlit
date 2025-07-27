@@ -11,7 +11,7 @@ const FinLitStory = () => {
     className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-24 px-6 md:px-12 overflow-hidden"
   >
     {/* Decorative background circle */}
-    <div className="absolute bottom-[-6rem] right-[-8rem] w-[40rem] h-[40rem] bg-blue-900 opacity-30 rounded-full z-0"></div>
+    {/* <div className="absolute bottom-[-6rem] right-[-8rem] w-[40rem] h-[40rem] bg-blue-900 opacity-30 rounded-full z-0"></div> */}
     {/* Main content */}
     <div className="relative max-w-4xl mx-auto z-10">
       <h2 className="text-4xl sm:text-5xl font-bold text-white mb-8 text-center">
