@@ -8,6 +8,7 @@ import OurStory from "./components/AboutUs/OurStory";
 import Hero from "./components/HomePage/Hero";
 import AuthForm from "./components/Login/AuthForm";
 import Sidebar from "./components/WhatWeDo/Sidebar";
+import LearnMoreStory from "./components/AboutUs/LearnMoreStory";
 // Acheivements is empty — skipping for now
 
 function App() {
@@ -20,13 +21,12 @@ function App() {
       >
         <Navbar />
         <Routes>
-          <Route path="/" element={<Hero />} />
-          <Route path="/about-us" element={<OurStory />} />
-          <Route path="/what-we-do" element={<Sidebar />} />
-         <Route path="/login-signup" element={<AuthForm />} />
-
-          {/* <Route path="/achievements" element={<Achievements />} /> */}
-        </Routes>
+  <Route path="/" element={<Hero />} />
+  <Route path="/about-us" element={<OurStory />} />
+  <Route path="/about-finlit-story" element={<LearnMoreStory />} />
+  <Route path="/what-we-do" element={<Sidebar />} />
+  <Route path="/login-signup" element={<AuthForm />} />
+</Routes>
         <Footer />
       </div>
     </Router>

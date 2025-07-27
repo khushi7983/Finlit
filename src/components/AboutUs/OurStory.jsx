@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import learnMore from "../../components/AboutUs/learnMore_Story";
+import learnMore from "./LearnMoreStory";
 import Fraternity from "../AboutUs/Fraternity";
 import MediaPresence from "../AboutUs/MediaPresence";
+import { Link } from "react-router-dom";
 
 
 const FinLitStory = () => {
@@ -78,12 +79,13 @@ const FinLitStory = () => {
               The Fin Lit Project is a premium financial education and investment platform. Established in 2020 by Mrs Neha Misra and Dr DC Misra, in the last 2 years has conducted more than 300 programmes and trained over 10000 individuals across U.P. and India on financial literacy and financial technology education in collaboration with SEBI, NISM, NSE Academy, PFRDA and other organisations.
             </p>
             
-<a 
-  href="/about-finlit-story" 
+<Link 
+  to="/about-finlit-story" 
   className="inline-block bg-[#FACF07] hover:bg-yellow-500 text-black font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
 >
   Learn More About Us
-</a>
+</Link>
+
           </div>
           
           {/* Right Column - Image and Stats */}
@@ -133,50 +135,7 @@ const FinLitStory = () => {
           </div>
         </div>
         
-        {/* Additional Info Section - Brief Summary */}
-        {/* <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-            Our Achievements & Recognition
-          </h3>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="text-3xl mb-3">🏆</div>
-              <h4 className="text-lg font-semibold text-[#FACF07] mb-2">Awards Won</h4>
-              <p className="text-gray-700 text-sm">
-                Indian Achievers Award, TiE Global Competition Runner-up, Silver Award at IIT Delhi
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="text-3xl mb-3">📰</div>
-              <h4 className="text-lg font-semibold text-[#FACF07] mb-2">Media Coverage</h4>
-              <p className="text-gray-700 text-sm">
-                Featured in major publications including Hindustan Times, Times of India, and more
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="text-3xl mb-3">🤝</div>
-              <h4 className="text-lg font-semibold text-[#FACF07] mb-2">Partnerships</h4>
-              <p className="text-gray-700 text-sm">
-                Collaborating with IITs, SEBI, NSE Academy, Dell, Cognizant and many more
-              </p>
-            </div>
-          </div>
-          
-          <div className="mt-8 text-center">
-            <p className="text-lg text-gray-700 mb-4">
-              Want to experience the expertise of TheFinLitProject for yourself?
-            </p>
-            <a 
-              href="/contact" 
-              className="inline-block bg-gray-900 hover:bg-gray-800 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
-            >
-              Get In Touch
-            </a>
-          </div>
-        </div> */}
+    
       </div>
       <Fraternity />
       <MediaPresence/>
