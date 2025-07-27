@@ -64,6 +64,7 @@ const FinLitStory = () => {
       </div>
    
       <Fraternity />
+      <MediaPresence />
     </section>
    
   );
