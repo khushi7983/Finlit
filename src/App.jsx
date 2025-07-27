@@ -1,13 +1,13 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
 // Pages (one component per folder)
-import Hero from './components/HomePage/Hero';
-import OurStory from './components/AboutUs/OurStory';
-import Blogs from './components/WhatWeDo/Blogs';
-import Sidebar from './components/WhatWeDo/Sidebar';
+import OurStory from "./components/AboutUs/OurStory";
+import Hero from "./components/HomePage/Hero";
+import AuthForm from "./components/Login/AuthForm";
+import Sidebar from "./components/WhatWeDo/Sidebar";
 import MicroCourses from './components/WhatWeDo/MicroCourses'; // Import MicroCourses component
 import AllCourses from './components/WhatWeDo/AllCourses'; // Import AllCourses component
 // Acheivements is empty — skipping for now
@@ -17,7 +17,7 @@ function App() {
     <Router>
       <div
         style={{
-          minHeight: '100vh',
+          minHeight: "100vh",
         }}
       >
         <Navbar />
@@ -27,6 +27,8 @@ function App() {
           <Route path="/what-we-do" element={<Sidebar />} />
           <Route path="/micro-courses" element={<MicroCourses />} /> {/* New route for MicroCourses */}
           <Route path="/all-courses" element={<AllCourses />} /> {/* New route for AllCourses */}
+         <Route path="/login-signup" element={<AuthForm />} />
+
           {/* <Route path="/achievements" element={<Achievements />} /> */}
         </Routes>
         <Footer />

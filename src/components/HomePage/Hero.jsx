@@ -22,6 +22,7 @@ import FAQ from "./FAQ";
 import playstoreIcon from '../../assets/playstore.png';
 import appleIcon from '../../assets/apple.png';
 
+
 // Animation variants
 const containerVariant = {
   hidden: { opacity: 0 },
@@ -90,27 +91,27 @@ const Hero = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23f1f5f9\' fill-opacity=\'0.4\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'1\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
 
         {/* Interactive Background Orbs */}
-        <div
+        {/* <div
           className="absolute top-20 left-10 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 transition-all duration-1000 ease-out"
           style={{
             transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
             animation: "float 6s ease-in-out infinite",
           }}
-        ></div>
-        <div
+        ></div> */}
+        {/* <div
           className="absolute bottom-20 right-10 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 transition-all duration-1000 ease-out"
           style={{
             transform: `translate(-${mousePosition.x * 0.03}px, -${mousePosition.y * 0.03}px)`,
             animation: "float 8s ease-in-out infinite reverse",
           }}
-        ></div>
-        <div
+        ></div> */}
+        {/* <div
           className="absolute top-1/2 left-1/3 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 transition-all duration-1000 ease-out"
           style={{
             transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`,
             animation: "float 10s ease-in-out infinite",
           }}
-        ></div>
+        ></div> */}
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Animated Trust Badge */}
