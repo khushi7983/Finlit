@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import MicroCourses from './MicroCourses';
 import Terms from './Terms';
+import Speaking from './Speaking';
 
 const StickyNavSidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +57,7 @@ const StickyNavSidebar = ({ children }) => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Call once to set initial active section
+    handleScroll();
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -91,10 +92,7 @@ const StickyNavSidebar = ({ children }) => {
           overflow-y-auto scrollbar-minimal
         `}
       >
-        {/* Top Padding for Navbar */}
         <div className="pt-8 md:pt-12" />
-
-        {/* Navigation */}
         <nav className="p-6 flex-1 mt-2">
           <ul className="space-y-3 mt-4">
             {navItems.map((item) => {
@@ -116,11 +114,9 @@ const StickyNavSidebar = ({ children }) => {
                     aria-label={`Navigate to ${item.label}`}
                     onClick={(e) => handleNavClick(e, item.id)}
                   >
-                    {/* Active indicator */}
                     {isActive && (
                       <div className="absolute left-0 top-0 bottom-0 w-1 bg-white/40"></div>
                     )}
-                    
                     <div className={`
                       w-10 h-10 rounded-lg flex items-center justify-center mr-4 transition-all duration-300
                       ${isActive 
@@ -147,14 +143,10 @@ const StickyNavSidebar = ({ children }) => {
             })}
           </ul>
         </nav>
-
-        {/* Download App Section - Sticky at bottom */}
         <div className="p-6 border-t border-white/10 bg-gradient-to-r from-yellow-500/10 to-yellow-600/10 mt-auto">
           <button className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-900 py-4 px-6 rounded-xl font-bold hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-yellow-500/25">
             Download the App
           </button>
-          
-          {/* App Features */}
           <div className="mt-4 space-y-2">
             {['Free Learning Resources', 'Expert Financial Guidance', 'Progress Tracking'].map((feature, index) => (
               <div key={index} className="flex items-center gap-2 text-sm text-slate-300">
@@ -167,98 +159,77 @@ const StickyNavSidebar = ({ children }) => {
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 min-h-screen bg-transparent">
+      <main className="flex-1 bg-transparent">
         {children}
       </main>
     </div>
   );
 };
 
-// Example usage component
 const WhatWeDoPage = () => {
   return (
     <>
-      {/* Add custom scrollbar styles */}
       <style jsx>{`
         .scrollbar-minimal {
-          /* For Webkit browsers (Chrome, Safari, Edge) */
-          scrollbar-width: thin; /* For Firefox */
-          scrollbar-color: rgba(255, 255, 255, 0.2) transparent; /* For Firefox */
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
         }
-
         .scrollbar-minimal::-webkit-scrollbar {
-          width: 6px; /* Thin scrollbar */
+          width: 6px;
         }
-
         .scrollbar-minimal::-webkit-scrollbar-track {
-          background: transparent; /* Transparent track */
+          background: transparent;
         }
-
         .scrollbar-minimal::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.2); /* Subtle white thumb */
-          border-radius: 3px; /* Rounded edges */
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 3px;
         }
-
         .scrollbar-minimal::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.4); /* Slightly brighter on hover */
+          background: rgba(255, 255, 255, 0.4);
         }
       `}</style>
 
       <StickyNavSidebar>
-        <div className="p-8 space-y-0">
-          <section id="micro-courses" className="min-h-screen">
-            <div className="flex items-center justify-center h-screen">
-              <div className="text-center text-white">
-                <h2 className="text-4xl font-bold mb-4">FinLit Micro-courses</h2>
-                <MicroCourses />
-                <p className="text-xl text-slate-300">Your MicroCoursesComponent goes here</p>
-              </div>
+        <div className="p-8 space-y-16">
+          <section id="micro-courses" className="min-h-[600px] py-8">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-4xl font-bold mb-4 text-white text-center">FinLit Micro-courses</h2>
+              <MicroCourses />
             </div>
           </section>
           
-          <section id="financially-speaking" className="min-h-screen">
-            <div className="flex items-center justify-center h-screen">
-              <div className="text-center text-white">
-                <h2 className="text-4xl font-bold mb-4">Financially Speaking</h2>
-                <p className="text-xl text-slate-300">Your FinanciallySpeakingComponent goes here</p>
-              </div>
+          <section id="financially-speaking" className="min-h-[600px] py-8">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-4xl font-bold mb-4 text-white text-center">Financially Speaking</h2>
+              <Speaking />
             </div>
           </section>
           
-          <section id="finlit-blogs" className="min-h-screen">
-            <div className="flex items-center justify-center h-screen">
-              <div className="text-center text-white">
-                <h2 className="text-4xl font-bold mb-4">FinLit Blogs</h2>
-                <p className="text-xl text-slate-300">Your BlogsComponent goes here</p>
-              </div>
+          <section id="finlit-blogs" className="min-h-[600px] py-8">
+            <div className="max-w-7xl mx-auto text-center text-white">
+              <h2 className="text-4xl font-bold mb-4">FinLit Blogs</h2>
+              <p className="text-xl text-slate-300">Your BlogsComponent goes here</p>
             </div>
           </section>
           
-          <section id="finterms" className="min-h-screen">
-            <div className="flex items-center justify-center h-screen">
-              <div className="text-center text-white">
-                <h2 className="text-4xl font-bold mb-4">FinTerms</h2>
-                <p className="text-xl text-slate-300">Your FinTermsComponent goes here</p>
-              </div>
-            </div>
-          </section>
-          
-          <section id="faqs" className="min-h-screen">
-            <div className="flex items-center justify-center h-screen">
-              {/* <div className="text-center text-white">
-                <h2 className="text-4xl font-bold mb-4">FAQs</h2>
-                <p className="text-xl text-slate-300">Your FAQsComponent goes here</p>
-              </div> */}
+          <section id="finterms" className="min-h-[600px] py-8">
+            <div className="max-w-7xl mx-auto text-center text-white">
+              <h2 className="text-4xl font-bold mb-4">FinTerms</h2>
               <Terms />
             </div>
           </section>
           
-          <section id="finlit-journey" className="min-h-screen">
-            <div className="flex items-center justify-center h-screen">
-              <div className="text-center text-white">
-                <h2 className="text-4xl font-bold mb-4">FinLit Journey</h2>
-                <p className="text-xl text-slate-300">Your FinLitJourneyComponent goes here</p>
-              </div>
+          <section id="faqs" className="min-h-[600px] py-8">
+            <div className="max-w-7xl mx-auto text-center text-white">
+              <h2 className="text-4xl font-bold mb-4">FAQs</h2>
+              <p className="text-xl text-slate-300">Your FAQsComponent goes here</p>
+            </div>
+          </section>
+          
+          <section id="finlit-journey" className="min-h-[600px] py-8">
+            <div className="max-w-7xl mx-auto text-center text-white">
+              <h2 className="text-4xl font-bold mb-4">FinLit Journey</h2>
+              <p className="text-xl text-slate-300">Your FinLitJourneyComponent goes here</p>
             </div>
           </section>
         </div>
