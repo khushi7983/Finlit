@@ -62,8 +62,10 @@ const FinLitStory = () => {
           />
         </div>
       </div>
+   
       <Fraternity />
     </section>
+   
   );
 };
 
