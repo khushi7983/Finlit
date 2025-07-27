@@ -8,6 +8,8 @@ import Hero from './components/HomePage/Hero';
 import OurStory from './components/AboutUs/OurStory';
 import Blogs from './components/WhatWeDo/Blogs';
 import Sidebar from './components/WhatWeDo/Sidebar';
+import MicroCourses from './components/WhatWeDo/MicroCourses'; // Import MicroCourses component
+import AllCourses from './components/WhatWeDo/AllCourses'; // Import AllCourses component
 // Acheivements is empty — skipping for now
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
           <Route path="/" element={<Hero />} />
           <Route path="/about-us" element={<OurStory />} />
           <Route path="/what-we-do" element={<Sidebar />} />
+          <Route path="/micro-courses" element={<MicroCourses />} /> {/* New route for MicroCourses */}
+          <Route path="/all-courses" element={<AllCourses />} /> {/* New route for AllCourses */}
           {/* <Route path="/achievements" element={<Achievements />} /> */}
         </Routes>
         <Footer />
