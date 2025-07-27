@@ -9,6 +9,8 @@ import Hero from "./components/HomePage/Hero";
 import AuthForm from "./components/Login/AuthForm";
 import Sidebar from "./components/WhatWeDo/Sidebar";
 import LearnMoreStory from "./components/AboutUs/LearnMoreStory";
+import MicroCourses from './components/WhatWeDo/MicroCourses'; // Import MicroCourses component
+import AllCourses from './components/WhatWeDo/AllCourses'; // Import AllCourses component
 // Acheivements is empty — skipping for now
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
   <Route path="/about-us" element={<OurStory />} />
   <Route path="/about-finlit-story" element={<LearnMoreStory />} />
   <Route path="/what-we-do" element={<Sidebar />} />
+          <Route path="/micro-courses" element={<MicroCourses />} /> {/* New route for MicroCourses */}
+          <Route path="/all-courses" element={<AllCourses />} /> {/* New route for AllCourses */}
   <Route path="/login-signup" element={<AuthForm />} />
 </Routes>
         <Footer />
