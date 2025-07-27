@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import MicroCourses from './MicroCourses';
 import Terms from './Terms';
+import Speaking from './Speaking';
 
 const StickyNavSidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -220,9 +221,12 @@ const WhatWeDoPage = () => {
             <div className="flex items-center justify-center h-screen">
               <div className="text-center text-white">
                 <h2 className="text-4xl font-bold mb-4">Financially Speaking</h2>
+               
                 <p className="text-xl text-slate-300">Your FinanciallySpeakingComponent goes here</p>
+                <Speaking />
               </div>
             </div>
+        
           </section>
           
           <section id="finlit-blogs" className="min-h-screen">
@@ -241,6 +245,8 @@ const WhatWeDoPage = () => {
                 <p className="text-xl text-slate-300">Your FinTermsComponent goes here</p>
               </div>
             </div>
+           
+
           </section>
           
           <section id="faqs" className="min-h-screen">
