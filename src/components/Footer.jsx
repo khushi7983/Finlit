@@ -218,7 +218,7 @@ const Footer = () => {
                       href="mailto:support@finlit.com"
                       className="text-white hover:text-yellow-400 transition-colors"
                     >
-                      support@finlit.com
+                      info@thefinlitproject.com
                     </a>
                   </div>
                 </div>
@@ -230,7 +230,7 @@ const Footer = () => {
                       href="tel:+911234567890"
                       className="text-white hover:text-yellow-400 transition-colors"
                     >
-                      +91 123 456 7890
+                      +91 9502696570
                     </a>
                   </div>
                 </div>
