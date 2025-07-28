@@ -1,29 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { 
-  BookOpen, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Twitter, 
-  Linkedin, 
-  Instagram, 
-  Youtube, 
-  MessageCircle,
-  Download,
-  Smartphone,
-  Heart,
+import {
+  BookOpen,
   ChevronRight,
-  Star,
+  Download,
+  Heart,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
   Shield,
+  Smartphone,
+  Star,
+  TrendingUp,
+  Twitter,
   Users,
-  TrendingUp
+  Youtube,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Footer = () => {
   const [licenses, setLicenses] = useState([
-    { type: "BSE Member Code", value: "56333", logo: <Shield className="w-8 h-8 text-yellow-400" /> },
-    { type: "NSE Member Code", value: "1000906", logo: <Star className="w-8 h-8 text-yellow-400" /> },
-    { type: "AMFI ARN Number", value: "249730", logo: <Users className="w-8 h-8 text-yellow-400" /> }
+    {
+      type: "BSE Member Code",
+      value: "56333",
+      logo: <Shield className="w-8 h-8 text-yellow-400" />,
+    },
+    {
+      type: "NSE Member Code",
+      value: "1000906",
+      logo: <Star className="w-8 h-8 text-yellow-400" />,
+    },
+    {
+      type: "AMFI ARN Number",
+      value: "249730",
+      logo: <Users className="w-8 h-8 text-yellow-400" />,
+    },
   ]);
 
   useEffect(() => {
@@ -79,7 +91,7 @@ const Footer = () => {
           }
         `}
       </style>
-      
+
       {/* Decorative Elements */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
@@ -98,15 +110,17 @@ const Footer = () => {
                 <h3 className="text-2xl font-bold">Fin Lit Project</h3>
               </div>
               <p className="text-slate-300 text-lg leading-relaxed mb-6">
-                Making financial literacy accessible to everyone. Join thousands of learners 
-                on their journey to financial freedom.
+                Making financial literacy accessible to everyone. Join thousands
+                of learners on their journey to financial freedom.
               </p>
-              
+
               {/* Trust Indicators */}
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-full px-3 py-1.5 border border-white/10">
                   <Shield className="w-4 h-4 text-yellow-400" />
-                  <span className="text-sm text-slate-300">SEBI Registered</span>
+                  <span className="text-sm text-slate-300">
+                    SEBI Registered
+                  </span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-full px-3 py-1.5 border border-white/10">
                   <Users className="w-4 h-4 text-yellow-400" />
@@ -117,16 +131,19 @@ const Footer = () => {
                   <span className="text-sm text-slate-300">4.8 Rating</span>
                 </div>
               </div>
-              
+
               {/* Licenses */}
-              <div className="mt-6">
-                <p className="text-sm text-slate-300">Our Licenses:</p>
-                <div className="flex justify-between mt-4 space-x-4">
-                  {licenses.map((license, index) => (
-                    <div key={index} className="license-card">
-                      {license.logo}
-                      <h4>{license.type}</h4>
-                      <p>{license.value}</p>
+<div className="mt-6 w-full">
+  <p className="text-sm text-slate-300 mb-4">Our Licenses:</p>
+  <div className="flex w-full justify-evenly items-center">
+    {licenses.map((license, index) => (
+      <div
+        key={index}
+        className="bg-white/10 backdrop-blur-md rounded-xl p-4 flex flex-col items-center justify-center w-1/3 h-24 mx-2 hover:-translate-y-2 transition-transform"
+      >
+        {license.logo}
+        <h4 className="mt-2 text-yellow-400 text-sm font-semibold">{license.type}</h4>
+        <p className="text-white text-base">{license.value}</p>
                     </div>
                   ))}
                 </div>
@@ -138,12 +155,13 @@ const Footer = () => {
               <div className="bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 backdrop-blur-sm rounded-2xl p-8 border border-yellow-500/20">
                 <h3 className="text-2xl font-bold mb-4">Stay Updated</h3>
                 <p className="text-slate-300 mb-6">
-                  Get the latest financial tips, course updates, and exclusive content delivered to your inbox.
+                  Get the latest financial tips, course updates, and exclusive
+                  content delivered to your inbox.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <div className="flex-1 relative">
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       placeholder="Enter your email address"
                       className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                     />
@@ -167,15 +185,15 @@ const Footer = () => {
               </h3>
               <div className="space-y-3">
                 {[
-                  { name: 'Free Courses', href: '#' },
-                  { name: 'Blog & Articles', href: '#' },
-                  { name: 'Success Stories', href: '#' },
-                  { name: 'Expert Webinars', href: '#' },
-                  { name: 'FAQ', href: '#' }
-                ].map(item => (
-                  <a 
-                    key={item.name} 
-                    href={item.href} 
+                  { name: "Free Courses", href: "#" },
+                  { name: "Blog & Articles", href: "#" },
+                  { name: "Success Stories", href: "#" },
+                  { name: "Expert Webinars", href: "#" },
+                  { name: "FAQ", href: "#" },
+                ].map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
                     className="group flex items-center gap-2 text-slate-300 hover:text-yellow-400 transition-colors duration-200"
                   >
                     <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -196,7 +214,10 @@ const Footer = () => {
                   <Mail className="w-5 h-5 text-yellow-400 mt-0.5" />
                   <div>
                     <p className="text-slate-300">Email</p>
-                    <a href="mailto:support@finlit.com" className="text-white hover:text-yellow-400 transition-colors">
+                    <a
+                      href="mailto:support@finlit.com"
+                      className="text-white hover:text-yellow-400 transition-colors"
+                    >
                       support@finlit.com
                     </a>
                   </div>
@@ -205,7 +226,10 @@ const Footer = () => {
                   <Phone className="w-5 h-5 text-yellow-400 mt-0.5" />
                   <div>
                     <p className="text-slate-300">Phone</p>
-                    <a href="tel:+911234567890" className="text-white hover:text-yellow-400 transition-colors">
+                    <a
+                      href="tel:+911234567890"
+                      className="text-white hover:text-yellow-400 transition-colors"
+                    >
                       +91 123 456 7890
                     </a>
                   </div>
@@ -214,26 +238,57 @@ const Footer = () => {
                   <MapPin className="w-5 h-5 text-yellow-400 mt-0.5" />
                   <div>
                     <p className="text-slate-300">Address</p>
-                    <p className="text-white">Mumbai, India</p>
+                    <p className="text-white">Lucknow, India</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Social Media */}
+            {/* Social Media */}
             <div>
               <h3 className="text-xl font-bold mb-6">Follow Us</h3>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { name: 'Twitter', icon: Twitter, href: '#', color: 'hover:bg-blue-500' },
-                  { name: 'LinkedIn', icon: Linkedin, href: '#', color: 'hover:bg-blue-600' },
-                  { name: 'Instagram', icon: Instagram, href: '#', color: 'hover:bg-pink-500' },
-                  { name: 'YouTube', icon: Youtube, href: '#', color: 'hover:bg-red-500' },
-                  { name: 'WhatsApp', icon: MessageCircle, href: '#', color: 'hover:bg-green-500' }
-                ].map(social => (
-                  <a 
+                  {
+                    name: "Twitter",
+                    icon: Twitter,
+                    href: "https://x.com/FinLitIndia",
+                    color: "hover:bg-blue-500",
+                  },
+                  {
+                    name: "LinkedIn",
+                    icon: Linkedin,
+                    href:
+                      "https://www.linkedin.com/company/the-fin-lit-project/posts/?feedView=all",
+                    color: "hover:bg-blue-600",
+                  },
+                  {
+                    name: "Instagram",
+                    icon: Instagram,
+                    href: "https://www.instagram.com/thefinlitproject/",
+                    color: "hover:bg-pink-500",
+                  },
+                  {
+                    name: "YouTube",
+                    icon: Youtube,
+                    href:
+                      "https://www.youtube.com/channel/UCH-nWXtMHz-wmg176HqBSvg",
+                    color: "hover:bg-red-500",
+                  },
+                  {
+                    name: "WhatsApp",
+                    icon: MessageCircle,
+                    href:
+                      "https://api.whatsapp.com/message/6EUW7ZLTHSGCB1?autoload=1&app_absent=0",
+                    color: "hover:bg-green-500",
+                  },
+                ].map((social) => (
+                  <a
                     key={social.name}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`group flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-xl px-3 py-2 border border-white/10 transition-all duration-300 ${social.color} hover:scale-105`}
                   >
                     <social.icon className="w-4 h-4" />
@@ -249,28 +304,74 @@ const Footer = () => {
                 <Smartphone className="w-5 h-5 text-yellow-400" />
                 Download App
               </h3>
-              <div className="space-y-3">
-                <button className="group w-full bg-gradient-to-r from-slate-700 to-slate-800 text-white px-4 py-3 rounded-xl font-semibold hover:scale-105 transition-all duration-300 flex items-center gap-3 border border-white/10">
-                  <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
-                    <Download className="w-4 h-4" />
+
+              <div className="flex flex-wrap gap-3">
+                {/* Google Play */}
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.thefinlitproject.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 min-w-[200px] bg-gradient-to-r from-slate-700 to-slate-800 text-white px-6 py-4 rounded-xl font-semibold hover:scale-105 transition-all duration-300 flex items-center gap-3 border border-white/10"
+                >
+                  <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                    <Download className="w-5 h-5" />
                   </div>
                   <div className="text-left">
-                    <div className="text-xs text-slate-300">Get it on</div>
-                    <div className="text-sm font-bold">Google Play</div>
+                    <div className="text-xs text-slate-300">Finlit Learn</div>
+                    <div className="text-base font-bold">Google Play</div>
                   </div>
-                </button>
-                <button className="group w-full bg-gradient-to-r from-slate-700 to-slate-800 text-white px-4 py-3 rounded-xl font-semibold hover:scale-105 transition-all duration-300 flex items-center gap-3 border border-white/10">
-                  <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
-                    <Download className="w-4 h-4" />
+                </a>
+
+                {/* App Store */}
+                <a
+                  href="https://apps.apple.com/us/app/the-fin-lit-project/id1576101765#?platform=iphone"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 min-w-[200px] bg-gradient-to-r from-slate-700 to-slate-800 text-white px-6 py-4 rounded-xl font-semibold hover:scale-105 transition-all duration-300 flex items-center gap-3 border border-white/10"
+                >
+                  <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                    <Download className="w-5 h-5" />
                   </div>
                   <div className="text-left">
-                    <div className="text-xs text-slate-300">Download on</div>
-                    <div className="text-sm font-bold">App Store</div>
+                    <div className="text-xs text-slate-300">Finlit Learn</div>
+                    <div className="text-base font-bold">App Store</div>
                   </div>
-                </button>
+                </a>
+
+                {/* Windows Store */}
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 min-w-[200px] bg-gradient-to-r from-slate-700 to-slate-800 text-white px-6 py-4 rounded-xl font-semibold hover:scale-105 transition-all duration-300 flex items-center gap-3 border border-white/10"
+                >
+                  <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                    <Download className="w-5 h-5" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-xs text-slate-300">Finlit Invest</div>
+                    <div className="text-base font-bold">Windows Store</div>
+                  </div>
+                </a>
+
+                {/* Mac Store */}
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 min-w-[200px] bg-gradient-to-r from-slate-700 to-slate-800 text-white px-6 py-4 rounded-xl font-semibold hover:scale-105 transition-all duration-300 flex items-center gap-3 border border-white/10"
+                >
+                  <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                    <Download className="w-5 h-5" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-xs text-slate-300">Finit Invest</div>
+                    <div className="text-base font-bold">Mac Store</div>
+                  </div>
+                </a>
               </div>
-              
-              {/* App Features */}
+
+              {/* App Features
               <div className="mt-6 space-x-2">
                 <div className="flex items-center gap-2 text-sm text-slate-300">
                   <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full"></div>
@@ -284,7 +385,7 @@ const Footer = () => {
                   <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full"></div>
                   Expert Support
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -292,10 +393,15 @@ const Footer = () => {
           <div className="pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex flex-wrap gap-6">
-                {['Terms of Service', 'Privacy Policy', 'Cookie Policy', 'Disclaimer'].map(item => (
-                  <a 
-                    key={item} 
-                    href="#" 
+                {[
+                  "Terms of Service",
+                  "Privacy Policy",
+                  "Cookie Policy",
+                  "Disclaimer",
+                ].map((item) => (
+                  <a
+                    key={item}
+                    href="#"
                     className="text-slate-400 hover:text-yellow-400 transition-colors text-sm"
                   >
                     {item}
@@ -303,7 +409,8 @@ const Footer = () => {
                 ))}
               </div>
               <div className="flex items-center gap-2 text-slate-400 text-sm">
-                Made with <Heart className="w-4 h-4 text-red-400 fill-current" /> in India
+                Made with{" "}
+                <Heart className="w-4 h-4 text-red-400 fill-current" /> in India
               </div>
             </div>
           </div>

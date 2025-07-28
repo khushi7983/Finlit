@@ -88,7 +88,8 @@ const LearnMoreStory = () => {
 
       {/* Video Section */}
       <section className="px-6 md:px-12 mb-12">
-        <div className="relative aspect-video bg-gradient-to-br from-blue-900 to-purple-900 rounded-3xl overflow-hidden">
+        <div className="relative aspect-video max-w-[1000px] mx-auto bg-gradient-to-br from-blue-900 to-purple-900 rounded-3xl overflow-hidden">
+
           <video
             src={journeyVideo}
             autoPlay
@@ -101,21 +102,10 @@ const LearnMoreStory = () => {
           {/* Overlay Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-40">
             <p className="text-white text-lg font-semibold">Watch Our Journey</p>
-            {/* <p className="text-gray-300 text-sm mt-2">
-              See how we're transforming financial education
-            </p> */}
+         
           </div>
 
-          {/* Floating Elements */}
-          {/* <div className="absolute top-10 left-10 bg-white/20 rounded-lg p-3 animate-float">
-            <span className="text-white text-sm font-semibold">💡 Innovation</span>
-          </div> */}
-          {/* <div className="absolute bottom-10 right-10 bg-white/20 rounded-lg p-3 animate-float-delay">
-            <span className="text-white text-sm font-semibold">🚀 Growth</span>
-          </div> */}
-          {/* <div className="absolute top-1/2 left-10 bg-white/20 rounded-lg p-3 animate-bounce">
-            <span className="text-white text-sm font-semibold">📈 Impact</span>
-          </div> */}
+        
         </div>
       </section>
 
