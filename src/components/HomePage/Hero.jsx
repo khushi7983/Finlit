@@ -21,7 +21,7 @@ import Journey from "./Journey";
 import FAQ from "./FAQ";
 import playstoreIcon from '../../assets/playstore.png';
 import appleIcon from '../../assets/apple.png';
-
+import PremiumMutualFundSection from "./PremiumMutualFundSection";
 
 // Animation variants
 const containerVariant = {
@@ -568,6 +568,7 @@ const Hero = () => {
       <Offerings />
       <TestimonialsSection />
       <FAQ />
+      <PremiumMutualFundSection/>
     </>
   );
 };
