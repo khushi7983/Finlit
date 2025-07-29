@@ -1,45 +1,60 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes, Navigate, useLocation } from "react-router-dom";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 
-// Pages (one component per folder)
+// Pages
 import OurStory from "./components/AboutUs/OurStory";
 import Hero from "./components/HomePage/Hero";
 import AuthForm from "./components/Login/AuthForm";
-import Sidebar from "./components/WhatWeDo/Sidebar";
 import LearnMoreStory from "./components/AboutUs/LearnMoreStory";
-import MicroCourses from './components/WhatWeDo/MicroCourses'; // Import MicroCourses component
-import AllCourses from './components/WhatWeDo/AllCourses'; // Import AllCourses component
-import Speaking from './components/WhatWeDo/Speaking'; // Import Speaking component
-import Blogs from './components/WhatWeDo/Blogs'; // Import Blogs component
-import Terms from './components/WhatWeDo/Terms'; // Import Terms component
 
-function App() {
+// Sidebar layout and nested pages
+import SidebarLayout from "./components/WhatWeDo/Sidebar";
+import MicroCourses from "./components/WhatWeDo/MicroCourses";
+import AllCourses from "./components/WhatWeDo/AllCourses";
+import Speaking from "./components/WhatWeDo/Speaking";
+import Blogs from "./components/WhatWeDo/Blogs";
+import Terms from "./components/WhatWeDo/Terms";
+import Fund from "./components/WhatWeDo/Fund";
+import Youtube from "./components/WhatWeDo/Youtube";
+
+// Wrapper to hide footer on specific routes
+function AppWrapper() {
+  const location = useLocation();
+  const hideFooter = location.pathname.startsWith("/what-we-do");
+
   return (
-    <Router>
-      <div
-        style={{
-          minHeight: "100vh",
-        }}
-      >
-        <Navbar />
-        <Routes>
-  <Route path="/" element={<Hero />} />
-  <Route path="/about-us" element={<OurStory />} />
-  <Route path="/about-finlit-story" element={<LearnMoreStory />} />
-  <Route path="/what-we-do" element={<Sidebar />} />
-          <Route path="/what-we-do/micro-courses" element={<MicroCourses />} /> {/* New route for MicroCourses */}
-          <Route path="/all-courses" element={<AllCourses />} /> {/* New route for AllCourses */}
-          <Route path="/financially-speaking" element={<Speaking />} /> {/* New route for Speaking */}
-          <Route path="/finlit-blogs" element={<Blogs />} /> {/* New route for Blogs */}
-          <Route path="/finterms" element={<Terms />} /> {/* New route for Terms */}
-  <Route path="/login-signup" element={<AuthForm />} />
-</Routes>
-        <Footer />
-      </div>
-    </Router>
+    <div style={{ minHeight: "100vh" }}>
+      <Navbar />
+      <Routes>
+        {/* Main pages */}
+        <Route path="/" element={<Hero />} />
+        <Route path="/about-us" element={<OurStory />} />
+        <Route path="/about-finlit-story" element={<LearnMoreStory />} />
+        <Route path="/login-signup" element={<AuthForm />} />
+
+        {/* Sidebar layout routes */}
+        <Route path="/what-we-do" element={<SidebarLayout />}>
+          <Route index element={<Navigate to="micro-courses" />} />
+          <Route path="micro-courses" element={<MicroCourses />} />
+          <Route path="financially-speaking" element={<Speaking />} />
+          <Route path="finlit-blogs" element={<Blogs />} />
+          <Route path="finterms" element={<Terms />} />
+          <Route path="mutual-funds" element={<Fund />} />
+           <Route path="youtube-courses" element={<Youtube/>} /> 
+        </Route>
+      </Routes>
+
+      {!hideFooter && <Footer />}
+    </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Router>
+      <AppWrapper />
+    </Router>
+  );
+}

@@ -1,82 +1,67 @@
 import React, { useState } from 'react';
+import { Outlet, NavLink } from 'react-router-dom';
 import { Menu, GraduationCap, Mic, Newspaper, BookOpen, HelpCircle, Map } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
 
-const Sidebar = ({ children }) => {
+const SidebarLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { path: '/micro-courses', label: 'FinLit Micro-courses', icon: GraduationCap },
-    { path: '/financially-speaking', label: 'Financially Speaking', icon: Mic },
-    { path: '/finlit-blogs', label: 'FinLit Blogs', icon: Newspaper },
-    { path: '/finterms', label: 'FinTerms', icon: BookOpen },
-    { path: '/Funds', label: 'FAQs', icon: HelpCircle },
-    { path: '/finlit-journey', label: 'FinLit Journey', icon: Map },
+    { path: 'micro-courses', label: 'FinLit Micro-courses', icon: GraduationCap },
+    { path: 'financially-speaking', label: 'Financially Speaking', icon: Mic },
+    { path: 'finlit-blogs', label: 'FinLit Blogs', icon: Newspaper },
+    { path: 'finterms', label: 'FinTerms', icon: BookOpen },
+    { path: 'mutual-funds', label: 'Mutual Funds', icon: HelpCircle },
+    { path: 'youtube-courses', label: 'YouTube Courses', icon: Map },
   ];
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   return (
-    <div className="min-h-screen flex relative">
-      {/* Mobile Toggle */}
+    <div className="flex min-h-screen bg-slate-900 text-white">
+      {/* Mobile Hamburger */}
       <button
         onClick={toggleSidebar}
-        className="md:hidden fixed top-20 left-4 z-50 text-white bg-slate-800/90 p-3 rounded-xl"
+        className="md:hidden fixed top-20 left-4 z-50 p-3 bg-slate-800 rounded-lg shadow"
       >
         <Menu className="w-6 h-6" />
       </button>
 
-      {isOpen && (
-        <div 
-          className="md:hidden fixed inset-0 bg-black/50 z-40"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
-
       {/* Sidebar */}
-      <aside
-        className={`w-80 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-2xl
-        md:sticky md:top-0 md:h-screen
-        transform transition-transform duration-300 ease-in-out
-        ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-        overflow-y-auto`}
-      >
-        <div className="pt-8 md:pt-12" />
-        <nav className="p-6 flex-1 mt-2">
-          <ul className="space-y-3 mt-4">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <li key={item.path}>
-                  <NavLink
-                    to={item.path}
-                    className={({ isActive }) => `
-                      group flex items-center p-4 rounded-xl transition-all duration-300 
-                      ${isActive 
-                        ? 'border border-white/30 scale-105 shadow-lg' 
-                        : 'border-transparent hover:bg-white/10 hover:scale-105'
-                      }
-                    `}
-                    onClick={() => window.innerWidth < 768 && setIsOpen(false)}
-                  >
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center mr-4 bg-yellow-400/20">
-                      <Icon className="w-5 h-5 text-yellow-400" />
-                    </div>
-                    <span className="text-white font-medium">{item.label}</span>
-                  </NavLink>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+     <aside
+  className={`w-72 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
+    md:sticky md:top-0 md:h-screen transform transition-transform duration-300
+    ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+  `}
+>
+  {/* Add margin-top to push links downward */}
+  <div className="pt-24">  {/* Previously pt-6 */}
+    <nav className="p-4 space-y-3">
+            {navItems.map(({ path, label, icon: Icon }) => (
+              <NavLink
+                key={path}
+                to={path}
+                className={({ isActive }) =>
+                  `flex items-center gap-4 p-3 rounded-lg transition
+                  ${isActive ? 'bg-yellow-500/20 border-l-4 border-yellow-400' : 'hover:bg-slate-700'}`
+                }
+                onClick={() => window.innerWidth < 768 && setIsOpen(false)}
+              >
+                <div className="w-9 h-9 flex items-center justify-center bg-yellow-400/20 rounded-md">
+                  <Icon className="text-yellow-400 w-5 h-5" />
+                </div>
+                <span className="font-medium">{label}</span>
+              </NavLink>
+            ))}
+          </nav>
+        </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 bg-transparent">
-        {children}
+      {/* Content Area */}
+      <main className="flex-1 p-6 overflow-y-auto">
+        <Outlet />
       </main>
     </div>
   );
 };
 
-export default Sidebar;
+export default SidebarLayout;
