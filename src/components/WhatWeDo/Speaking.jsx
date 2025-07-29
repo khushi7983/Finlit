@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { PlayCircle, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Speaking = () => {
+  const navigate = useNavigate();
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -8,13 +12,15 @@ const Speaking = () => {
     setIsVisible(true);
   }, []);
 
+  const getYoutubeThumbnail = (videoId) =>
+    `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+
   const speakers = [
     {
       id: 1,
       name: "Anshul Gupta",
       title: "Co-Founder, Wint Wealth",
-      videoId: "YOUR_VIDEO_ID_1",
-      thumbnail: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=300&fit=crop&crop=face",
+      videoId: "xp1y9g-KrXQ",
       topic: "Fixed Income Investing",
       duration: "25 min"
     },
@@ -22,8 +28,7 @@ const Speaking = () => {
       id: 2,
       name: "John Jordan",
       title: "Executive Director, BC Digital Trust",
-      videoId: "YOUR_VIDEO_ID_2",
-      thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&crop=face",
+      videoId: "xp1y9g-KrXQ",
       topic: "Digital Trust Ecosystems",
       duration: "32 min"
     },
@@ -31,8 +36,7 @@ const Speaking = () => {
       id: 3,
       name: "Mac Gardner",
       title: "CEO, FinLit Tech",
-      videoId: "YOUR_VIDEO_ID_3",
-      thumbnail: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=300&fit=crop&crop=face",
+      videoId: "xp1y9g-KrXQ",
       topic: "FinTech Literacy",
       duration: "28 min"
     },
@@ -40,8 +44,7 @@ const Speaking = () => {
       id: 4,
       name: "Khadija Khartit",
       title: "Managing Director, IFS Advisory",
-      videoId: "YOUR_VIDEO_ID_4",
-      thumbnail: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=300&fit=crop&crop=face",
+      videoId: "xp1y9g-KrXQ",
       topic: "Islamic Finance",
       duration: "35 min"
     },
@@ -49,8 +52,7 @@ const Speaking = () => {
       id: 5,
       name: "Sarah Johnson",
       title: "Blockchain Analyst, CryptoVision",
-      videoId: "YOUR_VIDEO_ID_5",
-      thumbnail: "https://images.unsplash.com/photo-1494790108755-2616c296c3a6?w=400&h=300&fit=crop&crop=face",
+      videoId: "xp1y9g-KrXQ",
       topic: "Cryptocurrency Investment",
       duration: "40 min"
     },
@@ -58,252 +60,194 @@ const Speaking = () => {
       id: 6,
       name: "Michael Chen",
       title: "Senior Financial Advisor",
-      videoId: "YOUR_VIDEO_ID_6",
-      thumbnail: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=300&fit=crop&crop=face",
+      videoId: "xp1y9g-KrXQ",
       topic: "Retirement Planning",
       duration: "30 min"
     }
   ];
 
-  const openModal = (videoId) => {
-    setSelectedVideo(videoId);
-  };
+  const openModal = (videoId) => setSelectedVideo(videoId);
+  const closeModal = () => setSelectedVideo(null);
 
-  const closeModal = () => {
-    setSelectedVideo(null);
-  };
-
-  const FloatingElements = () => (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none">
-      {[...Array(12)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full bg-white/10 animate-pulse"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            width: `${Math.random() * 20 + 10}px`,
-            height: `${Math.random() * 20 + 10}px`,
-            animationDelay: `${Math.random() * 3}s`,
-            animationDuration: `${Math.random() * 4 + 2}s`
-          }}
+  const SpeakerCard = ({ speaker }) => (
+    <div className="w-[280px] h-[370px] flex flex-col justify-between bg-white rounded-2xl shadow-md p-4 transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+      <div className="text-center">
+        <img
+          src={speaker.thumbnail}
+          alt={speaker.name}
+          className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
         />
-      ))}
-    </div>
-  );
-
-  const SpeakerCard = ({ speaker, index }) => (
-    <div
-      className={`group relative bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden
-                  transform transition-all duration-700 hover:scale-105 hover:-translate-y-4
-                  hover:shadow-3xl hover:bg-white cursor-pointer border border-orange-200/50
-                  ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}
-      style={{ 
-        transitionDelay: `${index * 200}ms`,
-        background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,248,220,0.95) 100%)'
-      }}
-      onClick={() => openModal(speaker.videoId)}
-    >
-      {/* Gradient Border Animation */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" 
-           style={{ padding: '2px' }}>
-        <div className="h-full w-full rounded-3xl bg-white"></div>
+        <h3 className="text-lg font-bold text-gray-900">{speaker.name}</h3>
+        <p className="text-sm text-gray-500 font-medium">{speaker.title}</p>
+        <p className="text-sm text-gray-700 mt-2 font-semibold">{speaker.topic}</p>
       </div>
-      
-      {/* Card Content */}
-      <div className="relative z-10 p-8">
-        {/* Video Thumbnail */}
-        <div className="relative mb-6 rounded-2xl overflow-hidden shadow-lg">
-          <img 
-            src={speaker.thumbnail}
-            alt={speaker.name}
-            className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-          />
-          {/* Play Button Overlay */}
-          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-            <div className="bg-gradient-to-r from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center
-                           shadow-2xl transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
-              <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-          </div>
-          {/* Duration Badge */}
-          <div className="absolute top-3 right-3 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-semibold">
-            {speaker.duration}
-          </div>
-        </div>
-
-        {/* Speaker Info */}
-        <div className="text-center space-y-3">
-          <h3 className="text-2xl font-bold text-gray-800 group-hover:text-orange-600 transition-colors duration-300">
-            {speaker.name}
-          </h3>
-          <p className="text-gray-600 font-medium text-sm leading-relaxed">
-            {speaker.title}
-          </p>
-          <div className="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-3 mt-4">
-            <p className="text-orange-800 font-semibold text-lg">
-              {speaker.topic}
-            </p>
-          </div>
-        </div>
-
-        {/* Watch Button */}
-        <div className="mt-6 text-center">
-          <button className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white
-                           px-8 py-3 rounded-full font-bold text-lg shadow-xl
-                           transform transition-all duration-300 hover:scale-105 hover:shadow-2xl
-                           active:scale-95 group-hover:animate-pulse">
-            <span className="flex items-center justify-center gap-2">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-              Watch Now
-            </span>
-          </button>
-        </div>
+      <div className="text-center mt-4">
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-600"
+          onClick={() => openModal(speaker.videoId)}
+        >
+          Watch Now
+        </button>
       </div>
-
-      {/* Hover Glow Effect */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-yellow-400/20 to-orange-500/20 
-                      opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
     </div>
   );
 
   const VideoModal = () => {
     if (!selectedVideo) return null;
-
     return (
-      <div 
-        className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4
-                   animate-fade-in"
+      <div
+        className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
         onClick={closeModal}
       >
-        <div className="relative bg-white rounded-2xl overflow-hidden max-w-6xl w-full max-h-[90vh] 
-                        shadow-2xl transform animate-scale-in">
-          <button 
+        <div className="bg-white p-4 rounded-xl max-w-3xl w-full relative">
+          <button
+            className="absolute top-2 right-2 text-red-600 font-bold text-xl"
             onClick={closeModal}
-            className="absolute top-4 right-4 z-10 bg-red-500 hover:bg-red-600 text-white 
-                       w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold
-                       transition-all duration-200 hover:scale-110 shadow-lg"
           >
             ×
           </button>
           <iframe
-            src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1`}
             className="w-full aspect-video"
+            src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1`}
             frameBorder="0"
             allowFullScreen
-            title="Video Player"
-          />
+            title="Video Modal"
+          ></iframe>
         </div>
       </div>
     );
   };
 
+  // Array of dark gradient hover classes
+  const hoverGradients = [
+    'group-hover:bg-gradient-to-tr group-hover:from-blue-600 group-hover:via-blue-500 group-hover:to-indigo-700',
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-100 via-orange-100 to-yellow-200 relative overflow-hidden">
+    <section className="relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20 md:py-24 overflow-hidden min-h-screen">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23f1f5f9\' fill-opacity=\'0.4\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'1\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
       {/* Floating Background Elements */}
-      <FloatingElements />
-      
-      {/* Animated Background Shapes */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-yellow-300/30 to-orange-400/30 
-                        rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-orange-300/30 to-red-400/30 
-                        rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 
-                        bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-full blur-3xl animate-pulse" 
-                        style={{ animationDelay: '4s' }}></div>
-      </div>
-
-      <div className="relative z-10 container mx-auto px-4 py-12">
-        {/* Header Section */}
-        <div className={`text-center mb-16 transform transition-all duration-1000 ${
-          isVisible ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'
-        }`}>
-          <h1 className="text-6xl md:text-7xl font-black mb-6 bg-gradient-to-r from-orange-600 via-red-500 to-pink-600 
-                         bg-clip-text text-transparent animate-pulse">
-            Financially Speaking
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed font-medium">
-            Discover expert insights on finance, investments, and wealth building from industry leaders
-          </p>
-          <div className="mt-8 w-32 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 mx-auto rounded-full"></div>
-        </div>
-
-        {/* Episodes Section */}
-        <div className={`mb-12 transform transition-all duration-1000 delay-300 ${
-          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-        }`}>
-          <h2 className="text-4xl font-bold text-center text-gray-800 mb-4">
-            Financially Speaking Episodes
-          </h2>
-          <p className="text-center text-gray-600 text-lg mb-12">
-            Watch exclusive interviews and insights from financial experts
-          </p>
-        </div>
-
-        {/* Speaker Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {speakers.map((speaker, index) => (
-            <SpeakerCard key={speaker.id} speaker={speaker} index={index} />
-          ))}
-        </div>
-
-        {/* Explore More Button */}
-        <div className={`text-center transform transition-all duration-1000 delay-1000 ${
-          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-        }`}>
-          <button className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white
-                           px-12 py-4 rounded-full font-bold text-xl shadow-2xl
-                           transform transition-all duration-300 hover:scale-105 hover:shadow-3xl
-                           active:scale-95 animate-bounce hover:animate-none">
-            <span className="flex items-center justify-center gap-3">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
-              Explore More Episodes
+      <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style={{ animationDelay: '2s' }}></div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -20 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="inline-flex items-center gap-2 bg-blue-500/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6">
+            <Users className="w-5 h-5 text-blue-600" />
+            <span className="text-sm font-semibold text-blue-700">Financially Speaking</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight">
+            <span className="text-slate-800">Financially Speaking</span>
+            <br />
+            <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent animate-pulse">
+              Episodes
             </span>
+          </h2>
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            Dive into insightful conversations with industry leaders and experts. <span className="font-semibold text-slate-700">Click on a speaker to watch their episode!</span>
+          </p>
+        </motion.div>
+        {/* Cards Grid */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center"
+          initial="hidden"
+          animate={isVisible ? "visible" : "hidden"}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+            },
+          }}
+        >
+          {speakers.map((speaker, index) => (
+            <motion.div
+              key={speaker.id}
+              variants={{
+                hidden: { opacity: 0, y: 30, scale: 0.9 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  transition: { duration: 0.6, ease: "easeOut" },
+                },
+              }}
+              whileHover={{ y: -8, scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              className="group cursor-pointer"
+            >
+              <div className={`bg-gradient-to-br from-blue-50 via-white to-indigo-100/80 rounded-2xl overflow-hidden shadow-xl border border-blue-200/60 transition-all duration-500 group-hover:shadow-2xl group-hover:scale-105 flex flex-col h-full w-full ${hoverGradients[0]}`}>
+                <div className="flex-1 flex flex-col items-center justify-center p-6">
+                  <img
+                    src={getYoutubeThumbnail(speaker.videoId)}
+                    alt={speaker.name}
+                    className="w-56 h-56 rounded-2xl mb-6 object-cover border-4 border-blue-100 shadow"
+                  />
+                  <span className="inline-block bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full mb-4">{speaker.duration}</span>
+                </div>
+                <div className="text-center pb-6">
+                  <button
+                    className="inline-flex items-center gap-2 bg-blue-500 text-white px-5 py-2 rounded-full text-sm font-semibold shadow hover:bg-blue-600 transition-all duration-200"
+                    onClick={() => openModal(speaker.videoId)}
+                  >
+                    <PlayCircle className="w-5 h-5" />
+                    Watch Now
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+        <div className="flex justify-center mt-10">
+          <button
+            className="inline-flex items-center gap-2 bg-indigo-600 text-white px-8 py-3 rounded-full text-lg font-bold shadow hover:bg-indigo-700 transition-all duration-200"
+            onClick={() => navigate('/all-videos')}
+          >
+            Explore More
           </button>
         </div>
+        <AnimatePresence>
+          {selectedVideo && (
+            <motion.div
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeModal}
+            >
+              <motion.div
+                className="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-hidden shadow-2xl relative"
+                initial={{ scale: 0.8, opacity: 0, y: 50 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.8, opacity: 0, y: 50 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                onClick={e => e.stopPropagation()}
+              >
+                <button
+                  className="absolute top-2 right-2 text-red-600 font-bold text-xl z-10"
+                  onClick={closeModal}
+                >
+                  ×
+                </button>
+                <iframe
+                  className="w-full aspect-video"
+                  src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1`}
+                  frameBorder="0"
+                  allowFullScreen
+                  title="Video Modal"
+                ></iframe>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-
-      {/* Video Modal */}
-      <VideoModal />
-
-      <style jsx>{`
-        @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        @keyframes scale-in {
-          from { 
-            opacity: 0; 
-            transform: scale(0.9) translateY(20px); 
-          }
-          to { 
-            opacity: 1; 
-            transform: scale(1) translateY(0); 
-          }
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.3s ease-out;
-        }
-        
-        .animate-scale-in {
-          animation: scale-in 0.4s ease-out;
-        }
-        
-        .shadow-3xl {
-          box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
-        }
-      `}</style>
-    </div>
+    </section>
   );
 };
 
