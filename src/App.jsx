@@ -35,9 +35,10 @@ function AppWrapper() {
         <Route path="/login-signup" element={<AuthForm />} />
 
         {/* Sidebar layout routes */}
-        <Route path="/what-we-do" element={<SidebarLayout />}>
+        <Route path="/what-we-do" element={<SidebarLayout />} >
           <Route index element={<Navigate to="micro-courses" />} />
           <Route path="micro-courses" element={<MicroCourses />} />
+          <Route path="all-courses" element={<AllCourses />} />
           <Route path="financially-speaking" element={<Speaking />} />
           <Route path="finlit-blogs" element={<Blogs />} />
           <Route path="finterms" element={<Terms />} />
