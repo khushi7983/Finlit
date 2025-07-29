@@ -11,7 +11,9 @@ import Sidebar from "./components/WhatWeDo/Sidebar";
 import LearnMoreStory from "./components/AboutUs/LearnMoreStory";
 import MicroCourses from './components/WhatWeDo/MicroCourses'; // Import MicroCourses component
 import AllCourses from './components/WhatWeDo/AllCourses'; // Import AllCourses component
-// Acheivements is empty — skipping for now
+import Speaking from './components/WhatWeDo/Speaking'; // Import Speaking component
+import Blogs from './components/WhatWeDo/Blogs'; // Import Blogs component
+import Terms from './components/WhatWeDo/Terms'; // Import Terms component
 
 function App() {
   return (
@@ -27,8 +29,11 @@ function App() {
   <Route path="/about-us" element={<OurStory />} />
   <Route path="/about-finlit-story" element={<LearnMoreStory />} />
   <Route path="/what-we-do" element={<Sidebar />} />
-          <Route path="/micro-courses" element={<MicroCourses />} /> {/* New route for MicroCourses */}
+          <Route path="/what-we-do/micro-courses" element={<MicroCourses />} /> {/* New route for MicroCourses */}
           <Route path="/all-courses" element={<AllCourses />} /> {/* New route for AllCourses */}
+          <Route path="/financially-speaking" element={<Speaking />} /> {/* New route for Speaking */}
+          <Route path="/finlit-blogs" element={<Blogs />} /> {/* New route for Blogs */}
+          <Route path="/finterms" element={<Terms />} /> {/* New route for Terms */}
   <Route path="/login-signup" element={<AuthForm />} />
 </Routes>
         <Footer />
