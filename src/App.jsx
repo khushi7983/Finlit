@@ -21,9 +21,10 @@ import MicroCourses from "./components/WhatWeDo/MicroCourses";
 import AllCourses from "./components/WhatWeDo/AllCourses";
 import Speaking from "./components/WhatWeDo/Speaking";
 import Blogs from "./components/WhatWeDo/Blogs";
+import BlogPage from "./components/WhatWeDo/BlogPage";
 import Terms from "./components/WhatWeDo/Terms";
 import Fund from "./components/WhatWeDo/Fund";
-import Youtube from "./components/WhatWeDo/Youtube";
+import Youtube from "./components/WhatWeDo/ESG.jsx";
 import Conference from "./components/AboutUs/media/Conference";
 import Interview from "./components/AboutUs/media/Interview";
 import Lecture from "./components/AboutUs/media/Lecture";
@@ -59,6 +60,12 @@ function AppWrapper() {
 
         {/* Login/Signup */}
         <Route path="/login-signup" element={<AuthForm />} />
+
+        {/* Blog pages */}
+        <Route path="/blog/:id" element={<BlogPage />} />
+
+        {/* Blog pages */}
+        <Route path="/blog/:id" element={<BlogPage />} />
 
         {/* Sidebar layout with nested routes */}
         <Route path="/what-we-do" element={<SidebarLayout />}>
