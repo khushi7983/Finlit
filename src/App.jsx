@@ -24,11 +24,11 @@ import Blogs from "./components/WhatWeDo/Blogs";
 import BlogPage from "./components/WhatWeDo/BlogPage";
 import Terms from "./components/WhatWeDo/Terms";
 import Fund from "./components/WhatWeDo/Fund";
-import Youtube from "./components/WhatWeDo/Youtube";
-import Conference from "./components/AboutUs/media/Conference.jsx";
-import Interview from "./components/AboutUs/media/Interview.jsx";
-import Lecture from "./components/AboutUs/media/Lecture.jsx";
-import Podcast from "./components/AboutUs/media/Podcast.jsx";
+import Youtube from "./components/WhatWeDo/ESG.jsx";
+import Conference from "./components/AboutUs/media/Conference";
+import Interview from "./components/AboutUs/media/Interview";
+import Lecture from "./components/AboutUs/media/Lecture";
+import Podcast from "./components/AboutUs/media/Podcast";
 
 
 
