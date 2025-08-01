@@ -17,25 +17,23 @@ const SidebarLayout = () => {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   return (
-    <div className="flex min-h-screen bg-slate-900 text-white">
+    <div className="flex min-h-screen bg-slate-900 text-white pt-[100px]">
       {/* Mobile Hamburger */}
       <button
         onClick={toggleSidebar}
-        className="md:hidden fixed top-20 left-4 z-50 p-3 bg-slate-800 rounded-lg shadow"
+        className="md:hidden fixed top-[100px] left-4 z-50 p-3 bg-slate-800 rounded-lg shadow"
       >
         <Menu className="w-6 h-6" />
       </button>
 
       {/* Sidebar */}
-     <aside
-  className={`w-72 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
-    md:sticky md:top-0 md:h-screen transform transition-transform duration-300
-    ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-  `}
->
-  {/* Add margin-top to push links downward */}
-  <div className="pt-24">  {/* Previously pt-6 */}
-    <nav className="p-4 space-y-3">
+      <aside
+        className={`w-72 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
+          md:sticky md:top-[100px] md:h-[calc(100vh-100px)] transform transition-transform duration-300
+          ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} z-40`}
+      >
+        <div className="pt-6">
+          <nav className="p-4 space-y-3">
             {navItems.map(({ path, label, icon: Icon }) => (
               <NavLink
                 key={path}

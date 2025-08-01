@@ -125,7 +125,7 @@ const Fraternity = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 overflow-hidden relative">
+      <div className=" bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 overflow-hidden relative w-screen">
         {/* Interactive Mouse Cursor Effect */}
         <div
           className="fixed w-6 h-6 bg-blue-500/30 rounded-full pointer-events-none z-50 mix-blend-multiply transition-all duration-300 ease-out"
@@ -170,10 +170,9 @@ const Fraternity = () => {
             >
               <h1 className="text-6xl md:text-7xl font-bold mb-6">
                 <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
-                  The FinLit
+                  The FinLit Fraternity
                 </span>
-                <br />
-                <span className="text-gray-800">Fraternity</span>
+                {/* <span className="text-gray-800">Fraternity</span> */}
               </h1>
               <div className="w-32 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-600 mx-auto rounded-full"></div>
             </div>

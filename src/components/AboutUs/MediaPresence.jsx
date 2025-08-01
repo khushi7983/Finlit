@@ -81,7 +81,7 @@ const MediaPresence = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white py-12 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white py-12 px-4 relative overflow-hidden w-screen">
       {/* Subtle Floating Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {particles.map((particle) => (

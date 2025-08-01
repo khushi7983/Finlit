@@ -189,17 +189,36 @@ const Terms = () => {
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
-          <div className="text-center mb-16">      
+          <div className="text-center mb-16">
+            <div 
+              className={`inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6 transition-all duration-800 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+              }`}
+            >
+              <BookOpen className="w-5 h-5 text-yellow-600" />
+              <span className="text-sm font-semibold text-yellow-700">Financial Education</span>
+            </div>
+            
             <h2 
               className={`text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-1000 delay-200 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
+              <span className="text-slate-800">FinTerm</span>
+              <br />
               <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
-                FinLit Terms
+                Visual Gallery
               </span>
             </h2>
-
+            
+            <p 
+              className={`text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 delay-400 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+            >
+              Explore financial concepts through interactive visual cards. 
+              <span className="font-semibold text-slate-700"> Click any card to dive deeper!</span>
+            </p>
           </div>
 
           {/* Category Filter */}
@@ -239,53 +258,41 @@ const Terms = () => {
                   style={{ transformStyle: 'preserve-3d' }}
                 >
                   {/* Image Container */}
-                  <div className="aspect-[4/3] bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center relative group-hover:animate-tilt-glow">
-                    <img src={term.image} alt={term.title} className="w-full h-full object-cover absolute inset-0" />
-                    <div className="text-center p-6 relative z-10">
-                      <div className="relative">
-                        {/* <TrendingUp className="w-16 h-16 text-yellow-500 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" /> */}
-                        {/* <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300">
-                          <Zap className="w-4 h-4 text-white m-1" />
-                        </div> */}
+                  <div className="relative overflow-hidden group-hover:animate-tilt-glow">
+                    <div className="aspect-[4/3] bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center relative">
+                      <img src={term.image} alt={term.title} className="w-full h-full object-cover absolute inset-0 transition-transform duration-500 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
+                          <TrendingUp className="w-8 h-8 text-white" />
+                        </div>
                       </div>
-                      {/* <h3 className="text-2xl font-bold text-slate-800 mb-2 group-hover:text-yellow-600 transition-colors duration-300">
-                        {term.title}
-                      </h3> */}
-                      {/* <div className="w-12 h-1 bg-yellow-500 mx-auto rounded-full group-hover:w-16 transition-all duration-300"></div> */}
                     </div>
-                  </div>
-                  
-                  {/* Category Badge */}
-                  <div className="absolute top-4 left-4 z-20">
-                    <span className="bg-yellow-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full transform group-hover:scale-110 transition-transform duration-300">
-                      {term.category}
-                    </span>
+                    
+                    {/* Category Badge */}
+                    <div className="absolute top-4 left-4 z-20">
+                      <span className="bg-yellow-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full transform group-hover:scale-110 transition-transform duration-300">
+                        {term.category}
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                      <p className="text-sm leading-relaxed">{term.modalContent}</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Card Footer */}
-                <div className="p-6 bg-white">
-                  <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-yellow-600 transition-colors duration-300">
-                    {term.title}
-                  </h3>
-                  <p className="text-slate-600 text-sm line-clamp-2">
-                    {term.modalContent}
-                  </p>
-                  
-                  <div className="mt-4 flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                      Click to explore
-                    </div>
-                    <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:rotate-12">
-                      <ChevronRight className="w-4 h-4 text-white" />
+                  {/* Card Footer */}
+                  <div className="p-6 bg-white">
+                    <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-yellow-600 transition-colors duration-300">
+                      {term.title}
+                    </h3>
+                    <p className="text-slate-600 text-sm line-clamp-2 mb-4">
+                      {term.description}
+                    </p>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-xs text-slate-500">
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        Click to explore
+                      </div>
+                      <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:rotate-12">
+                        <ChevronRight className="w-4 h-4 text-white" />
+                      </div>
                     </div>
                   </div>
                 </div>
