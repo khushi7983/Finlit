@@ -49,7 +49,7 @@ const MediaPresence = () => {
       color: "from-blue-500 to-purple-600",
       bgColor: "bg-blue-50 hover:bg-blue-100",
       iconColor: "text-blue-600",
-      link: "about-us/interview" // link added
+      link: "/interview" // link added
     },
     {
       id: 2,
