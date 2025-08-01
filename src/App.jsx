@@ -15,6 +15,7 @@ import MicroCourses from "./components/WhatWeDo/MicroCourses";
 import AllCourses from "./components/WhatWeDo/AllCourses";
 import Speaking from "./components/WhatWeDo/Speaking";
 import Blogs from "./components/WhatWeDo/Blogs";
+import BlogPage from "./components/WhatWeDo/BlogPage";
 import Terms from "./components/WhatWeDo/Terms";
 import Fund from "./components/WhatWeDo/Fund";
 import Youtube from "./components/WhatWeDo/Youtube";
@@ -22,7 +23,7 @@ import Youtube from "./components/WhatWeDo/Youtube";
 // Wrapper to hide footer on specific routes
 function AppWrapper() {
   const location = useLocation();
-  const hideFooter = location.pathname.startsWith("/what-we-do");
+  const hideFooter = location.pathname.startsWith("/what-we-do") || location.pathname.startsWith("/blog");
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -33,6 +34,9 @@ function AppWrapper() {
         <Route path="/about-us" element={<OurStory />} />
         <Route path="/about-finlit-story" element={<LearnMoreStory />} />
         <Route path="/login-signup" element={<AuthForm />} />
+
+        {/* Blog pages */}
+        <Route path="/blog/:id" element={<BlogPage />} />
 
         {/* Sidebar layout routes */}
         <Route path="/what-we-do" element={<SidebarLayout />} >
