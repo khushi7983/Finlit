@@ -1,4 +1,10 @@
-import { Route, BrowserRouter as Router, Routes, Navigate, useLocation } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -19,43 +25,69 @@ import BlogPage from "./components/WhatWeDo/BlogPage";
 import Terms from "./components/WhatWeDo/Terms";
 import Fund from "./components/WhatWeDo/Fund";
 import Youtube from "./components/WhatWeDo/Youtube";
+import Conference from "./components/AboutUs/media/Conference.jsx";
+import Interview from "./components/AboutUs/media/Interview.jsx";
+import Lecture from "./components/AboutUs/media/Lecture.jsx";
+import Podcast from "./components/AboutUs/media/Podcast.jsx";
 
-// Wrapper to hide footer on specific routes
+
+
+// Wrapper to manage footer visibility
 function AppWrapper() {
   const location = useLocation();
-  const hideFooter = location.pathname.startsWith("/what-we-do") || location.pathname.startsWith("/blog");
+
+  // Hide footer only for "/what-we-do/*" routes
+  const hideFooter = location.pathname.startsWith("/what-we-do");
 
   return (
     <div style={{ minHeight: "100vh" }}>
+      {/* Navbar visible on all pages */}
       <Navbar />
+
       <Routes>
         {/* Main pages */}
         <Route path="/" element={<Hero />} />
         <Route path="/about-us" element={<OurStory />} />
+         <Route path="/interview" element={<Interview />} />
+        <Route path="/podcast" element={<Podcast />} />
+        <Route path="/lecture" element={<Lecture />} />
+        <Route path="/conference" element={<Conference />} />
+        
+        
+        
         <Route path="/about-finlit-story" element={<LearnMoreStory />} />
+       
+
+        {/* Login/Signup */}
         <Route path="/login-signup" element={<AuthForm />} />
 
         {/* Blog pages */}
         <Route path="/blog/:id" element={<BlogPage />} />
 
-        {/* Sidebar layout routes */}
-        <Route path="/what-we-do" element={<SidebarLayout />} >
-          <Route index element={<Navigate to="micro-courses" />} />
+        {/* Blog pages */}
+        <Route path="/blog/:id" element={<BlogPage />} />
+
+        {/* Sidebar layout with nested routes */}
+        <Route path="/what-we-do" element={<SidebarLayout />}>
+          {/* Default redirect */}
+          <Route index element={<Navigate to="micro-courses" replace />} />
           <Route path="micro-courses" element={<MicroCourses />} />
           <Route path="all-courses" element={<AllCourses />} />
           <Route path="financially-speaking" element={<Speaking />} />
           <Route path="finlit-blogs" element={<Blogs />} />
           <Route path="finterms" element={<Terms />} />
           <Route path="mutual-funds" element={<Fund />} />
-           <Route path="youtube-courses" element={<Youtube/>} /> 
+          <Route path="youtube-courses" element={<Youtube />} />
         </Route>
       </Routes>
 
+      {/* Footer visible everywhere except /what-we-do */}
       {!hideFooter && <Footer />}
     </div>
   );
 }
 
+// Main App
 export default function App() {
   return (
     <Router>

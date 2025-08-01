@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Video, Users, Mic, GraduationCap, Play, ExternalLink, Sparkles } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';  // added for navigation
 
 const MediaPresence = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredCard, setHoveredCard] = useState(null);
   const [particles, setParticles] = useState([]);
+  const navigate = useNavigate(); // initialize navigate hook
 
   // Generate floating particles
   useEffect(() => {
@@ -46,7 +48,8 @@ const MediaPresence = () => {
       count: "12+ Features",
       color: "from-blue-500 to-purple-600",
       bgColor: "bg-blue-50 hover:bg-blue-100",
-      iconColor: "text-blue-600"
+      iconColor: "text-blue-600",
+      link: "about-us/interview" // link added
     },
     {
       id: 2,
@@ -56,7 +59,8 @@ const MediaPresence = () => {
       count: "8+ Events",
       color: "from-green-500 to-teal-600",
       bgColor: "bg-green-50 hover:bg-green-100",
-      iconColor: "text-green-600"
+      iconColor: "text-green-600",
+      link: "/conference" // link added
     },
     {
       id: 3,
@@ -66,7 +70,8 @@ const MediaPresence = () => {
       count: "15+ Episodes",
       color: "from-orange-500 to-red-600",
       bgColor: "bg-orange-50 hover:bg-orange-100",
-      iconColor: "text-orange-600"
+      iconColor: "text-orange-600",
+      link: "/podcast" // link added
     },
     {
       id: 4,
@@ -76,7 +81,8 @@ const MediaPresence = () => {
       count: "6+ Sessions",
       color: "from-indigo-500 to-blue-600",
       bgColor: "bg-indigo-50 hover:bg-indigo-100",
-      iconColor: "text-indigo-600"
+      iconColor: "text-indigo-600",
+      link: "/lecture" // link added
     }
   ];
 
@@ -145,6 +151,7 @@ const MediaPresence = () => {
               className="group relative"
               onMouseEnter={() => setHoveredCard(media.id)}
               onMouseLeave={() => setHoveredCard(null)}
+              onClick={() => navigate(media.link)}   // added click navigation
               style={{
                 animation: `cardEntrance 0.8s ease-out ${index * 0.15}s both`
               }}
@@ -392,19 +399,13 @@ const MediaPresence = () => {
           }
         }
         
-        @keyframes numberPulse {
-          0%, 100% { 
-            opacity: 1;
-            transform: scale(1);
-          }
-          50% { 
-            opacity: 0.8;
-            transform: scale(1.05);
-          }
+        @keyframes shimmerMove {
+          0% { transform: translateX(-200%); }
+          100% { transform: translateX(200%); }
         }
         
         .animate-shimmer {
-          animation: shimmer 3s ease-in-out infinite;
+          animation: shimmerMove 2s infinite linear;
         }
       `}</style>
     </div>
