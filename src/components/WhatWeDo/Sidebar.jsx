@@ -11,7 +11,7 @@ const SidebarLayout = () => {
     { path: 'finlit-blogs', label: 'FinLit Blogs', icon: Newspaper },
     { path: 'finterms', label: 'FinTerms', icon: BookOpen },
     { path: 'mutual-funds', label: 'Mutual Funds', icon: HelpCircle },
-    { path: 'ESG Funds', label: 'ESG ', icon: Map },
+    { path: 'esg-funds', label: 'ESG ', icon: Map },
   ];
 
   const toggleSidebar = () => setIsOpen(!isOpen);

@@ -24,11 +24,12 @@ import Blogs from "./components/WhatWeDo/Blogs";
 import BlogPage from "./components/WhatWeDo/BlogPage";
 import Terms from "./components/WhatWeDo/Terms";
 import Fund from "./components/WhatWeDo/Fund";
-import Youtube from "./components/WhatWeDo/ESG.jsx";
+import ESG from "./components/WhatWeDo/ESG";
 import Conference from "./components/AboutUs/media/Conference";
 import Interview from "./components/AboutUs/media/Interview";
 import Lecture from "./components/AboutUs/media/Lecture";
 import Podcast from "./components/AboutUs/media/Podcast";
+
 
 
 
@@ -77,7 +78,7 @@ function AppWrapper() {
           <Route path="finlit-blogs" element={<Blogs />} />
           <Route path="finterms" element={<Terms />} />
           <Route path="mutual-funds" element={<Fund />} />
-          <Route path="youtube-courses" element={<Youtube />} />
+          <Route path="esg-funds" element={<ESG />} />
         </Route>
       </Routes>
 
