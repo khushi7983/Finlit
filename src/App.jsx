@@ -29,6 +29,7 @@ import Conference from "./components/AboutUs/media/Conference";
 import Interview from "./components/AboutUs/media/Interview";
 import Lecture from "./components/AboutUs/media/Lecture";
 import Podcast from "./components/AboutUs/media/Podcast";
+import Awards from "./components/HomePage/Awards.jsx";
 
 
 
@@ -52,6 +53,7 @@ function AppWrapper() {
         <Route path="/podcast" element={<Podcast />} />
         <Route path="/lecture" element={<Lecture />} />
         <Route path="/conference" element={<Conference />} />
+        <Route path="/awards" element={<Awards />} />
         
         
         
