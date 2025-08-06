@@ -1,37 +1,37 @@
 import React from 'react';
-import { ArrowLeft, Mic, Calendar, Headphones, Play } from 'lucide-react';
+import { ArrowLeft, Users, Calendar, MapPin, Play } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const Podcast = () => {
+const Confrence = () => {
   const navigate = useNavigate();
 
-  const podcasts = [
+  const conferences = [
     {
       id: 1,
-      title: "Investment Basics for Beginners",
-      host: "Financial Freedom Podcast",
-      date: "March 10, 2024",
-      duration: "45 min",
-      listeners: "25K+",
-      thumbnail: "https://via.placeholder.com/300x200/F59E0B/FFFFFF?text=Podcast+1"
+      title: "Financial Literacy Summit 2024",
+      location: "Mumbai, India",
+      date: "March 15-16, 2024",
+      attendees: "500+",
+      duration: "2 Days",
+      thumbnail: "https://via.placeholder.com/300x200/10B981/FFFFFF?text=Conference+1"
     },
     {
       id: 2,
-      title: "Understanding Stock Markets",
-      host: "Money Matters Show",
-      date: "February 25, 2024",
-      duration: "52 min",
-      listeners: "18K+",
-      thumbnail: "https://via.placeholder.com/300x200/3B82F6/FFFFFF?text=Podcast+2"
+      title: "Investment Education Workshop",
+      location: "Delhi, India",
+      date: "February 28, 2024",
+      attendees: "200+",
+      duration: "1 Day",
+      thumbnail: "https://via.placeholder.com/300x200/3B82F6/FFFFFF?text=Conference+2"
     },
     {
       id: 3,
-      title: "Digital Banking Revolution",
-      host: "Tech Finance Weekly",
-      date: "February 15, 2024",
-      duration: "38 min",
-      listeners: "22K+",
-      thumbnail: "https://via.placeholder.com/300x200/10B981/FFFFFF?text=Podcast+3"
+      title: "Digital Finance Conference",
+      location: "Bangalore, India",
+      date: "January 20, 2024",
+      attendees: "300+",
+      duration: "1 Day",
+      thumbnail: "https://via.placeholder.com/300x200/F59E0B/FFFFFF?text=Conference+3"
     }
   ];
 
@@ -49,44 +49,44 @@ const Podcast = () => {
           </button>
           
           <div className="flex items-center mb-6">
-            <Mic className="w-8 h-8 text-orange-600 mr-3" />
-            <h1 className="text-4xl font-bold text-gray-900">Podcast Appearances</h1>
+            <Users className="w-8 h-8 text-green-600 mr-3" />
+            <h1 className="text-4xl font-bold text-gray-900">Conference & Speaking Engagements</h1>
           </div>
           
           <p className="text-lg text-gray-600 max-w-3xl">
-            Audio conversations and thought leadership discussions where we share insights on financial literacy, 
-            investment strategies, and the future of financial education.
+            Speaking engagements and panel discussions where we share expertise on financial literacy, 
+            investment strategies, and educational innovation.
           </p>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
           <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-            <div className="text-3xl font-bold text-orange-600 mb-2">15+</div>
-            <div className="text-gray-600">Total Episodes</div>
+            <div className="text-3xl font-bold text-green-600 mb-2">8+</div>
+            <div className="text-gray-600">Total Events</div>
           </div>
           <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-            <div className="text-3xl font-bold text-blue-600 mb-2">65K+</div>
-            <div className="text-gray-600">Total Listeners</div>
+            <div className="text-3xl font-bold text-blue-600 mb-2">1K+</div>
+            <div className="text-gray-600">Total Attendees</div>
           </div>
           <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-            <div className="text-3xl font-bold text-green-600 mb-2">12+</div>
-            <div className="text-gray-600">Podcast Shows</div>
+            <div className="text-3xl font-bold text-orange-600 mb-2">5+</div>
+            <div className="text-gray-600">Cities Covered</div>
           </div>
           <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-            <div className="text-3xl font-bold text-purple-600 mb-2">4.9/5</div>
+            <div className="text-3xl font-bold text-purple-600 mb-2">4.8/5</div>
             <div className="text-gray-600">Average Rating</div>
           </div>
         </div>
 
-        {/* Podcast Grid */}
+        {/* Conference Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {podcasts.map((podcast) => (
-            <div key={podcast.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+          {conferences.map((conference) => (
+            <div key={conference.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="relative">
                 <img 
-                  src={podcast.thumbnail} 
-                  alt={podcast.title}
+                  src={conference.thumbnail} 
+                  alt={conference.title}
                   className="w-full h-48 object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
@@ -95,22 +95,22 @@ const Podcast = () => {
               </div>
               
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{podcast.title}</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">{conference.title}</h3>
                 
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center text-gray-600">
-                    <Headphones className="w-4 h-4 mr-2" />
-                    {podcast.host}
+                    <MapPin className="w-4 h-4 mr-2" />
+                    {conference.location}
                   </div>
                   <div className="flex items-center text-gray-600">
                     <Calendar className="w-4 h-4 mr-2" />
-                    {podcast.date}
+                    {conference.date}
                   </div>
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">{podcast.listeners} listeners</span>
-                  <span className="text-sm text-gray-500">{podcast.duration}</span>
+                  <span className="text-sm text-gray-500">{conference.attendees} attendees</span>
+                  <span className="text-sm text-gray-500">{conference.duration}</span>
                 </div>
               </div>
             </div>
@@ -121,4 +121,4 @@ const Podcast = () => {
   );
 };
 
-export default Podcast;
+export default Confrence;
