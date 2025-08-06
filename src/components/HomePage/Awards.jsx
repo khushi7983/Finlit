@@ -20,6 +20,7 @@ const Awards = () => {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [imageLoadStates, setImageLoadStates] = useState({});
 
   useEffect(() => {
     setIsVisible(true);
@@ -120,6 +121,14 @@ const Awards = () => {
     window.open(imageUrl, '_blank');
   };
 
+  const handleImageLoad = (awardId) => {
+    setImageLoadStates(prev => ({ ...prev, [awardId]: 'loaded' }));
+  };
+
+  const handleImageError = (awardId) => {
+    setImageLoadStates(prev => ({ ...prev, [awardId]: 'error' }));
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white py-12 px-4 mt-16">
       <div className="max-w-7xl mx-auto">
@@ -144,7 +153,7 @@ const Awards = () => {
         </div>
 
         {/* Stats */}
-        <div className={`grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        {/* <div className={`grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {[
             { value: "8+", label: "Total Awards", color: "text-yellow-600", icon: "🏆" },
             { value: "3+", label: "Years of Excellence", color: "text-blue-600", icon: "⭐" },
@@ -161,7 +170,7 @@ const Awards = () => {
               <div className="text-2xl mt-2">{stat.icon}</div>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Awards Grid */}
         <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -176,22 +185,36 @@ const Awards = () => {
             >
               {/* Award Image Container */}
               <div className="relative h-64 overflow-hidden bg-gray-100 cursor-pointer" onClick={() => handleImageClick(award)}>
+                {/* Actual Image */}
                 <img 
                   src={award.image} 
                   alt={award.altText}
-                  className="w-full h-full object-contain p-2 hover:scale-110 transition-transform duration-500"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'flex';
-                  }}
+                  className={`w-full h-full object-contain p-2 hover:scale-110 transition-transform duration-500 ${
+                    imageLoadStates[award.id] === 'error' ? 'hidden' : ''
+                  }`}
+                  onLoad={() => handleImageLoad(award.id)}
+                  onError={() => handleImageError(award.id)}
                 />
+                
                 {/* Fallback for failed images */}
-                <div className=" absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                <div className={`absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center ${
+                  imageLoadStates[award.id] === 'error' ? '' : 'hidden'
+                }`}>
                   <div className="text-center animate-pulse">
                     <Trophy className="w-16 h-16 text-gray-400 mx-auto mb-2" />
                     <p className="text-gray-500 text-sm">{award.title}</p>
                   </div>
                 </div>
+                
+                {/* Loading state */}
+                {!imageLoadStates[award.id] && (
+                  <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#FACF07] mx-auto mb-2"></div>
+                      <p className="text-gray-500 text-sm">Loading...</p>
+                    </div>
+                  </div>
+                )}
                 
                 {/* Overlay badges */}
                 <div className="absolute top-4 right-4 animate-bounce" style={{ animationDelay: '1s' }}>
