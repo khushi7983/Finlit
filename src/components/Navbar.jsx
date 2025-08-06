@@ -8,9 +8,8 @@ const Navbar = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const location = useLocation(); // To highlight active page
+  const location = useLocation();
 
-  // Sticky effect
   useEffect(() => {
     const handleScroll = () => {
       setIsSticky(window.scrollY > 30);
@@ -19,25 +18,20 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Navigation items
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about-us' },
     { name: 'What We Do', path: '/what-we-do' },
-    { name: 'Our Achievements', path: '/awards' }
+    { name: 'Our Achievements', path: '/awards' },
   ];
 
   return (
     <nav
-      className={
-        `z-50 flex items-center justify-between shadow-lg px-4 sm:px-8 transition-all duration-300 ` +
-        (isSticky
-          ? 'fixed top-0 left-1/2 transform -translate-x-1/2 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-xl py-1'
-          : 'fixed top-5 left-1/2 transform -translate-x-1/2 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-xl py-1')
-      }
-      style={{ maxWidth: '90vw', width: 'calc(100% - 40px)' }}
+      className={`fixed top-0 left-0 w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 shadow-lg px-4 sm:px-8 transition-all duration-300 z-50 ${
+        isSticky ? 'py-1' : 'py-2'
+      }`}
     >
-      <div className="container mx-auto flex justify-between items-center w-full">
+      <div className="container mx-auto flex justify-between items-center w-full max-w-[90vw]">
         {/* Left: Logo */}
         <Link to="/" onClick={() => setMenuOpen(false)}>
           <img src={logo} alt="FinLit Logo" className="h-16 sm:h-20 w-auto ml-2 sm:ml-4" />
@@ -78,7 +72,7 @@ const Navbar = () => {
           <select
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
-            className="border rounded p-1"
+            className="border rounded p-1 bg-slate-700 text-white"
           >
             <option>English</option>
             <option>Hindi</option>
@@ -98,7 +92,6 @@ const Navbar = () => {
                 {name}
               </Link>
             ))}
-            {/* Mobile: Login */}
             <Link
               to="/login-signup"
               className="text-white font-semibold"
@@ -106,12 +99,10 @@ const Navbar = () => {
             >
               Login / Get Started
             </Link>
-
-            {/* Mobile: Language */}
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="border rounded p-1"
+              className="border rounded p-1 bg-slate-700 text-white"
             >
               <option>English</option>
               <option>Hindi</option>

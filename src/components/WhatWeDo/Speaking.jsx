@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { PlayCircle, Users, TrendingUp, Zap, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Speaking = () => {
+  const navigate = useNavigate();
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -8,302 +12,298 @@ const Speaking = () => {
     setIsVisible(true);
   }, []);
 
+  const getYoutubeThumbnail = (videoId) =>
+    `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+
   const speakers = [
     {
       id: 1,
       name: "Anshul Gupta",
       title: "Co-Founder, Wint Wealth",
-      videoId: "YOUR_VIDEO_ID_1",
-      thumbnail: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=300&fit=crop&crop=face",
+      videoId: "xp1y9g-KrXQ",
       topic: "Fixed Income Investing",
-      duration: "25 min"
+      duration: "25 min",
+      category: "Investment"
     },
     {
       id: 2,
       name: "John Jordan",
       title: "Executive Director, BC Digital Trust",
-      videoId: "YOUR_VIDEO_ID_2",
-      thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&crop=face",
+      videoId: "xp1y9g-KrXQ",
       topic: "Digital Trust Ecosystems",
-      duration: "32 min"
+      duration: "32 min",
+      category: "Technology"
     },
     {
       id: 3,
       name: "Mac Gardner",
       title: "CEO, FinLit Tech",
-      videoId: "YOUR_VIDEO_ID_3",
-      thumbnail: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=300&fit=crop&crop=face",
+      videoId: "xp1y9g-KrXQ",
       topic: "FinTech Literacy",
-      duration: "28 min"
+      duration: "28 min",
+      category: "FinTech"
     },
     {
       id: 4,
       name: "Khadija Khartit",
       title: "Managing Director, IFS Advisory",
-      videoId: "YOUR_VIDEO_ID_4",
-      thumbnail: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=300&fit=crop&crop=face",
+      videoId: "xp1y9g-KrXQ",
       topic: "Islamic Finance",
-      duration: "35 min"
+      duration: "35 min",
+      category: "Finance"
     },
     {
       id: 5,
       name: "Sarah Johnson",
       title: "Blockchain Analyst, CryptoVision",
-      videoId: "YOUR_VIDEO_ID_5",
-      thumbnail: "https://images.unsplash.com/photo-1494790108755-2616c296c3a6?w=400&h=300&fit=crop&crop=face",
+      videoId: "xp1y9g-KrXQ",
       topic: "Cryptocurrency Investment",
-      duration: "40 min"
+      duration: "40 min",
+      category: "Crypto"
     },
     {
       id: 6,
       name: "Michael Chen",
       title: "Senior Financial Advisor",
-      videoId: "YOUR_VIDEO_ID_6",
-      thumbnail: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=300&fit=crop&crop=face",
+      videoId: "xp1y9g-KrXQ",
       topic: "Retirement Planning",
-      duration: "30 min"
+      duration: "30 min",
+      category: "Planning"
     }
   ];
 
-  const openModal = (videoId) => {
-    setSelectedVideo(videoId);
-  };
-
-  const closeModal = () => {
-    setSelectedVideo(null);
-  };
-
-  const FloatingElements = () => (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none">
-      {[...Array(12)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full bg-white/10 animate-pulse"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            width: `${Math.random() * 20 + 10}px`,
-            height: `${Math.random() * 20 + 10}px`,
-            animationDelay: `${Math.random() * 3}s`,
-            animationDuration: `${Math.random() * 4 + 2}s`
-          }}
-        />
-      ))}
-    </div>
-  );
-
-  const SpeakerCard = ({ speaker, index }) => (
-    <div
-      className={`group relative bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden
-                  transform transition-all duration-700 hover:scale-105 hover:-translate-y-4
-                  hover:shadow-3xl hover:bg-white cursor-pointer border border-orange-200/50
-                  ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}
-      style={{ 
-        transitionDelay: `${index * 200}ms`,
-        background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,248,220,0.95) 100%)'
-      }}
-      onClick={() => openModal(speaker.videoId)}
-    >
-      {/* Gradient Border Animation */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" 
-           style={{ padding: '2px' }}>
-        <div className="h-full w-full rounded-3xl bg-white"></div>
-      </div>
-      
-      {/* Card Content */}
-      <div className="relative z-10 p-8">
-        {/* Video Thumbnail */}
-        <div className="relative mb-6 rounded-2xl overflow-hidden shadow-lg">
-          <img 
-            src={speaker.thumbnail}
-            alt={speaker.name}
-            className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-          />
-          {/* Play Button Overlay */}
-          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-            <div className="bg-gradient-to-r from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center
-                           shadow-2xl transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
-              <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-          </div>
-          {/* Duration Badge */}
-          <div className="absolute top-3 right-3 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-semibold">
-            {speaker.duration}
-          </div>
-        </div>
-
-        {/* Speaker Info */}
-        <div className="text-center space-y-3">
-          <h3 className="text-2xl font-bold text-gray-800 group-hover:text-orange-600 transition-colors duration-300">
-            {speaker.name}
-          </h3>
-          <p className="text-gray-600 font-medium text-sm leading-relaxed">
-            {speaker.title}
-          </p>
-          <div className="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-3 mt-4">
-            <p className="text-orange-800 font-semibold text-lg">
-              {speaker.topic}
-            </p>
-          </div>
-        </div>
-
-        {/* Watch Button */}
-        <div className="mt-6 text-center">
-          <button className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white
-                           px-8 py-3 rounded-full font-bold text-lg shadow-xl
-                           transform transition-all duration-300 hover:scale-105 hover:shadow-2xl
-                           active:scale-95 group-hover:animate-pulse">
-            <span className="flex items-center justify-center gap-2">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-              Watch Now
-            </span>
-          </button>
-        </div>
-      </div>
-
-      {/* Hover Glow Effect */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-yellow-400/20 to-orange-500/20 
-                      opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
-    </div>
-  );
-
-  const VideoModal = () => {
-    if (!selectedVideo) return null;
-
-    return (
-      <div 
-        className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4
-                   animate-fade-in"
-        onClick={closeModal}
-      >
-        <div className="relative bg-white rounded-2xl overflow-hidden max-w-6xl w-full max-h-[90vh] 
-                        shadow-2xl transform animate-scale-in">
-          <button 
-            onClick={closeModal}
-            className="absolute top-4 right-4 z-10 bg-red-500 hover:bg-red-600 text-white 
-                       w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold
-                       transition-all duration-200 hover:scale-110 shadow-lg"
-          >
-            ×
-          </button>
-          <iframe
-            src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1`}
-            className="w-full aspect-video"
-            frameBorder="0"
-            allowFullScreen
-            title="Video Player"
-          />
-        </div>
-      </div>
-    );
-  };
+  const openModal = (videoId) => setSelectedVideo(videoId);
+  const closeModal = () => setSelectedVideo(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-100 via-orange-100 to-yellow-200 relative overflow-hidden">
+    <section className="relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20 md:py-24 overflow-hidden min-h-screen">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23f1f5f9\' fill-opacity=\'0.4\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'1\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
+
       {/* Floating Background Elements */}
-      <FloatingElements />
-      
-      {/* Animated Background Shapes */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-yellow-300/30 to-orange-400/30 
-                        rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-orange-300/30 to-red-400/30 
-                        rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 
-                        bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-full blur-3xl animate-pulse" 
-                        style={{ animationDelay: '4s' }}></div>
-      </div>
+      <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style={{ animationDelay: '4s' }}></div>
 
-      <div className="relative z-10 container mx-auto px-4 py-12">
-        {/* Header Section */}
-        <div className={`text-center mb-16 transform transition-all duration-1000 ${
-          isVisible ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'
-        }`}>
-          <h1 className="text-6xl md:text-7xl font-black mb-6 bg-gradient-to-r from-orange-600 via-red-500 to-pink-600 
-                         bg-clip-text text-transparent animate-pulse">
-            Financially Speaking
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed font-medium">
-            Discover expert insights on finance, investments, and wealth building from industry leaders
-          </p>
-          <div className="mt-8 w-32 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 mx-auto rounded-full"></div>
-        </div>
-
-        {/* Episodes Section */}
-        <div className={`mb-12 transform transition-all duration-1000 delay-300 ${
-          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-        }`}>
-          <h2 className="text-4xl font-bold text-center text-gray-800 mb-4">
-            Financially Speaking Episodes
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div 
+            className={`inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6 transition-all duration-800 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+            }`}
+          >
+            <Users className="w-5 h-5 text-yellow-600" />
+            <span className="text-sm font-semibold text-yellow-700">Financial Education</span>
+          </div>
+          
+          <h2 
+            className={`text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-1000 delay-200 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <span className="text-slate-800">Financially Speaking</span>
+            <br />
+            <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
+              Episodes
+            </span>
           </h2>
-          <p className="text-center text-gray-600 text-lg mb-12">
-            Watch exclusive interviews and insights from financial experts
+          
+          <p 
+            className={`text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 delay-400 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            Dive into insightful conversations with industry leaders and experts. 
+            <span className="font-semibold text-slate-700"> Click on a speaker to watch their episode!</span>
           </p>
         </div>
 
-        {/* Speaker Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {speakers.map((speaker, index) => (
-            <SpeakerCard key={speaker.id} speaker={speaker} index={index} />
+            <div
+              key={speaker.id}
+              className={`group cursor-pointer transition-all duration-700 perspective-1000 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+              }`}
+              style={{ transitionDelay: `${800 + index * 100}ms` }}
+              onClick={() => openModal(speaker.videoId)}
+            >
+              <div
+                className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-white/50 transition-all duration-500 group-hover:shadow-2xl group-hover:bg-white/90 group-hover:-translate-y-2 group-hover:scale-[1.04] group-hover:border-yellow-400 group-hover:shadow-yellow-200 animate-card-float"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                {/* Image Container */}
+                <div className="relative overflow-hidden group-hover:animate-tilt-glow">
+                  <div className="aspect-[4/3] bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center relative">
+                    <img 
+                      src={getYoutubeThumbnail(speaker.videoId)}
+                      alt={speaker.name}
+                      className="w-full h-full object-cover absolute inset-0 transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
+                        <PlayCircle className="w-8 h-8 text-white" />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4 z-20">
+                    <span className="bg-yellow-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full transform group-hover:scale-110 transition-transform duration-300">
+                      {speaker.category}
+                    </span>
+                  </div>
+
+                  {/* Duration Badge */}
+                  <div className="absolute top-4 right-4 z-20">
+                    <span className="bg-slate-900/70 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
+                      {speaker.duration}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card Footer */}
+                <div className="p-6 bg-white">
+                  <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-yellow-600 transition-colors duration-300">
+                    {speaker.name}
+                  </h3>
+                  <p className="text-slate-600 text-sm mb-2">
+                    {speaker.title}
+                  </p>
+                  <p className="text-slate-700 text-sm font-semibold mb-4">
+                    {speaker.topic}
+                  </p>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-xs text-slate-500">
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                      Watch episode
+                    </div>
+                    <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:rotate-12">
+                      <ChevronRight className="w-4 h-4 text-white" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Explore More Button */}
-        <div className={`text-center transform transition-all duration-1000 delay-1000 ${
-          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-        }`}>
-          <button className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white
-                           px-12 py-4 rounded-full font-bold text-xl shadow-2xl
-                           transform transition-all duration-300 hover:scale-105 hover:shadow-3xl
-                           active:scale-95 animate-bounce hover:animate-none">
-            <span className="flex items-center justify-center gap-3">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
+        {/* CTA Section */}
+        <div 
+          className={`text-center mt-16 transition-all duration-1000 delay-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <p className="text-lg text-slate-600 mb-6">
+            Want to explore more financial insights and expert talks?
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => navigate('/all-videos')}
+              className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 inline-flex items-center justify-center gap-2"
+            >
+              <TrendingUp className="w-5 h-5" />
               Explore More Episodes
-            </span>
-          </button>
+              <div className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300">
+                →
+              </div>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Video Modal */}
-      <VideoModal />
+      {/* Modal */}
+      <AnimatePresence>
+        {selectedVideo && (
+          <motion.div
+            className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeModal}
+          >
+            {/* Animated floating shapes in modal background */}
+            <div className="absolute top-10 left-10 w-40 h-40 bg-gradient-to-br from-yellow-400 to-pink-400 rounded-full opacity-30 blur-2xl animate-float1 pointer-events-none" />
+            <div className="absolute bottom-10 right-10 w-56 h-56 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full opacity-30 blur-2xl animate-float2 pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-pink-400 to-yellow-400 rounded-full opacity-20 blur-2xl animate-float3 pointer-events-none" style={{ transform: 'translate(-50%, -50%)' }} />
+            
+            <motion.div
+              className="bg-slate-900 text-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl relative"
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              onClick={e => e.stopPropagation()}
+            >
+              <button
+                className="absolute top-4 right-4 p-2 hover:bg-slate-800 rounded-full transition-colors duration-200 ripple z-10"
+                onClick={closeModal}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <iframe
+                className="w-full aspect-video"
+                src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1`}
+                frameBorder="0"
+                allowFullScreen
+                title="Video Modal"
+              ></iframe>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
+      {/* Custom Styles */}
       <style jsx>{`
-        @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
+        .animate-card-float {
+          animation: cardFloat 3s ease-in-out infinite alternate;
         }
-        
-        @keyframes scale-in {
-          from { 
-            opacity: 0; 
-            transform: scale(0.9) translateY(20px); 
-          }
-          to { 
-            opacity: 1; 
-            transform: scale(1) translateY(0); 
-          }
+        @keyframes cardFloat {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-8px); }
         }
-        
-        .animate-fade-in {
-          animation: fade-in 0.3s ease-out;
+        .group:hover .group-hover\\:animate-tilt-glow {
+          animation: tiltGlow 0.7s cubic-bezier(.25,.46,.45,.94) both;
+          box-shadow: 0 0 32px 8px #fde04799;
+          border-color: #fde047;
         }
-        
-        .animate-scale-in {
-          animation: scale-in 0.4s ease-out;
+        @keyframes tiltGlow {
+          0% { transform: rotateY(0deg) scale(1); }
+          60% { transform: rotateY(8deg) scale(1.05); }
+          100% { transform: rotateY(0deg) scale(1.04); }
         }
-        
-        .shadow-3xl {
-          box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
+        .animate-float1 { animation: float1 7s ease-in-out infinite alternate; }
+        .animate-float2 { animation: float2 9s ease-in-out infinite alternate; }
+        .animate-float3 { animation: float3 11s ease-in-out infinite alternate; }
+        @keyframes float1 { 0% { transform: translateY(0); } 100% { transform: translateY(-20px) scale(1.1); } }
+        @keyframes float2 { 0% { transform: translateY(0); } 100% { transform: translateY(24px) scale(1.08); } }
+        @keyframes float3 { 0% { transform: translateY(0); } 100% { transform: translateY(-16px) scale(1.12); } }
+        .ripple { position: relative; overflow: hidden; }
+        .ripple:after {
+          content: "";
+          display: block;
+          position: absolute;
+          border-radius: 50%;
+          width: 100%; height: 100%;
+          top: 0; left: 0;
+          pointer-events: none;
+          background: rgba(255,255,255,0.3);
+          opacity: 0;
+          transform: scale(0.8);
+          transition: opacity 0.4s, transform 0.4s;
+        }
+        .ripple:active:after {
+          opacity: 1;
+          transform: scale(1.2);
+          transition: 0s;
         }
       `}</style>
-    </div>
+    </section>
   );
 };
 

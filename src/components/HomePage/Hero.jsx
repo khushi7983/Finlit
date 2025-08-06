@@ -568,7 +568,7 @@ const Hero = () => {
       <Offerings />
       <TestimonialsSection />
       <FAQ />
-      <PremiumMutualFundSection/>
+      {/* <PremiumMutualFundSection/> */}
     </>
   );
 };
