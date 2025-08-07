@@ -50,7 +50,9 @@ const Faq = () => {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8 }}
     >
-      <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-12 text-center">
+
+      
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-white  text-center leading-tight">
         Frequently Asked Questions
       </h2>
 

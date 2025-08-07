@@ -174,7 +174,7 @@ const TestimonialsSection = () => {
     >
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-4">
+          <h2 className=" text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-slate-800 leading-tight">
             What People Say
           </h2>
           <div className="inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-4 py-2">
