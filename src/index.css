@@ -1,15 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
 /* Custom styles for the application */
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
   background: #101828;
 }
-
 
 /* Ensure Tailwind's container is centered */
 .container {
