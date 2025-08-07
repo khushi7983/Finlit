@@ -10,6 +10,7 @@ import {
   ChevronRight,
   Star,
   Award,
+  DollarSign,
 } from "lucide-react";
 import Supporters from "./Supporters";
 import Offerings from "./Offerings";
@@ -391,14 +392,8 @@ const Hero = () => {
         `}</style>
       </section>
 
-      {/* Our Aspirations Section - Enhanced */}
-      <motion.section
-        className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-24 px-6 md:px-12 overflow-hidden"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={containerVariant}
-      >
+     {/* Our Aspirations Section */}
+       <motion.section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-24 px-6 md:px-12 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
           <div
@@ -411,56 +406,112 @@ const Hero = () => {
 
         <div className="max-w-6xl mx-auto relative z-10">
           {/* Section Header */}
-          <motion.div className="text-center mb-16" variants={itemVariant}>
+          <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
               <Target className="w-4 h-4 text-yellow-400" />
               <span className="text-sm font-medium text-yellow-400">Our Vision</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white">Our Aspirations</h2>
-          </motion.div>
+          </div>
 
-          {/* Enhanced Content Grid */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div className="space-y-6" variants={itemVariant}>
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-                <h3 className="text-2xl font-bold text-white mb-4">Our Objective</h3>
-                <p className="text-lg leading-relaxed text-slate-300">
-                  We believe that financial literacy is the skill of managing your finances. It starts with practicing financial attitude and financial behavior leading to financial capability. With the{" "}
-                  <span className="text-yellow-400 font-semibold">"Fin Lit Project"</span>{" "}
-                  we want to make finance and fintech simple and accessible to everyone.
-                </p>
+          {/* Horizontally Aligned Cards */}
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Objective Card */}
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+              <div className="flex items-center gap-3 mb-4">
+                <BookOpen className="w-5 h-5 text-yellow-400" />
+                <h3 className="text-2xl font-bold text-white">Our Objective</h3>
               </div>
+              <p className="text-lg leading-relaxed text-slate-300">
+                We believe that financial literacy is the skill of managing your finances. It starts with practicing financial attitude and financial behavior leading to financial capability. With the{" "}
+                <span className="text-yellow-400 font-semibold">"Fin Lit Project"</span>{" "}
+                we want to make finance and fintech simple and accessible to everyone.
+              </p>
+            </div>
 
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-                <h3 className="text-2xl font-bold text-white mb-4">Our Goal</h3>
-                <p className="text-lg leading-relaxed text-slate-300">
-                  We aim to take financial literacy to a minimum forty percent by the end of the next five years. To achieve this we have devised Fin Lit Learn (Gamified microcourse self-paced learning) and Fin Lit Invest (Tech-powered investing in the Indian Financial markets, start with Mutual funds today).
-                </p>
+            {/* Goal Card */}
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+              <div className="flex items-center gap-3 mb-4">
+                <TrendingUp className="w-5 h-5 text-blue-400" />
+                <h3 className="text-2xl font-bold text-white">Our Goal</h3>
               </div>
-            </motion.div>
-
-            {/* Stats Card */}
-            <motion.div
-              className="bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 backdrop-blur-sm rounded-3xl p-8 border border-yellow-500/20"
-              variants={itemVariant}
-            >
-              <div className="text-center">
-                <h3 className="text-2xl font-bold text-white mb-4">The Challenge</h3>
-                <div className="text-6xl font-black text-yellow-400 mb-2">75%</div>
-                <div className="text-xl text-white mb-4">of adults are financially illiterate</div>
-                <div className="text-slate-300 text-lg">According to S&P Global Study</div>
-              </div>
-              <div className="mt-8 grid grid-cols-2 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-white">40%</div>
-                  <div className="text-sm text-slate-400">Target by 2029</div>
+              <p className="text-lg leading-relaxed text-slate-300 mb-6">
+                We aim to take financial literacy to a minimum forty percent by the end of the next five years. To achieve this we have devised:
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                  <span className="text-slate-300">
+                    <span className="text-yellow-400 font-semibold">Fin Lit Learn</span> - Gamified microcourse self-paced learning
+                  </span>
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-white">5 Years</div>
-                  <div className="text-sm text-slate-400">Timeline</div>
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                  <span className="text-slate-300">
+                    <span className="text-yellow-400 font-semibold">Fin Lit Invest</span> - Tech-powered investing in Indian Financial markets
+                  </span>
                 </div>
               </div>
-            </motion.div>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* The Challenge Section */}
+      <motion.section className="relative bg-gradient-to-br from-slate-800 via-slate-900 to-black py-24 px-6 md:px-12 overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div
+            className="absolute inset-0 bg-repeat"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='2' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E")`,
+            }}
+          ></div>
+        </div>
+
+        <div className="max-w-5xl mx-auto relative z-10">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-red-500/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+              <Users className="w-4 h-4 text-red-400" />
+              <span className="text-sm font-medium text-red-400">Global Issue</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white">The Challenge</h2>
+          </div>
+
+          {/* Challenge Content */}
+          <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/10">
+            {/* Main Stat */}
+            <div className="text-center mb-12">
+              <div className="text-6xl md:text-7xl font-black text-red-400 mb-2">75%</div>
+              <div className="text-xl md:text-2xl text-white font-bold mb-2">
+                of adults are financially illiterate
+              </div>
+              <div className="text-lg text-slate-400">
+                According to S&P Global Study
+              </div>
+            </div>
+
+            {/* Stats Grid */}
+            <div className="grid sm:grid-cols-3 gap-6">
+              <div className="text-center p-6 bg-white/5 rounded-xl border border-white/10">
+                <div className="text-3xl font-bold text-yellow-400 mb-2">40%</div>
+                <div className="text-white font-semibold mb-1">Target by 2029</div>
+                <div className="text-sm text-slate-400">Our ambitious goal</div>
+              </div>
+              
+              <div className="text-center p-6 bg-white/5 rounded-xl border border-white/10">
+                <div className="text-3xl font-bold text-blue-400 mb-2">5</div>
+                <div className="text-white font-semibold mb-1">Years Timeline</div>
+                <div className="text-sm text-slate-400">To achieve our goal</div>
+              </div>
+              
+              <div className="text-center p-6 bg-white/5 rounded-xl border border-white/10">
+                <div className="text-3xl font-bold text-green-400 mb-2">2029</div>
+                <div className="text-white font-semibold mb-1">Target Year</div>
+                <div className="text-sm text-slate-400">Mission deadline</div>
+              </div>
+            </div>
           </div>
         </div>
       </motion.section>
