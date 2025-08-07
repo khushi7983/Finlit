@@ -308,9 +308,9 @@ const Hero = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
             >
-              <div className="relative max-w-[320px] w-full bg-transparent">
+              <div className="relative w-full bg-transparent">
                 {/* Only the video, no border, no shadow, no rounded corners */}
-                <div className="relative z-10 overflow-hidden">
+                <div className="relative z-10 overflow-hidden bg-transparent">
                   <video
                     src={phone} // Make sure this path is correct and the file exists
                     autoPlay
