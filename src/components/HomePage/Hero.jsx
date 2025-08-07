@@ -435,7 +435,7 @@ const Hero = () => {
                 <TrendingUp className="w-5 h-5 text-blue-400" />
                 <h3 className="text-2xl font-bold text-white">Our Goal</h3>
               </div>
-              <p className="text-lg leading-relaxed text-slate-300 mb-6">
+              <p className="text-lg leading-relaxed text-slate-300 mb-4">
                 We aim to take financial literacy to a minimum forty percent by the end of the next five years. To achieve this we have devised:
               </p>
               <div className="space-y-3">
@@ -524,32 +524,35 @@ const Hero = () => {
         viewport={{ once: true, amount: 0.2 }}
         variants={containerVariant}
       >
-        <div className="container mx-auto">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              {/* Left: Enhanced Content */}
-              <motion.div className="space-y-8" variants={itemVariant}>
-                <div>
-                  <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-slate-800">
-                    What is Financial Literacy?
-                  </h2>
+    <div className="container mx-auto px-4">
+  <div className="max-w-6xl mx-auto">
+    <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Left: Enhanced Content */}
+      <motion.div className="space-y-8" variants={itemVariant}>
+        <div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-slate-800 leading-tight">
+            What is Financial Literacy?
+          </h2>
+
                 </div>
 
-                <div className="prose prose-lg text-slate-600 max-w-none">
-                  <p className="text-xl leading-relaxed mb-6">
-                    Fin Lit Learn - Bite-sized, India-focused financial education.
-                    <br />
-                    Forget jargon. Our learning modules are crafted for real people with real goals – in their own language, on their own terms. <br />
-                    1. Gamified & story-based modules <br />
-                    2. Verified by experts, designed for impact
-                  </p>
-                  <p className="text-lg leading-relaxed text-slate-600">
-                    ✨ Sample Learning Journeys <br />
-                    Digital Gold Demystified: Is digital gold safe? Can I gift it? How is it different from a gold loan or jewellery?
-                    <br />
-                    <b>Mutual funds:</b> What’s Right for Me? Lumpsum or SIP? Debt or hybrid? Is ELSS worth it? Valuation = value + vision. But how do I calculate it?
-                  </p>
-                </div>
+<div className="text-sm sm:text-base md:text-base text-slate-700 max-w-3xl mx-auto leading-relaxed px-4">
+  <p className="mb-4">
+    <strong>Fin Lit Learn</strong> is your go-to platform for bite-sized, India-focused financial education.
+    Forget the jargon – our learning modules are crafted for real people with real goals, in their own language and on their own terms.
+    We offer gamified and story-based modules that are verified by experts and designed for real impact.
+  </p>
+  <p>
+    <strong>Sample Learning Journeys:</strong><br /><br />
+    <strong>Digital Gold Demystified:</strong> Is digital gold safe? Can I gift it? How is it different from a gold loan or jewellery?
+    <br /><br />
+    <strong>Mutual Funds – What’s Right for Me?</strong> Should I choose lumpsum or SIP? Debt or hybrid? Is ELSS worth it?
+    Valuation = value + vision – but how do I calculate it?
+  </p>
+</div>
+
+
+
 
                 {/* Feature List */}
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -571,23 +574,24 @@ const Hero = () => {
                   </div>
                 </div>
 
-<div className="flex flex-row gap-4">
+<div className="flex flex-row gap-3 flex-wrap">
   <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.app" target="_blank" rel="noopener noreferrer">
-    <button className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
-      <BookOpen className="w-5 h-5" />
+    <button className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-5 py-2.5 rounded-xl font-medium text-base shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-1.5">
+      <BookOpen className="w-4 h-4" />
       Play Store
-      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+      <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
     </button>
   </a>
 
   <a href="https://apps.apple.com/us/app/the-fin-lit-project/id1576101765#?platform=iphone" target="_blank" rel="noopener noreferrer">
-    <button className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
-      <BookOpen className="w-5 h-5" />
+    <button className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-5 py-2.5 rounded-xl font-medium text-base shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-1.5">
+      <BookOpen className="w-4 h-4" />
       App Store
-      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+      <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
     </button>
   </a>
 </div>
+
             </motion.div>
 
               {/* Right: Enhanced Visual */}
