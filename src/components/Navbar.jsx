@@ -28,13 +28,13 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 shadow-lg px-4 sm:px-8 transition-all duration-300 z-50 ${
-        isSticky ? 'py-1' : 'py-2'
+        isSticky ? 'py-1' : 'py-1'
       }`}
     >
       <div className="container mx-auto flex justify-between items-center w-full max-w-[90vw]">
         {/* Left: Logo */}
         <Link to="/" onClick={() => setMenuOpen(false)}>
-          <img src={logo} alt="FinLit Logo" className="h-16 sm:h-20 w-auto ml-2 sm:ml-4" />
+          <img src={logo} alt="FinLit Logo" className="h-14 sm:h-14 w-auto ml-2 sm:ml-4" />
         </Link>
 
         {/* Mobile Hamburger */}
