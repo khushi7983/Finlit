@@ -107,7 +107,7 @@ const Footer = () => {
                 <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center">
                   <TrendingUp className="w-6 h-6 text-slate-900" />
                 </div>
-                <h3 className="text-2xl font-bold">Fin Lit Project</h3>
+                <h3 className="text-2xl font-bold">The Fin Lit Project</h3>
               </div>
               <p className="text-slate-300 text-lg leading-relaxed mb-6">
                 Making financial literacy accessible to everyone. Join thousands
