@@ -4,7 +4,7 @@ import { ChevronRight } from "lucide-react";
 
 const offerings = [
   {
-    title: "Sustainable Investing (ESG Funding)",
+    title: "Sustainable Investing (ESG Investing)",
     description: "Invest in portfolios that support ESG goals—grow your wealth while making a positive impact.",
     link: "https://api.whatsapp.com/message/6EUW7ZLTHSGCB1?autoload=1&app_absent=0",
     cta: "Start Your Impact",
