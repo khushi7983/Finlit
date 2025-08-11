@@ -8,12 +8,12 @@ import iimb from "../../assets/partners/iimb.jpg";
 import science from "../../assets/partners/science.jpg";
 
 const logos = [
-  { src: brtsif, url: "https://brtsif.com" },
-  { src: upstartup, url: "https://startinup.up.gov.in" },
-  { src: zone, url: "https://zone.com" },
-  { src: iitd, url: "https://iitd.ac.in" },
-  { src: iimb, url: "https://iimb.ac.in" },
-  { src: science, url: "https://science.org" },
+  { src: brtsif, url: "https://brtsif.com", alt: "BRTSIF" },
+  { src: upstartup, url: "https://startinup.up.gov.in", alt: "UP Startup" },
+  { src: zone, url: "https://zone.com", alt: "ZONE" },
+  { src: iitd, url: "https://iitd.ac.in", alt: "IIT Delhi" },
+  { src: iimb, url: "https://iimb.ac.in", alt: "IIM Bangalore" },
+  { src: science, url: "https://science.org", alt: "Science Organization" },
 ];
 
 const containerVariant = {
@@ -36,24 +36,29 @@ const itemVariant = {
 const Supporters = () => {
   const scrollRef = useRef(null);
   const [centerIndex, setCenterIndex] = useState(1);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCenterIndex((prevIndex) =>
-        prevIndex + 1 >= logos.length - 1 ? 1 : prevIndex + 1
-      );
+    if (isHovered) return;
 
-      if (scrollRef.current) {
-        const logoWidth = 240; // Increased to account for larger logos
-        scrollRef.current.scrollTo({
-          left: (centerIndex - 1) * logoWidth,
-          behavior: "smooth",
-        });
-      }
+    const interval = setInterval(() => {
+      setCenterIndex((prevIndex) => {
+        const nextIndex = prevIndex + 1 >= logos.length - 1 ? 1 : prevIndex + 1;
+
+        if (scrollRef.current) {
+          const logoWidth = 240;
+          scrollRef.current.scrollTo({
+            left: (nextIndex - 1) * logoWidth,
+            behavior: "smooth",
+          });
+        }
+
+        return nextIndex;
+      });
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [centerIndex]);
+  }, [isHovered]);
 
   return (
     <motion.section
@@ -64,6 +69,7 @@ const Supporters = () => {
       variants={containerVariant}
     >
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23f1f5f9\' fill-opacity=\'0.4\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'1\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
+      
       <div className="container mx-auto">
         <div className="max-w-6xl mx-auto">
           <motion.div className="text-center mb-12" variants={itemVariant}>
@@ -73,18 +79,24 @@ const Supporters = () => {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-800">
               Our Supporters
             </h2>
+            <p className="mt-4 text-gray-500 text-base sm:text-lg max-w-2xl mx-auto">
+              We proudly collaborate with industry-leading incubators and institutions to support innovation and entrepreneurship.
+            </p>
           </motion.div>
+
           <motion.div
             ref={scrollRef}
             className="flex overflow-hidden space-x-12 justify-center"
             variants={containerVariant}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
             {logos.map((logo, index) => (
               <motion.a
                 key={index}
                 href={logo.url}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 className={`flex-shrink-0 transition-all duration-300 ${
                   index === centerIndex ? "scale-110" : "scale-90 opacity-70"
                 } hover:scale-110 hover:opacity-100`}
@@ -93,9 +105,10 @@ const Supporters = () => {
                 whileTap={{ scale: 1.05 }}
               >
                 <img
+                  loading="lazy"
                   src={logo.src}
-                  alt={`logo-${index}`}
-                  className="h-28 w-auto mx-4 rounded-lg shadow-md"
+                  alt={logo.alt}
+                  className="h-32 sm:h-24 md:h-28 w-auto mx-4 rounded-lg shadow-md"
                 />
               </motion.a>
             ))}
