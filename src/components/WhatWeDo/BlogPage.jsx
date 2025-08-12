@@ -1,11 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
-
-// Supabase setup
-const supabaseUrl = 'https://beqgompakieeifoguaeg.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJlcWdvbXBha2llZWlmb2d1YWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2MzQzOTIsImV4cCI6MjA3MDIxMDM5Mn0.McU3MKaFsdPhCnZDDCCPx-b1P005nULv0BtL-oYDVVk';
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+import React, { useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 
 const BlogPage = () => {
   const { id } = useParams();
@@ -14,23 +8,13 @@ const BlogPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchBlog = async () => {
-      const { data, error } = await supabase
-        .from('blogs')
-        .select('*')
-        .eq('id', parseInt(id))
-        .single();
-
-      if (error) {
-        console.error('Error fetching blog:', error);
-        setBlog(null);
-      } else {
-        setBlog(data);
-      }
-      setLoading(false);
-    };
-
-    fetchBlog();
+    // Get blog data from localStorage
+    const blogData = localStorage.getItem('selectedBlog');
+    if (blogData) {
+      const parsedBlog = JSON.parse(blogData);
+      setBlog(parsedBlog);
+    }
+    setLoading(false);
   }, [id]);
 
   const goBack = () => {
@@ -87,13 +71,11 @@ const BlogPage = () => {
         {/* Blog Header */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <div className="flex items-center mb-6">
-            {blog.image && (
-              <img
-                src={blog.image}
-                alt="Author"
-                className="w-16 h-16 rounded-full mr-4"
-              />
-            )}
+            <img 
+              src={blog.image} 
+              alt="Author" 
+              className="w-16 h-16 rounded-full mr-4"
+            />
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">{blog.title}</h1>
               <div className="flex items-center text-gray-600">
@@ -107,7 +89,7 @@ const BlogPage = () => {
               </div>
             </div>
           </div>
-
+          
           <p className="text-lg text-gray-700 leading-relaxed mb-6">
             {blog.shortDescription}
           </p>
@@ -116,7 +98,7 @@ const BlogPage = () => {
         {/* Blog Body */}
         <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="prose prose-lg max-w-none">
-            {blog.content?.split('\n\n').map((paragraph, index) => (
+            {blog.content.split('\n\n').map((paragraph, index) => (
               <p key={index} className="mb-6 text-gray-700 leading-relaxed text-lg">
                 {paragraph}
               </p>
@@ -128,13 +110,11 @@ const BlogPage = () => {
         <div className="bg-white rounded-lg shadow-lg p-8 mt-8">
           <h3 className="text-xl font-semibold text-gray-900 mb-4">About the Author</h3>
           <div className="flex items-center">
-            {blog.image && (
-              <img
-                src={blog.image}
-                alt="Author"
-                className="w-12 h-12 rounded-full mr-4"
-              />
-            )}
+            <img 
+              src={blog.image} 
+              alt="Author" 
+              className="w-12 h-12 rounded-full mr-4"
+            />
             <div>
               <div className="font-semibold text-gray-900">{blog.author}</div>
               <div className="text-gray-600">{blog.role}</div>
@@ -158,7 +138,7 @@ const BlogPage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BlogPage;
+export default BlogPage 
