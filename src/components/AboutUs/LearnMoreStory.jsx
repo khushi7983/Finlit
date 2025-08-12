@@ -395,38 +395,7 @@ const LearnMoreStory = () => {
         </div>
       </section>
 
-      {/* Enhanced Call to Action */}
-      {/* <section className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20">
-        <div className="max-w-4xl mx-auto px-6 md:px-8">
-          <div className="text-center py-16 px-8 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-3xl text-white relative overflow-hidden shadow-2xl">
-            
-            {/* Animated Background */}
-            {/* <div className="absolute inset-0">
-              <div className="absolute top-10 left-10 w-20 h-20 bg-yellow-400/20 rounded-full animate-float"></div>
-              <div className="absolute bottom-10 right-10 w-16 h-16 bg-blue-400/20 rounded-full animate-float-delayed"></div>
-              <div className="absolute top-1/2 left-1/2 w-32 h-32 bg-gradient-to-r from-yellow-400/10 to-blue-400/10 rounded-full animate-pulse transform -translate-x-1/2 -translate-y-1/2"></div>
-            </div> */}
 
-            {/* <div className="relative z-10">
-              <h2 className="text-4xl md:text-6xl font-bold mb-8 animate-fade-in-up">
-                Ready to Transform Your <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent animate-pulse">Financial Future?</span>
-              </h2>
-              <p className="text-xl mb-12 text-gray-300 max-w-2xl mx-auto leading-relaxed animate-fade-in-up-delayed">
-                Join thousands who have started their financial literacy journey with us.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <button className="group bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:from-yellow-500 hover:via-yellow-600 hover:to-yellow-700 text-black font-bold px-10 py-5 rounded-2xl transition-all duration-500 transform hover:scale-110 hover:-rotate-2 shadow-xl hover:shadow-2xl">
-                  <span className="group-hover:animate-bounce">Get In Touch</span>
-                </button>
-                <button className="group bg-transparent border-3 border-yellow-400 text-yellow-400 hover:bg-gradient-to-r hover:from-yellow-400 hover:via-yellow-500 hover:to-yellow-600 hover:text-black font-bold px-10 py-5 rounded-2xl transition-all duration-500 transform hover:scale-110 hover:rotate-2 shadow-xl hover:shadow-2xl">
-                  <span className="group-hover:animate-pulse">Download Our App</span>
-                </button>
-              </div>
-            </div> 
-          </div>
-        </div>
-      </section> */}
 
       {/* Enhanced CSS Animations */}
       <style jsx>{`
