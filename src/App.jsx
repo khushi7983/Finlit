@@ -20,6 +20,7 @@ import SidebarLayout from "./components/WhatWeDo/Sidebar";
 import MicroCourses from "./components/WhatWeDo/MicroCourses";
 import AllCourses from "./components/WhatWeDo/AllCourses";
 import Speaking from "./components/WhatWeDo/Speaking";
+import AllVideos from "./components/WhatWeDo/AllVideos";
 import Blogs from "./components/WhatWeDo/Blogs";
 import BlogPage from "./components/WhatWeDo/BlogPage";
 import Terms from "./components/WhatWeDo/Terms";
@@ -30,7 +31,6 @@ import Interview from "./components/AboutUs/media/Interview";
 import Lecture from "./components/AboutUs/media/Lecture";
 import Podcast from "./components/AboutUs/media/Podcast";
 import Awards from "./components/HomePage/Awards.jsx";
-
 
 
 
@@ -50,24 +50,18 @@ function AppWrapper() {
         {/* Main pages */}
         <Route path="/" element={<Hero />} />
         <Route path="/about-us" element={<OurStory />} />
-         <Route path="/interview" element={<Interview />} />
+        <Route path="/all-videos" element={<AllVideos />} />
+        <Route path="/interview" element={<Interview />} />
         <Route path="/podcast" element={<Podcast />} />
         <Route path="/lecture" element={<Lecture />} />
         <Route path="/conference" element={<Conference />} />
         <Route path="/awards" element={<Awards />} />
-        
-        
-        
         <Route path="/about-finlit-story" element={<LearnMoreStory />} />
-       
 
         {/* Login/Signup */}
         <Route path="/login-signup" element={<AuthForm />} />
 
-        {/* Blog pages */}
-        <Route path="/blog/:id" element={<BlogPage />} />
-
-        {/* Blog pages */}
+        {/* Blog detail page */}
         <Route path="/blog/:id" element={<BlogPage />} />
 
         {/* Sidebar layout with nested routes */}
