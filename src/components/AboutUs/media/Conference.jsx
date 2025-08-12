@@ -1,233 +1,285 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import { Play } from "lucide-react";
 
 const Conference = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const [particles, setParticles] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const generateParticles = () => {
+      const newParticles = [];
+      for (let i = 0; i < 15; i++) {
+        newParticles.push({
+          id: i,
+          x: Math.random() * 100,
+          y: Math.random() * 100,
+          size: Math.random() * 3 + 1,
+          delay: Math.random() * 10,
+          duration: Math.random() * 15 + 10,
+        });
+      }
+      setParticles(newParticles);
+    };
+    generateParticles();
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 100,
+        y: (e.clientY / window.innerHeight) * 100,
+      });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 200);
+    return () => clearTimeout(timer);
+  }, []);
+
   const conferences = [
     {
       id: 1,
       title: "Financial Planning & Literacy Skills for Women",
-      speaker: "Neha Misra",
-      role: "CEO & Co-Founder, The Fin Lit Project",
-      date: "April 15, 2023",
-      description: "Decoding the myths and mysteries of money management for women. This online event featured comprehensive financial planning strategies and literacy skills specifically designed for women.",
       youtubeUrl: "https://youtu.be/Di3nso7qr0I",
       embedId: "Di3nso7qr0I",
-      category: "Financial Literacy",
-      eventType: "Online Event",
-      gradient: "from-gray-200 to-blue-100",
-      icon: "👩‍💼"
+      gradient: "from-gray-900 via-blue-500 to-gray-600",
+      bgHover: "bg-white/95",
+      delay: "0s",
     },
     {
       id: 2,
       title: "Decentralised Identity - The Next Gen Revolution",
-      speaker: "Neha Misra",
-      role: "CEO & Co-Founder, The Fin Lit Project",
-      date: "October 8, 2020",
-      description: "A conclave of Industry Thought Leaders discussing the future of decentralized identity in fintech. This conference explored the revolutionary impact of blockchain technology on identity management.",
       youtubeUrl: "https://youtu.be/C5EJ0Tv9xLQ",
       embedId: "C5EJ0Tv9xLQ",
-      category: "FinTech",
-      eventType: "Industry Conference",
-      gradient: "from-blue-200 to-blue-300",
-      icon: "🔗"
+      gradient: "from-gray-900 via-blue-500 to-gray-600",
+      bgHover: "bg-gray-50/95",
+      delay: "0.2s",
     },
     {
       id: 3,
       title: "ROPTalks - One-on-One Conversation with Neha Misra",
-      speaker: "Neha Misra",
-      role: "CEO, The Fin Lit Project",
-      date: "2023",
-      description: "An intimate conversation featuring Neha Misra discussing financial literacy, entrepreneurship, and the mission of The Fin Lit Project. Part of the ROPTalks pro bono initiative.",
       youtubeUrl: "https://youtu.be/GX3hmLayWAA",
       embedId: "GX3hmLayWAA",
-      category: "Leadership",
-      eventType: "Interview Series",
-      gradient: "from-gray-100 to-gray-300",
-      icon: "🎤"
+      gradient: "from-gray-900 via-blue-500 to-gray-600",
+      bgHover: "bg-indigo-50/95",
+      delay: "0.4s",
     },
     {
       id: 4,
       title: "Enabling Financial Literacy - Women Tech Global Conference",
-      speaker: "Neha Misra",
-      role: "CEO & Co-Founder, The Fin Lit Project",
-      date: "June 10, 2020",
-      description: "Featured presentation at the Women Tech Global Conference 2020. Neha Misra discusses the importance of enabling financial literacy and the role of technology in democratizing financial education.",
       youtubeUrl: "https://youtu.be/xD05rhcdSH8",
       embedId: "xD05rhcdSH8",
-      category: "Technology",
-      eventType: "Global Conference",
-      gradient: "from-blue-100 to-gray-200",
-      icon: "🌍"
-    }
+      gradient: "from-gray-900 via-blue-500 to-gray-600",
+      bgHover: "bg-white/95",
+      delay: "0.6s",
+    },
   ];
 
+  const handleWatchOnYouTube = (url) => {
+    window.open(url, "_blank");
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-gray-100 to-gray-200">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-gray-100 via-gray-200 to-blue-100 py-20">
-        <div className="absolute inset-0 bg-black opacity-10"></div>
-        <div className="absolute inset-0">
-          <div className="absolute top-10 right-10 w-32 h-32 bg-gray-300 opacity-20 rounded-full animate-pulse"></div>
-          <div className="absolute bottom-20 left-10 w-24 h-24 bg-blue-100 opacity-20 rounded-full animate-bounce"></div>
-        </div>
-        <div className="relative max-w-7xl mx-auto px-6 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 animate-fade-in">
-            Conference Talks & Events
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-            Watch Neha Misra and The Fin Lit Project team share insights on financial literacy, 
-            technology, and empowering communities through education.
-          </p>
-          <div className="mt-8 flex justify-center">
-            <div className="bg-white/20 backdrop-blur-sm rounded-full px-8 py-3 text-gray-900 font-medium">
-              🎥 4 Featured Videos • 🌟 Global Conferences • 💡 Expert Insights
-            </div>
-          </div>
-        </div>
+    <section className="relative bg-gradient-to-br from-slate-50 via-gray-100 to-indigo-100 py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden mt-14">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d animation-delay-2000"></div>
+        <div className="absolute top-40 left-40 w-80 h-80 bg-yellow-600/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d animation-delay-4000"></div>
       </div>
 
-      {/* Conference Grid */}
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {conferences.map((conference, index) => (
-            <div 
-              key={conference.id} 
-              className="group bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl animate-fade-in-up"
-              style={{ animationDelay: `${index * 200}ms` }}
+      {/* Interactive Mouse Cursor Effect */}
+      {/* <div
+        className="fixed w-6 h-6 bg-yellow-500/30 rounded-full pointer-events-none z-50 mix-blend-multiply transition-all duration-300 ease-out"
+        style={{
+          left: mousePosition.x - 12,
+          top: mousePosition.y - 12,
+          transform: hoveredCard !== null ? "scale(3)" : "scale(1)",
+        }}
+      /> */}
+
+      {/* Floating Particles */}
+      {particles.map((particle) => (
+        <div
+          key={particle.id}
+          className="fixed w-2 h-2 bg-yellow-500/40 rounded-full pointer-events-none animate-float-particle"
+          style={{
+            left: `${particle.x}%`,
+            top: `${particle.y}%`,
+            animationDelay: `${particle.id * 0.5}s`,
+            animationDuration: `${particle.duration}s`,
+          }}
+        />
+      ))}
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <div className={`transform transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
+                Conference Talks & Events
+              </span>
+            </h1>
+          </div>
+        </div>
+
+        {/* Stats Section */}
+
+        {/* Conference Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+          {conferences.map((conference) => (
+            <div
+              key={conference.id}
+              className={`group relative transform transition-all duration-700 hover:scale-105 ${
+                isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
+              }`}
+              style={{
+                transitionDelay: isVisible ? conference.delay : "0s",
+                animationDelay: conference.delay,
+              }}
+              onMouseEnter={() => setHoveredCard(conference.id)}
+              onMouseLeave={() => setHoveredCard(null)}
             >
-              {/* Video Section with Gradient Overlay */}
-              <div className="relative">
-                <div className={`absolute inset-0 bg-gradient-to-r ${conference.gradient} opacity-20 group-hover:opacity-30 transition-opacity duration-300`}></div>
-                <iframe
-                  className="w-full h-72 relative z-10"
-                  src={`https://www.youtube.com/embed/${conference.embedId}`}
-                  title={conference.title}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-                
-                {/* Floating Badge */}
-                <div className="absolute top-4 left-4 z-20">
-                  <span className="bg-white/90 backdrop-blur-sm text-gray-800 px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                    {conference.icon} {conference.eventType}
-                  </span>
-                </div>
-              </div>
-
-              {/* Content Section */}
-              <div className="p-8">
-                <div className="flex items-center justify-between mb-4">
-                  <span className={`bg-gradient-to-r ${conference.gradient} text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg`}>
-                    {conference.category}
-                  </span>
-                  <span className="text-sm text-gray-500 font-medium">
-                    📅 {conference.date}
-                  </span>
+              <div
+                className={`relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-500 ${conference.bgHover} overflow-hidden`}
+              >
+                {/* Animated Background Pattern */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,191,36,0.5),transparent_50%)] animate-pulse-slow"></div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
-                  {conference.title}
-                </h3>
+                {/* Gradient Border Animation */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-r ${conference.gradient} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm animate-rotate-border`}
+                ></div>
+                <div className="absolute inset-[2px] bg-white rounded-2xl -z-10"></div>
 
-                {/* Speaker Profile */}
-                <div className="flex items-center mb-6 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl">
-                  <div className={`w-12 h-12 bg-gradient-to-r ${conference.gradient} rounded-full flex items-center justify-center mr-4 shadow-lg`}>
-                    <span className="text-white font-bold text-lg">
-                      {conference.speaker.split(' ').map(name => name[0]).join('')}
+                {/* Video Section */}
+                <div className="relative">
+                  <iframe
+                    className="w-full h-64 relative z-10 rounded-t-2xl"
+                    src={`https://www.youtube.com/embed/${conference.embedId}`}
+                    title={conference.title}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <Play className="w-16 h-16 text-white" />
+                  </div>
+                  <div className="absolute top-4 right-4 z-20">
+                    <span className="bg-yellow-400 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
+                      YouTube
                     </span>
                   </div>
-                  <div>
-                    <div className="font-bold text-gray-900 text-lg">{conference.speaker}</div>
-                    <div className="text-gray-600">{conference.role}</div>
-                  </div>
                 </div>
 
-                <p className="text-gray-700 leading-relaxed mb-6 text-lg">
-                  {conference.description}
-                </p>
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 transition-colors group-hover:text-gray-700">
+                    {conference.title}
+                  </h3>
+                  <a
+                    href={conference.youtubeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center bg-gradient-to-r ${conference.gradient} text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-110`}
+                  >
+                    <Play className="w-4 h-4 mr-2" />
+                    Watch on YouTube
+                  </a>
+                </div>
 
-                <a
-                  href={conference.youtubeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center bg-blue-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transform hover:scale-105 transition-all duration-300 shadow-lg"
-                >
-                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" />
-                  </svg>
-                  Watch on YouTube
-                </a>
+                {/* Hover Effect Line */}
+                <div
+                  className={`absolute bottom-0 left-0 w-full h-1 bg-yellow-500 rounded-b-2xl transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left animate-wave`}
+                ></div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Stats Section */}
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white rounded-2xl p-8 shadow-xl text-center transform hover:scale-105 transition-all duration-300">
-            <div className="w-20 h-20 bg-gradient-to-r from-gray-200 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-3xl">🌍</span>
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Global Reach</h3>
-            <p className="text-gray-600 text-lg">Our team has spoken at conferences worldwide, sharing insights on financial literacy and technology.</p>
+        {/* Additional Info */}
+        <div
+          className={`mt-12 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-8 shadow-lg overflow-hidden transform transition-all duration-1000 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
+          }`}
+          style={{ transitionDelay: "1s" }}
+        >
+          <div className="relative z-10">
+            <h3 className="text-2xl font-bold text-yellow-400 mb-4">
+              About Our Conference Talks
+            </h3>
+            <p className="text-gray-200 leading-relaxed">
+              Our team speaks at global conferences to share insights on financial literacy, technology, and community empowerment.
+            </p>
           </div>
-          
-          <div className="bg-white rounded-2xl p-8 shadow-xl text-center transform hover:scale-105 transition-all duration-300">
-            <div className="w-20 h-20 bg-gradient-to-r from-blue-200 to-blue-300 rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-3xl">💡</span>
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Expert Insights</h3>
-            <p className="text-gray-600 text-lg">Learn from industry experts and thought leaders in fintech, financial literacy, and women empowerment.</p>
-          </div>
-          
-          <div className="bg-white rounded-2xl p-8 shadow-xl text-center transform hover:scale-105 transition-all duration-300">
-            <div className="w-20 h-20 bg-gradient-to-r from-gray-100 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-3xl">🤝</span>
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Community Impact</h3>
-            <p className="text-gray-600 text-lg">Discover how we're making financial education accessible to communities worldwide.</p>
-          </div>
-        </div>
-
-        {/* Call to Action */}
-        <div className="mt-20 text-center">
-          <div className="bg-gradient-to-r from-gray-100 via-gray-200 to-blue-100 rounded-3xl p-12 text-gray-900">
-            <h2 className="text-4xl font-bold mb-4">Ready to Learn More?</h2>
-            <p className="text-xl mb-8 opacity-90">Join our community and stay updated with the latest insights on financial literacy and technology.</p>
-            <button className="bg-blue-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-600 transform hover:scale-105 transition-all duration-300 shadow-lg">
-              Subscribe to Our Channel
-            </button>
-          </div>
+          <div className="absolute top-4 right-4 w-20 h-20 bg-white/10 rounded-full animate-float"></div>
+          <div className="absolute bottom-4 left-4 w-16 h-16 bg-white/20 rounded-full animate-float-delayed"></div>
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        @keyframes fade-in-up {
-          from { 
-            opacity: 0; 
-            transform: translateY(30px); 
+      {/* Keyframes */}
+      <style>
+        {`
+          @keyframes blob-3d {
+            0% { transform: translate(0px, 0px) scale(1) rotateX(0deg) rotateY(0deg); }
+            33% { transform: translate(30px, -50px) scale(1.1) rotateX(10deg) rotateY(10deg); }
+            66% { transform: translate(-20px, 20px) scale(0.9) rotateX(-10deg) rotateY(-10deg); }
+            100% { transform: translate(0px, 0px) scale(1) rotateX(0deg) rotateY(0deg); }
           }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 1s ease-out;
-        }
-        
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-        }
-      `}</style>
-    </div>
-  )
-}
 
-export default Conference
+          @keyframes rotate-border {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+
+          @keyframes float-particle {
+            0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.3; }
+            25% { transform: translateY(-20px) translateX(10px) rotate(90deg); opacity: 0.7; }
+            50% { transform: translateY(-40px) translateX(-5px) rotate(180deg); opacity: 1; }
+            75% { transform: translateY(-20px) translateX(-10px) rotate(270deg); opacity: 0.7; }
+          }
+
+          @keyframes wave {
+            0%, 100% { transform: scaleX(0) scaleY(1); }
+            50% { transform: scaleX(1) scaleY(1.2); }
+          }
+
+          @keyframes pulse-slow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+          }
+
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+          }
+
+          @keyframes float-delayed {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+          }
+
+          .animate-blob-3d { animation: blob-3d 8s infinite; }
+          .animate-rotate-border { animation: rotate-border 4s linear infinite; }
+          .animate-float-particle { animation: float-particle 6s ease-in-out infinite; }
+          .animate-wave { animation: wave 2s ease-in-out; }
+          .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
+          .animate-float { animation: float 3s ease-in-out infinite; }
+          .animate-float-delayed { animation: float-delayed 3s ease-in-out infinite 1.5s; }
+          .animation-delay-2000 { animation-delay: 2s; }
+          .animation-delay-4000 { animation-delay: 4s; }
+        `}
+      </style>
+    </section>
+  );
+};
+
+export default Conference;
