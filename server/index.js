@@ -14,6 +14,11 @@ app.use(express.json());
 // Routes
 import exampleRoutes from './routes/exampleRoutes.js'; // fixed path
 app.use('/api/example', exampleRoutes);
+import offeringRoutes from "./routes/offeringRoutes.js";
+app.use("/api/offerings", offeringRoutes);
+import testimonialRoutes from "./routes/testimonialRoutes.js";
+app.use("/api/testimonials", testimonialRoutes);
+
 
 app.get('/', (req, res) => {
   res.send('API is running...');
