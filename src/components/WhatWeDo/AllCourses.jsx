@@ -1,58 +1,157 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
-// Manually imported images
-import img1 from '../../assets/micro_courses/Anatomy-of-a-Stock-Market_cover-image-1536x864.jpg';
-import img2 from '../../assets/micro_courses/Bond-A-Mistry-1536x864.png';
-import img3 from '../../assets/micro_courses/CRYPTO-9.png';
-import img4 from '../../assets/micro_courses/Decoding-Derivatives-1536x864.png';
-import img5 from '../../assets/micro_courses/Decoding-Financial-Literacy_Cover-1536x864.jpg';
-import img6 from '../../assets/micro_courses/FOREX-1.png';
-import img7 from '../../assets/micro_courses/Fundamental-Analysis-1536x864.png';
-import img8 from '../../assets/micro_courses/Insurance-Planning--1536x864.png';
-import img9 from '../../assets/micro_courses/IPO-1-1536x845.png';
-import img10 from '../../assets/micro_courses/Retirement-Planning-Cover-1-1536x864.png';
-import img11 from '../../assets/micro_courses/Simplifying-Money-Cover-1536x864.jpg';
-import img12 from '../../assets/micro_courses/Technical-Analysis-1-1536x864.png';
-import img13 from '../../assets/micro_courses/Understanding-Mutual-Funds-Risks-1536x864.png';
-import img14 from '../../assets/micro_courses/WhatsApp-Image-2021-11-26-at-4.24.02-PM.jpeg';
-
-const allImages = [
-  img1, img2, img3, img4, img5, img6, img7,
-  img8, img9, img10, img11, img12, img13, img14
+// Fallback courses in case API fails
+const fallbackCourses = [
+  {
+    title: "Anatomy of a Stock Market",
+    description: "Learn the fundamentals of stock market operations",
+    imageUrl: "/src/assets/micro_courses/Anatomy-of-a-Stock-Market_cover-image-1536x864.jpg",
+    category: "all",
+    keywords: ["Stock", "Market", "Analysis"]
+  },
+  {
+    title: "Bond A Mistry",
+    description: "Understanding bond markets and investments",
+    imageUrl: "/src/assets/micro_courses/Bond-A-Mistry-1536x864.png",
+    category: "all",
+    keywords: ["Bond", "Investment"]
+  },
+  {
+    title: "CRYPTO Trading",
+    description: "Master cryptocurrency trading strategies",
+    imageUrl: "/src/assets/micro_courses/CRYPTO-9.png",
+    category: "all",
+    keywords: ["Crypto", "Trading"]
+  },
+  {
+    title: "Decoding Derivatives",
+    description: "Advanced derivatives trading concepts",
+    imageUrl: "/src/assets/micro_courses/Decoding-Derivatives-1536x864.png",
+    category: "all",
+    keywords: ["Derivatives", "Trading"]
+  },
+  {
+    title: "Decoding Financial Literacy",
+    description: "Essential financial literacy concepts",
+    imageUrl: "/src/assets/micro_courses/Decoding-Financial-Literacy_Cover-1536x864.jpg",
+    category: "all",
+    keywords: ["Financial", "Literacy", "Money"]
+  },
+  {
+    title: "FOREX Trading",
+    description: "Foreign exchange market trading",
+    imageUrl: "/src/assets/micro_courses/FOREX-1.png",
+    category: "all",
+    keywords: ["Forex", "Trading"]
+  },
+  {
+    title: "Fundamental Analysis",
+    description: "Stock analysis fundamentals",
+    imageUrl: "/src/assets/micro_courses/Fundamental-Analysis-1536x864.png",
+    category: "all",
+    keywords: ["Analysis", "Stock"]
+  },
+  {
+    title: "Insurance Planning",
+    description: "Comprehensive insurance planning guide",
+    imageUrl: "/src/assets/micro_courses/Insurance-Planning--1536x864.png",
+    category: "all",
+    keywords: ["Insurance", "Planning"]
+  },
+  {
+    title: "IPO Investment",
+    description: "Initial public offering investment strategies",
+    imageUrl: "/src/assets/micro_courses/IPO-1-1536x845.png",
+    category: "all",
+    keywords: ["IPO", "Investment"]
+  },
+  {
+    title: "Retirement Planning",
+    description: "Secure your financial future",
+    imageUrl: "/src/assets/micro_courses/Retirement-Planning-Cover-1-1536x864.png",
+    category: "all",
+    keywords: ["Retirement", "Planning"]
+  },
+  {
+    title: "Simplifying Money",
+    description: "Easy money management concepts",
+    imageUrl: "/src/assets/micro_courses/Simplifying-Money-Cover-1536x864.jpg",
+    category: "all",
+    keywords: ["Money", "Management"]
+  },
+  {
+    title: "Technical Analysis",
+    description: "Advanced technical analysis techniques",
+    imageUrl: "/src/assets/micro_courses/Technical-Analysis-1-1536x864.png",
+    category: "all",
+    keywords: ["Technical", "Analysis"]
+  },
+  {
+    title: "Understanding Mutual Funds",
+    description: "Mutual fund investment guide",
+    imageUrl: "/src/assets/micro_courses/Understanding-Mutual-Funds-Risks-1536x864.png",
+    category: "all",
+    keywords: ["Mutual Funds", "Investment"]
+  }
 ];
 
 const filterKeywords = [
   "Stock", "Bond", "Crypto", "Derivatives", "Insurance", "Mutual Funds", "Retirement", "IPO", "Analysis", "Money", "Forex"
 ];
 
-const getCourseName = (path) => {
-  const file = path.split('/').pop();
-  return file
-    .replace(/[-_]/g, ' ')
-    .replace(/\.(jpg|jpeg|png)$/i, '')
-    .replace(/\d{3,4}x\d{3,4}/, '')
-    .replace(/cover image|cover/gi, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-};
-
 const AllCourses = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImg, setModalImg] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState('All');
+  const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const filteredImages = selectedFilter === 'All'
-    ? allImages
-    : allImages.filter((img) => {
-        const name = getCourseName(img).toLowerCase();
-        if (selectedFilter === 'Mutual Funds') {
-          return name.includes('mutual') && name.includes('fund');
+  // Prefer env override if provided; falls back to localhost
+  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function load() {
+      try {
+        setIsLoading(true);
+        setError("");
+        const res = await fetch(`${apiBaseUrl}/api/courses?category=all`);
+        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+        const data = await res.json();
+        if (isMounted) setCourses(Array.isArray(data) ? data : fallbackCourses);
+      } catch (err) {
+        console.error("Error fetching courses:", err);
+        if (isMounted) {
+          setError("Unable to load courses right now.");
+          setCourses(fallbackCourses);
         }
-        return name.includes(selectedFilter.toLowerCase());
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    }
+    load();
+    return () => {
+      isMounted = false;
+    };
+  }, [apiBaseUrl]);
+
+  const filteredCourses = selectedFilter === 'All'
+    ? courses
+    : courses.filter((course) => {
+        const keywords = course.keywords || [];
+        if (selectedFilter === 'Mutual Funds') {
+          return keywords.some(keyword => 
+            keyword.toLowerCase().includes('mutual') && keyword.toLowerCase().includes('fund')
+          );
+        }
+        return keywords.some(keyword => 
+          keyword.toLowerCase().includes(selectedFilter.toLowerCase())
+        );
       });
 
-  const openModal = (img) => {
-    setModalImg(img);
+  const openModal = (course) => {
+    setModalImg(course.imageUrl);
     setModalOpen(true);
   };
 
@@ -98,22 +197,55 @@ const AllCourses = () => {
         <button className="mt-2 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800">Download iOS App</button>
       </div>
 
+      {/* Loading State */}
+      {isLoading && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+          {Array.from({ length: 12 }).map((_, idx) => (
+            <div key={`skeleton-${idx}`} className="flex flex-col items-center bg-white rounded-2xl shadow-md p-2 max-w-xs mx-auto animate-pulse">
+              <div className="w-full h-48 bg-gray-200 rounded-lg"></div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Error State */}
+      {error && (
+        <div className="text-center py-12">
+          <p className="text-red-500 text-lg">{error}</p>
+        </div>
+      )}
+
       {/* Courses Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-        {filteredImages.map((image, index) => (
-          <div
-            key={index}
-            className="flex flex-col items-center bg-white rounded-2xl shadow-md p-2 transition-transform duration-200 hover:scale-105 hover:shadow-xl max-w-xs mx-auto cursor-pointer"
-            onClick={() => openModal(image)}
-          >
-            <img
-              src={image}
-              alt={getCourseName(image)}
-              className="object-contain rounded-lg border border-gray-100 shadow-sm"
-            />
-          </div>
-        ))}
-      </div>
+      {!isLoading && !error && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+          {filteredCourses.map((course, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center bg-white rounded-2xl shadow-md p-2 transition-transform duration-200 hover:scale-105 hover:shadow-xl max-w-xs mx-auto cursor-pointer"
+              onClick={() => openModal(course)}
+            >
+              <img
+                src={course.imageUrl}
+                alt={course.title}
+                className="object-contain rounded-lg border border-gray-100 shadow-sm"
+              />
+              <div className="mt-2 text-center">
+                <h3 className="font-semibold text-sm text-gray-800">{course.title}</h3>
+                {course.description && (
+                  <p className="text-xs text-gray-600 mt-1">{course.description}</p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Empty State */}
+      {!isLoading && !error && filteredCourses.length === 0 && (
+        <div className="text-center py-12">
+          <p className="text-gray-500 text-lg">No courses found for the selected filter.</p>
+        </div>
+      )}
 
       {/* Modal/Lightbox */}
       {modalOpen && (

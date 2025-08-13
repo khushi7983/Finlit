@@ -61,43 +61,121 @@
 // export default MicroCourses;
 
 
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-
-// ✅ Importing images from src/assets/micro_courses
-import img1 from '../../assets/micro_courses/Anatomy-of-a-Stock-Market_cover-image-1536x864.jpg';
-import img2 from '../../assets/micro_courses/Bond-A-Mistry-1536x864.png';
-import img3 from '../../assets/micro_courses/CRYPTO-9.png';
-import img4 from '../../assets/micro_courses/Decoding-Derivatives-1536x864.png';
-import img5 from '../../assets/micro_courses/Decoding-Financial-Literacy_Cover-1536x864.jpg';
-import img6 from '../../assets/micro_courses/FOREX-1.png';
-import img7 from '../../assets/micro_courses/Fundamental-Analysis-1536x864.png';
-import img8 from '../../assets/micro_courses/Insurance-Planning--1536x864.png';
-import img9 from '../../assets/micro_courses/IPO-1-1536x845.png';
-import img10 from '../../assets/micro_courses/Retirement-Planning-Cover-1-1536x864.png';
-import img11 from '../../assets/micro_courses/Simplifying-Money-Cover-1536x864.jpg';
-import img12 from '../../assets/micro_courses/Technical-Analysis-1-1536x864.png';
-import img13 from '../../assets/micro_courses/Understanding-Mutual-Funds-Risks-1536x864.png';
-import img14 from '../../assets/micro_courses/WhatsApp-Image-2021-11-26-at-4.24.02-PM.jpeg';
-
-const initialImages = [img1, img2, img3, img4];
-const allImages = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13, img14];
+// Fallback micro courses in case API fails
+const fallbackMicroCourses = [
+  {
+    title: "Anatomy of a Stock Market",
+    description: "Learn the fundamentals of stock market operations",
+    imageUrl: "/src/assets/micro_courses/Anatomy-of-a-Stock-Market_cover-image-1536x864.jpg",
+    category: "micro",
+    keywords: ["Stock", "Market", "Analysis"]
+  },
+  {
+    title: "Bond A Mistry",
+    description: "Understanding bond markets and investments",
+    imageUrl: "/src/assets/micro_courses/Bond-A-Mistry-1536x864.png",
+    category: "micro",
+    keywords: ["Bond", "Investment"]
+  },
+  {
+    title: "CRYPTO Trading",
+    description: "Master cryptocurrency trading strategies",
+    imageUrl: "/src/assets/micro_courses/CRYPTO-9.png",
+    category: "micro",
+    keywords: ["Crypto", "Trading"]
+  },
+  {
+    title: "Decoding Derivatives",
+    description: "Advanced derivatives trading concepts",
+    imageUrl: "/src/assets/micro_courses/Decoding-Derivatives-1536x864.png",
+    category: "micro",
+    keywords: ["Derivatives", "Trading"]
+  },
+  {
+    title: "Decoding Financial Literacy",
+    description: "Essential financial literacy concepts",
+    imageUrl: "/src/assets/micro_courses/Decoding-Financial-Literacy_Cover-1536x864.jpg",
+    category: "micro",
+    keywords: ["Financial", "Literacy", "Money"]
+  },
+  {
+    title: "FOREX Trading",
+    description: "Foreign exchange market trading",
+    imageUrl: "/src/assets/micro_courses/FOREX-1.png",
+    category: "micro",
+    keywords: ["Forex", "Trading"]
+  },
+  {
+    title: "Fundamental Analysis",
+    description: "Stock analysis fundamentals",
+    imageUrl: "/src/assets/micro_courses/Fundamental-Analysis-1536x864.png",
+    category: "micro",
+    keywords: ["Analysis", "Stock"]
+  },
+  {
+    title: "Insurance Planning",
+    description: "Comprehensive insurance planning guide",
+    imageUrl: "/src/assets/micro_courses/Insurance-Planning--1536x864.png",
+    category: "micro",
+    keywords: ["Insurance", "Planning"]
+  },
+  {
+    title: "IPO Investment",
+    description: "Initial public offering investment strategies",
+    imageUrl: "/src/assets/micro_courses/IPO-1-1536x845.png",
+    category: "micro",
+    keywords: ["IPO", "Investment"]
+  }
+];
 
 const MicroCourses = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImg, setModalImg] = useState(null);
+  const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // Prefer env override if provided; falls back to localhost
+  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function load() {
+      try {
+        setIsLoading(true);
+        setError("");
+        const res = await fetch(`${apiBaseUrl}/api/courses?category=micro`);
+        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+        const data = await res.json();
+        if (isMounted) setCourses(Array.isArray(data) ? data : fallbackMicroCourses);
+      } catch (err) {
+        console.error("Error fetching micro courses:", err);
+        if (isMounted) {
+          setError("Unable to load micro courses right now.");
+          setCourses(fallbackMicroCourses);
+        }
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    }
+    load();
+    return () => {
+      isMounted = false;
+    };
+  }, [apiBaseUrl]);
 
   // Show only the first 9 courses
-  const imagesToShow = allImages.slice(0, 9);
+  const coursesToShow = courses.slice(0, 9);
 
   const handleExplore = () => {
     window.location.href = 'all-courses';
   };
 
-  const openModal = (img) => {
-    setModalImg(img);
+  const openModal = (course) => {
+    setModalImg(course.imageUrl);
     setModalOpen(true);
   };
 
@@ -116,21 +194,51 @@ const MicroCourses = () => {
       {/* Main Content */}
       <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-600 bg-clip-text text-transparent">FinLit Micro-courses</h2>
       <p className="mb-8 text-lg text-center max-w-2xl text-yellow-700/80">Explore our range of micro-courses designed to enhance your financial literacy.</p>
+      
+      {/* Loading State */}
+      {isLoading && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-6xl">
+          {Array.from({ length: 9 }).map((_, idx) => (
+            <div key={`skeleton-${idx}`} className="bg-white rounded-2xl shadow-md p-2 flex items-center justify-center max-w-xs mx-auto animate-pulse">
+              <div className="w-full h-48 bg-gray-200 rounded-lg"></div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Error State */}
+      {error && (
+        <div className="text-center py-12">
+          <p className="text-red-500 text-lg">{error}</p>
+        </div>
+      )}
+
+      {/* Courses Grid */}
+      {!isLoading && !error && (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-6xl">
-        {imagesToShow.map((image, index) => (
+          {coursesToShow.map((course, index) => (
           <div
             key={index}
             className="bg-white rounded-2xl shadow-md p-2 flex items-center justify-center transition-transform duration-200 hover:scale-105 hover:shadow-xl cursor-pointer max-w-xs mx-auto"
-            onClick={() => openModal(image)}
+              onClick={() => openModal(course)}
           >
             <img
-              src={image}
-              alt={image.split('/').pop().split('.')[0]}
+                src={course.imageUrl}
+                alt={course.title}
               className="object-contain rounded-lg border border-gray-100 shadow-sm"
             />
           </div>
         ))}
       </div>
+      )}
+
+      {/* Empty State */}
+      {!isLoading && !error && coursesToShow.length === 0 && (
+        <div className="text-center py-12">
+          <p className="text-gray-500 text-lg">No micro courses available right now.</p>
+        </div>
+      )}
+
       <button
         onClick={handleExplore}
         className="mt-8 group bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-900 px-8 py-4 rounded-xl font-semibold text-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 shadow-lg border border-yellow-500/20"
