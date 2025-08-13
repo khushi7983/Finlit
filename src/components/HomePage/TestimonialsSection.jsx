@@ -87,6 +87,7 @@ const TestimonialsSection = () => {
       }
     };
   }, [testimonials]);
+  console.log("Testimonials:", testimonials);
 
   return (
     <motion.section

@@ -10,20 +10,6 @@ const Blogs = () => {
     setIsVisible(true);
   }, []);
 
-  // Function to get icon based on blog category
-  const getCategoryIcon = (category) => {
-    const icons = {
-      'Technology': <Zap className="w-8 h-8" />,
-      'Investment': <TrendingUp className="w-8 h-8" />,
-      'Education': <BookOpen className="w-8 h-8" />,
-      'Trading': <ChartBar className="w-8 h-8" />,
-      'Finance': <DollarSign className="w-8 h-8" />,
-      'Economics': <Target className="w-8 h-8" />,
-      'default': <FileText className="w-8 h-8" />
-    };
-    return icons[category] || icons.default;
-  };
-
   // Function to get gradient background based on category
   const getCategoryGradient = (category) => {
     // Use subtle blue gradient like FinTerms
@@ -262,7 +248,7 @@ const Blogs = () => {
       shortDescription: "Exploring litigation finance as an emerging asset class with projected returns and investment potential.",
       content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa who officia deserunt mollit anim id est laborum.
 
       Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.`
     },
@@ -309,7 +295,7 @@ const Blogs = () => {
       id: 22,
       title: "Changing Fintech Landscape due to COVID19",
       author: "FinTech Analyst",
-      role: "The Fin Lit Project",
+      role: "FinTech Analyst",
       category: "Technology",
       shortDescription: "How financial technology is changing in India and globally due to the COVID-19 pandemic.",
       content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -367,39 +353,23 @@ const Blogs = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
           <div className="text-center mb-16">
-            <div 
-              className={`inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6 transition-all duration-800 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-              }`}
-            >
-              <BookOpen className="w-5 h-5 text-yellow-600" />
-              <span className="text-sm font-semibold text-yellow-700">Financial Education</span>
-            </div>
-            
             <h2 
-              className={`text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-1000 delay-200 ${
+              className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight transition-all duration-1000 delay-200 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
-              <span className="text-slate-800">FinLit</span>
+              <span className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
+                FinLit
+              </span>
               <br />
               <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
                 Blog Gallery
               </span>
             </h2>
-            
-            <p 
-              className={`text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 delay-400 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-            >
-              Explore financial insights through our curated collection of blogs. 
-              <span className="font-semibold text-slate-700"> Click any card to read more!</span>
-            </p>
           </div>
 
           {/* Blog Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogs.map((blog, index) => (
               <div
                 key={blog.id}
@@ -413,14 +383,11 @@ const Blogs = () => {
                   className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-white/50 transition-all duration-500 group-hover:shadow-2xl group-hover:bg-white/90 group-hover:-translate-y-2 group-hover:scale-[1.04] group-hover:border-yellow-400 group-hover:shadow-yellow-200 animate-card-float"
                   style={{ transformStyle: 'preserve-3d' }}
                 >
-                  {/* Image Container with Icon */}
+                  {/* Image Container */}
                   <div className="relative overflow-hidden group-hover:animate-tilt-glow">
                     <div className={`aspect-[4/3] bg-gradient-to-br ${getCategoryGradient(blog.category)} flex items-center justify-center relative p-6`}>
                       {/* Content Preview */}
                       <div className="text-slate-800 text-center">
-                        <div className="mb-3 transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 text-blue-600">
-                          {getCategoryIcon(blog.category)}
-                        </div>
                         <h4 className="text-sm font-semibold mb-2 line-clamp-2 text-slate-700">
                           {blog.title}
                         </h4>
@@ -430,7 +397,7 @@ const Blogs = () => {
                       </div>
                       
                       {/* Overlay on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
                           <TrendingUp className="w-8 h-8 text-white" />
                         </div>
@@ -439,7 +406,7 @@ const Blogs = () => {
                     
                     {/* Category Badge */}
                     <div className="absolute top-4 left-4 z-20">
-                      <span className="bg-blue-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full transform group-hover:scale-110 transition-transform duration-300">
+                      <span className="bg-yellow-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full transform group-hover:scale-110 transition-transform duration-300">
                         {blog.category}
                       </span>
                     </div>

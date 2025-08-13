@@ -29,7 +29,7 @@ const Speaking = () => {
       id: 2,
       name: "John Jordan",
       title: "Executive Director, BC Digital Trust",
-      videoId: "xp1y9g-KrXQ",
+      videoId: "jzGmR51vBts",
       topic: "Digital Trust Ecosystems",
       duration: "32 min",
       category: "Technology"
@@ -38,7 +38,7 @@ const Speaking = () => {
       id: 3,
       name: "Mac Gardner",
       title: "CEO, FinLit Tech",
-      videoId: "xp1y9g-KrXQ",
+      videoId: "brcViwob9fs",
       topic: "FinTech Literacy",
       duration: "28 min",
       category: "FinTech"
@@ -47,7 +47,7 @@ const Speaking = () => {
       id: 4,
       name: "Khadija Khartit",
       title: "Managing Director, IFS Advisory",
-      videoId: "xp1y9g-KrXQ",
+      videoId: "bXyLoXoG0Us",
       topic: "Islamic Finance",
       duration: "35 min",
       category: "Finance"
@@ -56,7 +56,7 @@ const Speaking = () => {
       id: 5,
       name: "Sarah Johnson",
       title: "Blockchain Analyst, CryptoVision",
-      videoId: "xp1y9g-KrXQ",
+      videoId: "BPVuPCDxDvk",
       topic: "Cryptocurrency Investment",
       duration: "40 min",
       category: "Crypto"
@@ -65,7 +65,7 @@ const Speaking = () => {
       id: 6,
       name: "Michael Chen",
       title: "Senior Financial Advisor",
-      videoId: "xp1y9g-KrXQ",
+      videoId: "d0zOIujjHYE",
       topic: "Retirement Planning",
       duration: "30 min",
       category: "Planning"
@@ -88,35 +88,19 @@ const Speaking = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <div 
-            className={`inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6 transition-all duration-800 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-            }`}
-          >
-            <Users className="w-5 h-5 text-yellow-600" />
-            <span className="text-sm font-semibold text-yellow-700">Financial Education</span>
-          </div>
-          
           <h2 
-            className={`text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-1000 delay-200 ${
+            className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight transition-all duration-1000 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <span className="text-slate-800">Financially Speaking</span>
+            <span className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
+              Financially Speaking
+            </span>
             <br />
             <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
               Episodes
             </span>
           </h2>
-          
-          <p 
-            className={`text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 delay-400 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-          >
-            Dive into insightful conversations with industry leaders and experts. 
-            <span className="font-semibold text-slate-700"> Click on a speaker to watch their episode!</span>
-          </p>
         </div>
 
         {/* Cards Grid */}
@@ -258,7 +242,7 @@ const Speaking = () => {
         )}
       </AnimatePresence>
 
-      {/* Custom Styles */}
+      /* Custom Styles */
       <style jsx>{`
         .animate-card-float {
           animation: cardFloat 3s ease-in-out infinite alternate;
@@ -275,7 +259,7 @@ const Speaking = () => {
         @keyframes tiltGlow {
           0% { transform: rotateY(0deg) scale(1); }
           60% { transform: rotateY(8deg) scale(1.05); }
-          100% { transform: rotateY(0deg) scale(1.04); }
+          100% { transform: rotateY(0deg EDITOR
         }
         .animate-float1 { animation: float1 7s ease-in-out infinite alternate; }
         .animate-float2 { animation: float2 9s ease-in-out infinite alternate; }
@@ -288,14 +272,18 @@ const Speaking = () => {
           content: "";
           display: block;
           position: absolute;
-          border-radius: 50%;
-          width: 100%; height: 100%;
-          top: 0; left: 0;
-          pointer-events: none;
-          background: rgba(255,255,255,0.3);
-          opacity: 0;
-          transform: scale(0.8);
-          transition: opacity 0.4s, transform 0.4s;
+          bordernotes: {
+            radius: 50%;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background: rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.4s, transform 0.4s;
+          }
         }
         .ripple:active:after {
           opacity: 1;

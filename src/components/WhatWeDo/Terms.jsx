@@ -190,17 +190,8 @@ const Terms = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
           <div className="text-center mb-16">
-            <div 
-              className={`inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6 transition-all duration-800 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-              }`}
-            >
-              <BookOpen className="w-5 h-5 text-yellow-600" />
-              <span className="text-sm font-semibold text-yellow-700">Financial Education</span>
-            </div>
-            
             <h2 
-              className={`text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-1000 delay-200 ${
+              className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight transition-all duration-1000 delay-200 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
@@ -210,15 +201,6 @@ const Terms = () => {
                 Visual Gallery
               </span>
             </h2>
-            
-            <p 
-              className={`text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 delay-400 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-            >
-              Explore financial concepts through interactive visual cards. 
-              <span className="font-semibold text-slate-700"> Click any card to dive deeper!</span>
-            </p>
           </div>
 
           {/* Category Filter */}
@@ -243,7 +225,7 @@ const Terms = () => {
           </div>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredTerms.map((term, index) => (
               <div
                 key={term.id}
