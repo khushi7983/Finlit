@@ -134,43 +134,15 @@ const Awards = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className={`mb-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <button 
-            onClick={() => navigate('/')}
-            className="flex items-center text-gray-600 hover:text-gray-900 mb-6 transition-all duration-300 hover:scale-105"
-          >
-            <ArrowLeft className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:-translate-x-1" />
-            Back to Home
-          </button>
+         
           
           <div className="text-center mb-8">
             <h1 className={`text-5xl font-bold text-gray-900 mb-4 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               Our <span className="text-[#FACF07] animate-pulse">Awards</span> & Recognition
             </h1>
-            <p className={`text-xl text-gray-600 max-w-3xl mx-auto transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              Celebrating our achievements and recognition in the field of financial literacy and education
-            </p>
+          
           </div>
         </div>
-
-        {/* Stats */}
-        {/* <div className={`grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          {[
-            { value: "8+", label: "Total Awards", color: "text-yellow-600", icon: "🏆" },
-            { value: "3+", label: "Years of Excellence", color: "text-blue-600", icon: "⭐" },
-            { value: "100%", label: "Success Rate", color: "text-green-600", icon: "✅" },
-            { value: "10K+", label: "Lives Impacted", color: "text-purple-600", icon: "👥" }
-          ].map((stat, index) => (
-            <div 
-              key={index}
-              className={`bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-2 hover:scale-105 animate-bounce`}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className={`text-3xl font-bold ${stat.color} mb-2 animate-pulse`}>{stat.value}</div>
-              <div className="text-gray-600">{stat.label}</div>
-              <div className="text-2xl mt-2">{stat.icon}</div>
-            </div>
-          ))}
-        </div> */}
 
         {/* Awards Grid */}
         <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>

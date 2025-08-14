@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
-const FAQ = [
+// Fallback FAQs in case API fails
+const fallbackFAQs = [
   {
     question: "What is Financial Literacy?",
     answer:
@@ -53,7 +54,39 @@ const itemVariant = {
 };
 
 const Faq = () => {
+  const [faqs, setFaqs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
   const [activeIndex, setActiveIndex] = useState(null);
+
+  // Prefer env override if provided; falls back to localhost
+  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function load() {
+      try {
+        setIsLoading(true);
+        setError("");
+        const res = await fetch(`${apiBaseUrl}/api/faqs`);
+        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+        const data = await res.json();
+        if (isMounted) setFaqs(Array.isArray(data) ? data : fallbackFAQs);
+      } catch (err) {
+        console.error("Error fetching FAQs:", err);
+        if (isMounted) {
+          setError("Unable to load FAQs right now.");
+          setFaqs(fallbackFAQs);
+        }
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    }
+    load();
+    return () => {
+      isMounted = false;
+    };
+  }, [apiBaseUrl]);
 
   const toggleFaq = (index) => {
     setActiveIndex(index === activeIndex ? null : index);
@@ -79,45 +112,74 @@ const Faq = () => {
             </h2>
           </motion.div>
           <div className="max-w-4xl mx-auto space-y-4">
-            {FAQ.map((faq, index) => (
-              <motion.div
-                key={index}
-                className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl transition-all duration-300 overflow-hidden"
-                variants={itemVariant}
-                whileHover={{ y: -4, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <button
-                  onClick={() => toggleFaq(index)}
-                  className="w-full flex justify-between items-center text-left p-6 cursor-pointer"
-                >
-                  <h3 className="text-lg md:text-xl font-semibold text-white">
-                    {faq.question}
-                  </h3>
+            {isLoading && (
+              <div className="space-y-4">
+                {Array.from({ length: 6 }).map((_, idx) => (
+                  <div key={`skeleton-${idx}`} className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 animate-pulse">
+                    <div className="h-6 bg-white/20 rounded mb-4"></div>
+                    <div className="h-4 bg-white/20 rounded mb-2"></div>
+                    <div className="h-4 bg-white/20 rounded w-3/4"></div>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            {!isLoading && faqs.length > 0 && (
+              <>
+                {faqs.map((faq, index) => (
                   <motion.div
-                    animate={{ rotate: activeIndex === index ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
+                    key={index}
+                    className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl transition-all duration-300 overflow-hidden"
+                    variants={itemVariant}
+                    whileHover={{ y: -4, scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    <ChevronDown className="w-6 h-6 text-yellow-400" />
-                  </motion.div>
-                </button>
-                <AnimatePresence>
-                  {activeIndex === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="overflow-hidden"
+                    <button
+                      onClick={() => toggleFaq(index)}
+                      className="w-full flex justify-between items-center text-left p-6 cursor-pointer"
                     >
-                      <p className="p-6 pt-0 text-sm text-slate-300 whitespace-pre-line">
-                        {faq.answer}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
+                      <h3 className="text-lg md:text-xl font-semibold text-white">
+                        {faq.question}
+                      </h3>
+                      <motion.div
+                        animate={{ rotate: activeIndex === index ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ChevronDown className="w-6 h-6 text-yellow-400" />
+                      </motion.div>
+                    </button>
+                    <AnimatePresence>
+                      {activeIndex === index && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <p className="p-6 pt-0 text-sm text-slate-300 whitespace-pre-line">
+                            {faq.answer}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                ))}
+              </>
+            )}
+            
+            {!isLoading && faqs.length === 0 && !error && (
+              <div className="text-center py-12 text-slate-300">
+                <ChevronDown className="w-12 h-12 mx-auto mb-4 text-slate-400" />
+                <p>No FAQs available right now.</p>
+              </div>
+            )}
+            
+            {error && (
+              <div className="text-center py-12 text-red-300">
+                <p>{error}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
