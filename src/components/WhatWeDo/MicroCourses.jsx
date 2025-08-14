@@ -1,66 +1,3 @@
-// import React from 'react';
-
-// // ✅ Importing images from src/assets/micro_courses
-// import img1 from '../../assets/micro_courses/Anatomy-of-a-Stock-Market_cover-image-1536x864.jpg';
-// import img2 from '../../assets/micro_courses/Bond-A-Mistry-1536x864.png';
-// import img3 from '../../assets/micro_courses/CRYPTO-9.png';
-// import img4 from '../../assets/micro_courses/Decoding-Derivatives-1536x864.png';
-// import img5 from '../../assets/micro_courses/Decoding-Financial-Literacy_Cover-1536x864.jpg';
-// import img6 from '../../assets/micro_courses/FOREX-1.png';
-// import img7 from '../../assets/micro_courses/Fundamental-Analysis-1536x864.png';
-// import img8 from '../../assets/micro_courses/Insurance-Planning--1536x864.png';
-// import img9 from '../../assets/micro_courses/IPO-1-1536x845.png';
-// import img10 from '../../assets/micro_courses/Retirement-Planning-Cover-1-1536x864.png';
-// import img11 from '../../assets/micro_courses/Simplifying-Money-Cover-1536x864.jpg';
-// import img12 from '../../assets/micro_courses/Technical-Analysis-1-1536x864.png';
-// import img13 from '../../assets/micro_courses/Understanding-Mutual-Funds-Risks-1536x864.png';
-// import img14 from '../../assets/micro_courses/WhatsApp-Image-2021-11-26-at-4.24.02-PM.jpeg';
-
-// const initialImages = [img1, img2, img3, img4];
-// const allImages = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13, img14];
-
-// const MicroCourses = () => {
-//   const handleExplore = () => {
-//     window.location.href = '/all-courses';
-//   };
-
-//   return (
-//     <div className="container mx-auto p-6">
-//       <h2 className="text-3xl font-bold mb-4 text-white text-center">FinLit Micro-courses</h2>
-//       <p className="text-center text-slate-300 mb-6">
-//         Explore our range of micro-courses designed to enhance your financial literacy.
-//       </p>
-
-//       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-//         {initialImages.map((image, index) => (
-//           <div
-//             key={index}
-//             className="rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300"
-//           >
-//             <img
-//               src={image}
-//               alt={`Course-${index}`}
-//               className="w-full h-44 object-cover"
-//             />
-//           </div>
-//         ))}
-//       </div>
-
-//       <div className="flex justify-center mt-8">
-//         <button
-//           onClick={handleExplore}
-//           className="px-6 py-3 bg-yellow-400 text-slate-900 font-semibold rounded-xl hover:bg-yellow-500 transition-all"
-//         >
-//           Explore All Courses
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default MicroCourses;
-
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -137,6 +74,7 @@ const MicroCourses = () => {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
 
   // Prefer env override if provided; falls back to localhost
   const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
@@ -167,6 +105,10 @@ const MicroCourses = () => {
     };
   }, [apiBaseUrl]);
 
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
   // Show only the first 9 courses
   const coursesToShow = courses.slice(0, 9);
 
@@ -192,7 +134,21 @@ const MicroCourses = () => {
       <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse pointer-events-none"></div>
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse pointer-events-none" style={{ animationDelay: '2s' }}></div>
       {/* Main Content */}
-      <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-600 bg-clip-text text-transparent">FinLit Micro-courses</h2>
+      <div className="text-center mb-16">
+        <h2 
+          className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight transition-all duration-1000 delay-200 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <span className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
+            FinLit
+          </span>
+          <br />
+          <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
+            Micro-courses
+          </span>
+        </h2>
+      </div>
       <p className="mb-8 text-lg text-center max-w-2xl text-yellow-700/80">Explore our range of micro-courses designed to enhance your financial literacy.</p>
       
       {/* Loading State */}
@@ -215,21 +171,21 @@ const MicroCourses = () => {
 
       {/* Courses Grid */}
       {!isLoading && !error && (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-6xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-6xl">
           {coursesToShow.map((course, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-2xl shadow-md p-2 flex items-center justify-center transition-transform duration-200 hover:scale-105 hover:shadow-xl cursor-pointer max-w-xs mx-auto"
+            <div
+              key={index}
+              className="bg-white rounded-2xl shadow-md p-2 flex items-center justify-center transition-transform duration-200 hover:scale-105 hover:shadow-xl cursor-pointer max-w-xs mx-auto"
               onClick={() => openModal(course)}
-          >
-            <img
+            >
+              <img
                 src={course.imageUrl}
                 alt={course.title}
-              className="object-contain rounded-lg border border-gray-100 shadow-sm"
-            />
-          </div>
-        ))}
-      </div>
+                className="object-contain rounded-lg border border-gray-100 shadow-sm"
+              />
+            </div>
+          ))}
+        </div>
       )}
 
       {/* Empty State */}
