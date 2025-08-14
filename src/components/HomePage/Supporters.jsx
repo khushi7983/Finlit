@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import brtsif from "../../assets/partners/brtsif.jpg";
 import upstartup from "../../assets/partners/upstartup.jpg";
@@ -7,7 +7,8 @@ import iitd from "../../assets/partners/iitd.jpg";
 import iimb from "../../assets/partners/iimb.jpg";
 import science from "../../assets/partners/science.jpg";
 
-const logos = [
+// Fallback logos in case API fails
+const fallbackLogos = [
   { src: brtsif, url: "https://brtsif.com", alt: "BRTSIF" },
   { src: upstartup, url: "https://startinup.up.gov.in", alt: "UP Startup" },
   { src: zone, url: "https://zone.com", alt: "ZONE" },
@@ -34,12 +35,52 @@ const itemVariant = {
 };
 
 const Supporters = () => {
+  const [logos, setLogos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
   const scrollRef = useRef(null);
   const [centerIndex, setCenterIndex] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
 
+  // Prefer env override if provided; falls back to localhost
+  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
+
   useEffect(() => {
-    if (isHovered) return;
+    let isMounted = true;
+    async function load() {
+      try {
+        setIsLoading(true);
+        setError("");
+        const res = await fetch(`${apiBaseUrl}/api/supporters`);
+        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+        const data = await res.json();
+        if (isMounted) {
+          // Transform API data to match the expected format
+          const transformedData = Array.isArray(data) ? data.map(supporter => ({
+            src: supporter.imageUrl,
+            url: supporter.url,
+            alt: supporter.alt || supporter.name
+          })) : fallbackLogos;
+          setLogos(transformedData);
+        }
+      } catch (err) {
+        console.error("Error fetching supporters:", err);
+        if (isMounted) {
+          setError("Unable to load supporters right now.");
+          setLogos(fallbackLogos);
+        }
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    }
+    load();
+    return () => {
+      isMounted = false;
+    };
+  }, [apiBaseUrl]);
+
+  useEffect(() => {
+    if (isHovered || logos.length === 0) return;
 
     const interval = setInterval(() => {
       setCenterIndex((prevIndex) => {
@@ -58,7 +99,7 @@ const Supporters = () => {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [isHovered]);
+  }, [isHovered, logos.length]);
 
   return (
     <motion.section
@@ -84,35 +125,59 @@ const Supporters = () => {
             </p>
           </motion.div>
 
-          <motion.div
-            ref={scrollRef}
-            className="flex overflow-hidden space-x-12 justify-center"
-            variants={containerVariant}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            {logos.map((logo, index) => (
-              <motion.a
-                key={index}
-                href={logo.url}
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-                className={`flex-shrink-0 transition-all duration-300 ${
-                  index === centerIndex ? "scale-110" : "scale-90 opacity-70"
-                } hover:scale-110 hover:opacity-100`}
-                variants={itemVariant}
-                whileHover={{ scale: 1.15 }}
-                whileTap={{ scale: 1.05 }}
-              >
-                <img
-                  loading="lazy"
-                  src={logo.src}
-                  alt={logo.alt}
-                  className="h-32 sm:h-24 md:h-28 w-auto mx-4 rounded-lg shadow-md"
-                />
-              </motion.a>
-            ))}
-          </motion.div>
+          {isLoading && (
+            <div className="flex overflow-hidden space-x-12 justify-center">
+              {Array.from({ length: 6 }).map((_, idx) => (
+                <div key={`skeleton-${idx}`} className="flex-shrink-0 animate-pulse">
+                  <div className="h-32 sm:h-24 md:h-28 w-48 mx-4 rounded-lg bg-slate-200"></div>
+                </div>
+              ))}
+            </div>
+          )}
+          
+          {!isLoading && logos.length > 0 && (
+            <motion.div
+              ref={scrollRef}
+              className="flex overflow-hidden space-x-12 justify-center"
+              variants={containerVariant}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              {logos.map((logo, index) => (
+                <motion.a
+                  key={index}
+                  href={logo.url}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className={`flex-shrink-0 transition-all duration-300 ${
+                    index === centerIndex ? "scale-110" : "scale-90 opacity-70"
+                  } hover:scale-110 hover:opacity-100`}
+                  variants={itemVariant}
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 1.05 }}
+                >
+                  <img
+                    loading="lazy"
+                    src={logo.src}
+                    alt={logo.alt}
+                    className="h-32 sm:h-24 md:h-28 w-auto mx-4 rounded-lg shadow-md"
+                  />
+                </motion.a>
+              ))}
+            </motion.div>
+          )}
+          
+          {!isLoading && logos.length === 0 && !error && (
+            <div className="text-center py-12 text-slate-500">
+              <p>No supporters available right now.</p>
+            </div>
+          )}
+          
+          {error && (
+            <div className="text-center py-12 text-red-500">
+              <p>{error}</p>
+            </div>
+          )}
         </div>
       </div>
     </motion.section>

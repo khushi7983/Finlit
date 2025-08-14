@@ -1,134 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 
-const testimonials = [
-  {
-    name: "Dr. Amit Bhadra",
-    title: "Dean, Business Administration, GITAM Deemed University",
-    text: "Thank you for conducting a highly informative session on Blockchain. I look forward to having other such engagements with you…",
-  },
-  {
-    name: "Karthik Sivacharan",
-    title: "Creator Stack",
-    text: "The topic of personal finance was oblivious to me a few months back. Reading about it recently made me realise that managing finances is an essential skill. FinLitProject is the perfect platform to start.",
-  },
-  {
-    name: "Rebecca Kersch",
-    title: "Tang App",
-    text: "Neha and the Fin Lit Project are going to fix financial literacy around the world. This is a brilliant venture the world needs…",
-  },
-  {
-    name: "Sikha Ghanty",
-    title: "Cognizant",
-    text: "In layman terms, the speaker explained a host of investment avenues and pitfalls of not investing smartly. It was a great session for a beginner like me.",
-  },
-  {
-    name: "Harsh Jain",
-    title: "IIIT Delhi",
-    text: "Thank you Neha Ma'am for the session 'Demystifying Finance for startups'. This session changed my outlook on finance, and I now have a fair idea to manage my future venture.",
-  },
-  {
-    name: "Nischay Reddy",
-    title: "Sertify",
-    text: "Since financial literacy isn't taught growing up, this is a great course for those wanting to take charge of their financial futures.",
-  },
-  {
-    name: "Rashi Saraf",
-    title: "Indus Law",
-    text: "Highly recommend this course! Neha is a knowledgeable, patient teacher, and it's totally worth the time and effort.",
-  },
-  {
-    name: "P Bhavani",
-    title: "SBI Mutual Fund",
-    text: "The Finlit Project app has simplified my learning of financial products. The micro courses and quizzes helped me break the fear of finance.",
-  },
-  {
-    name: "Sayantani Mukherjee",
-    title: "UNDP",
-    text: "Neha is a true 'womanpreneur' whose expertise shines through the FinLit Project, strengthening financial capability globally.",
-  },
-  {
-    name: "Arnav Gurnani",
-    title: "We-ACE",
-    text: "An extremely insightful session with great turnout and active participation. Thank you for making it the most enjoyable community event.",
-  },
-  {
-    name: "Mahesh Solanke",
-    title: "AdvaRisk Inc.",
-    text: "Technical Analysis sessions with Neha Ma'am were the most interactive. I look forward to learning more from you.",
-  },
-  {
-    name: "Vipul Sharma",
-    title: "Kalkine Media Australia",
-    text: "One of the most interactive classes, designed to help us understand and learn in the best possible manner.",
-  },
-  {
-    name: "Kiran Waddiparthi",
-    title: "Cognizant",
-    text: "Very pleased to have you spread financial awareness and inspire many of us. Thank you for your efforts.",
-  },
-  {
-    name: "Abid Hussain",
-    title: "SHCIL",
-    text: "Overall an excellent experience in learning, interacting, and knowledgeable sessions.",
-  },
-  {
-    name: "Vimal Shukla",
-    title: "Stock Holding Corporation of India Limited",
-    text: "A very good learning experience with great interactions. Thank you.",
-  },
-  {
-    name: "Rupal Samanta",
-    title: "Stock Holding Corporation of India Limited",
-    text: "Wonderful sessions with you, hope for more such opportunities. Thank you.",
-  },
-  {
-    name: "Nidhi Mehra",
-    title: "Stock Holding Corporation of India Limited",
-    text: "Really wonderful and interactive session. Thank you Neha mam.",
-  },
-  {
-    name: "Aditi Verma",
-    title: "",
-    text: "Thank you Ma'am for these interactive and knowledgeable sessions.",
-  },
-  {
-    name: "Ramesh Das",
-    title: "",
-    text: "Thanks you Ma'am, really appreciate your teaching.",
-  },
-  {
-    name: "Bireshwar Chatterjee",
-    title: "National Stock Exchange of India",
-    text: "API is all pervasive… may be the next best thing after human language. Thanks Neha.",
-  },
-  {
-    name: "Rahul Singh",
-    title: "Union Bank of India",
-    text: "Rahul has now got a better understanding of API in day-to-day life. Thank you mam.",
-  },
-  {
-    name: "Swapnil Thakur",
-    title: "",
-    text: "Thanks Mam for all your sessions… In each session we learned many new things.",
-  },
-  {
-    name: "Sapan Khare",
-    title: "India Shelter Finance Corporation",
-    text: "Better understanding of technical aspects of API which we non-techies thought was impossible.",
-  },
-  {
-    name: "Rajesh Arcot",
-    title: "KFin Technologies Pvt Ltd",
-    text: "The sessions on IoT and APIs are exemplary. Thank you for giving us context and full framework.",
-  },
-  {
-    name: "Nishani Manohar",
-    title: "Executive Director, IIT Madras Alumni Association",
-    text: "Thank you for your invaluable contribution as a resource speaker. Your expertise left a positive impact on participants.",
-  },
-];
+// Empty array - testimonials will be fetched from API
+const fallbackTestimonials = [];
 
 const containerVariant = {
   hidden: { opacity: 0 },
@@ -148,11 +23,43 @@ const itemVariant = {
 };
 
 const TestimonialsSection = () => {
+  const [testimonials, setTestimonials] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
   const carouselRef = useRef(null);
+
+  // Prefer env override if provided; falls back to localhost
+  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function load() {
+      try {
+        setIsLoading(true);
+        setError("");
+        const res = await fetch(`${apiBaseUrl}/api/testimonials`);
+        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+        const data = await res.json();
+        if (isMounted) setTestimonials(Array.isArray(data) ? data : fallbackTestimonials);
+      } catch (err) {
+        console.error("Error fetching testimonials:", err);
+        if (isMounted) {
+          setError("Unable to load testimonials right now.");
+          setTestimonials(fallbackTestimonials);
+        }
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    }
+    load();
+    return () => {
+      isMounted = false;
+    };
+  }, [apiBaseUrl]);
 
   useEffect(() => {
     const carousel = carouselRef.current;
-    if (!carousel) return;
+    if (!carousel || testimonials.length === 0) return;
 
     let animationId;
     const scrollSpeed = 0.5; // Slower speed for better readability
@@ -179,7 +86,8 @@ const TestimonialsSection = () => {
         cancelAnimationFrame(animationId);
       }
     };
-  }, []);
+  }, [testimonials]);
+  console.log("Testimonials:", testimonials);
 
   return (
     <motion.section
@@ -202,34 +110,65 @@ const TestimonialsSection = () => {
             </h2>
           </motion.div>
           <div className="relative w-full overflow-hidden group">
-            <motion.div
-              ref={carouselRef}
-              className="flex items-start gap-6 group-hover:[animation-play-state:paused]"
-              variants={containerVariant}
-              style={{ willChange: "transform" }}
-            >
-              {[...testimonials, ...testimonials].map((testimonial, index) => (
-                <motion.div
-                  key={index}
-                  className="flex-none bg-white rounded-2xl p-6 shadow-lg border border-slate-200 w-80 min-h-[192px] hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-                  variants={itemVariant}
-                  whileHover={{ y: -4, scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <p className="text-sm text-slate-600 italic leading-relaxed mb-4">
-                    "{testimonial.text}"
-                  </p>
-                  <div className="mt-auto pt-4 border-t border-slate-100">
-                    <div className="font-semibold text-sm text-slate-800 truncate">
-                      {testimonial.name}
-                    </div>
-                    <div className="text-xs text-slate-500 truncate">
-                      {testimonial.title}
+            {isLoading && (
+              <div className="flex items-start gap-6">
+                {Array.from({ length: 6 }).map((_, idx) => (
+                  <div key={`skeleton-${idx}`} className="flex-none bg-white rounded-2xl p-6 shadow-lg border border-slate-200 w-80 min-h-[192px] animate-pulse">
+                    <div className="h-4 bg-slate-200 rounded mb-2"></div>
+                    <div className="h-4 bg-slate-200 rounded mb-2"></div>
+                    <div className="h-4 bg-slate-200 rounded mb-2 w-3/4"></div>
+                    <div className="mt-4 pt-4 border-t border-slate-100">
+                      <div className="h-4 bg-slate-200 rounded mb-1"></div>
+                      <div className="h-3 bg-slate-200 rounded w-2/3"></div>
                     </div>
                   </div>
-                </motion.div>
-              ))}
-            </motion.div>
+                ))}
+              </div>
+            )}
+            
+            {!isLoading && testimonials.length > 0 && (
+              <motion.div
+                ref={carouselRef}
+                className="flex items-start gap-6 group-hover:[animation-play-state:paused]"
+                variants={containerVariant}
+                style={{ willChange: "transform" }}
+              >
+                {[...testimonials, ...testimonials].map((testimonial, index) => (
+                  <motion.div
+                    key={index}
+                    className="flex-none bg-white rounded-2xl p-6 shadow-lg border border-slate-200 w-80 min-h-[192px] hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                    variants={itemVariant}
+                    whileHover={{ y: -4, scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <p className="text-sm text-slate-600 italic leading-relaxed mb-4">
+                      "{testimonial.text}"
+                    </p>
+                    <div className="mt-auto pt-4 border-t border-slate-100">
+                      <div className="font-semibold text-sm text-slate-800 truncate">
+                        {testimonial.name}
+                      </div>
+                      <div className="text-xs text-slate-500 truncate">
+                        {testimonial.title}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+            
+            {!isLoading && testimonials.length === 0 && !error && (
+              <div className="text-center py-12 text-slate-500">
+                <Quote className="w-12 h-12 mx-auto mb-4 text-slate-300" />
+                <p>No testimonials available right now.</p>
+              </div>
+            )}
+            
+            {error && (
+              <div className="text-center py-12 text-red-500">
+                <p>{error}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

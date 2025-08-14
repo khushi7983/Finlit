@@ -14,6 +14,21 @@ app.use(express.json());
 // Routes
 import exampleRoutes from './routes/exampleRoutes.js'; // fixed path
 app.use('/api/example', exampleRoutes);
+import offeringRoutes from "./routes/offeringRoutes.js";
+app.use("/api/offerings", offeringRoutes);
+import testimonialRoutes from "./routes/testimonialRoutes.js";
+app.use("/api/testimonials", testimonialRoutes);
+import faqRoutes from "./routes/faqRoutes.js";
+app.use("/api/faqs", faqRoutes);
+import supporterRoutes from "./routes/supporterRoutes.js";
+app.use("/api/supporters", supporterRoutes);
+import journeyRoutes from "./routes/journeyRoutes.js";
+app.use("/api/journey", journeyRoutes);
+import courseRoutes from "./routes/courseRoutes.js";
+app.use("/api/courses", courseRoutes);
+import videoRoutes from "./routes/videoRoutes.js";
+app.use("/api/videos", videoRoutes);
+
 
 app.get('/', (req, res) => {
   res.send('API is running...');

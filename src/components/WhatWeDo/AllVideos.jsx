@@ -1,137 +1,180 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PlayCircle, Users, TrendingUp, ChevronRight } from 'lucide-react';
+
+// Fallback videos in case API fails
+const fallbackVideos = [
+  {
+    id: 1,
+    name: "Anshul Gupta",
+    title: "Co-Founder, Wint Wealth",
+    videoId: "xp1y9g-KrXQ",
+    topic: "Fixed Income Investing",
+    duration: "25 min",
+    category: "Investment",
+    type: "all"
+  },
+  {
+    id: 2,
+    name: "John Jordan",
+    title: "Executive Director, BC Digital Trust",
+    videoId: "jzGmR51vBts",
+    topic: "Digital Trust Ecosystems",
+    duration: "32 min",
+    category: "Technology",
+    type: "all"
+  },
+  {
+    id: 3,
+    name: "Mac Gardner",
+    title: "CEO, FinLit Tech",
+    videoId: "brcViwob9fs",
+    topic: "FinTech Literacy",
+    duration: "28 min",
+    category: "FinTech",
+    type: "all"
+  },
+  {
+    id: 4,
+    name: "Khadija Khartit",
+    title: "Managing Director, IFS Advisory",
+    videoId: "bXyLoXoG0Us",
+    topic: "Islamic Finance",
+    duration: "35 min",
+    category: "Finance",
+    type: "all"
+  },
+  {
+    id: 5,
+    name: "Sarah Johnson",
+    title: "Blockchain Analyst, CryptoVision",
+    videoId: "BPVuPCDxDvk",
+    topic: "Cryptocurrency Investment",
+    duration: "40 min",
+    category: "Crypto",
+    type: "all"
+  },
+  {
+    id: 6,
+    name: "Michael Chen",
+    title: "Senior Financial Advisor",
+    videoId: "d0zOIujjHYE",
+    topic: "Retirement Planning",
+    duration: "30 min",
+    category: "Planning",
+    type: "all"
+  },
+  {
+    id: 7,
+    name: "David Rodriguez",
+    title: "Investment Strategist, Global Capital",
+    videoId: "nJVa3yP2144",
+    topic: "Global Market Analysis",
+    duration: "27 min",
+    category: "Strategy",
+    type: "all"
+  },
+  {
+    id: 8,
+    name: "Lisa Thompson",
+    title: "Portfolio Manager, WealthFirst",
+    videoId: "dDRfBknBlqc",
+    topic: "Portfolio Diversification",
+    duration: "22 min",
+    category: "Portfolio",
+    type: "all"
+  },
+  {
+    id: 9,
+    name: "Robert Kim",
+    title: "Risk Analyst, SecureInvest",
+    videoId: "Vlsfp33oWjE",
+    topic: "Risk Management",
+    duration: "18 min",
+    category: "Risk",
+    type: "all"
+  },
+  {
+    id: 10,
+    name: "Emma Wilson",
+    title: "Financial Planner, FutureReady",
+    videoId: "WSa5YaqroSQ",
+    topic: "Financial Planning",
+    duration: "33 min",
+    category: "Planning",
+    type: "all"
+  },
+  {
+    id: 11,
+    name: "James Brown",
+    title: "Market Analyst, TrendWatch",
+    videoId: "UQsUEShPqqY",
+    topic: "Market Trends",
+    duration: "29 min",
+    category: "Analysis",
+    type: "all"
+  },
+  {
+    id: 12,
+    name: "Maria Garcia",
+    title: "Investment Advisor, SmartMoney",
+    videoId: "1juWFLTrfHM",
+    topic: "Smart Investing",
+    duration: "31 min",
+    category: "Investment",
+    type: "all"
+  },
+  {
+    id: 13,
+    name: "Alex Turner",
+    title: "Financial Educator, LearnFinance",
+    videoId: "dGYATr-ptCE",
+    topic: "Financial Education",
+    duration: "26 min",
+    category: "Education",
+    type: "all"
+  }
+];
 
 const AllVideos = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // Prefer env override if provided; falls back to localhost
+  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  const getYoutubeThumbnail = (videoId) =>
-    `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-
-  const speakers = [
-    {
-      id: 1,
-      name: "Anshul Gupta",
-      title: "Co-Founder, Wint Wealth",
-      videoId: "xp1y9g-KrXQ",
-      topic: "Fixed Income Investing",
-      duration: "25 min",
-      category: "Investment"
-    },
-    {
-      id: 2,
-      name: "John Jordan",
-      title: "Executive Director, BC Digital Trust",
-      videoId: "jzGmR51vBts",
-      topic: "Digital Trust Ecosystems",
-      duration: "32 min",
-      category: "Technology"
-    },
-    {
-      id: 3,
-      name: "Mac Gardner",
-      title: "CEO, FinLit Tech",
-      videoId: "brcViwob9fs",
-      topic: "FinTech Literacy",
-      duration: "28 min",
-      category: "FinTech"
-    },
-    {
-      id: 4,
-      name: "Khadija Khartit",
-      title: "Managing Director, IFS Advisory",
-      videoId: "bXyLoXoG0Us",
-      topic: "Islamic Finance",
-      duration: "35 min",
-      category: "Finance"
-    },
-    {
-      id: 5,
-      name: "Sarah Johnson",
-      title: "Blockchain Analyst, CryptoVision",
-      videoId: "BPVuPCDxDvk",
-      topic: "Cryptocurrency Investment",
-      duration: "40 min",
-      category: "Crypto"
-    },
-    {
-      id: 6,
-      name: "Michael Chen",
-      title: "Senior Financial Advisor",
-      videoId: "d0zOIujjHYE",
-      topic: "Retirement Planning",
-      duration: "30 min",
-      category: "Planning"
-    },
-    {
-      id: 7,
-      name: "David Rodriguez",
-      title: "Investment Strategist, Global Capital",
-      videoId: "nJVa3yP2144",
-      topic: "Global Market Analysis",
-      duration: "27 min",
-      category: "Strategy"
-    },
-    {
-      id: 8,
-      name: "Lisa Thompson",
-      title: "Portfolio Manager, WealthFirst",
-      videoId: "dDRfBknBlqc",
-      topic: "Portfolio Diversification",
-      duration: "22 min",
-      category: "Portfolio"
-    },
-    {
-      id: 9,
-      name: "Robert Kim",
-      title: "Risk Analyst, SecureInvest",
-      videoId: "Vlsfp33oWjE",
-      topic: "Risk Management",
-      duration: "18 min",
-      category: "Risk"
-    },
-    {
-      id: 10,
-      name: "Emma Wilson",
-      title: "Financial Planner, FutureReady",
-      videoId: "WSa5YaqroSQ",
-      topic: "Financial Planning",
-      duration: "33 min",
-      category: "Planning"
-    },
-    {
-      id: 11,
-      name: "James Brown",
-      title: "Market Analyst, TrendWatch",
-      videoId: "UQsUEShPqqY",
-      topic: "Market Trends",
-      duration: "29 min",
-      category: "Analysis"
-    },
-    {
-      id: 12,
-      name: "Maria Garcia",
-      title: "Investment Advisor, SmartMoney",
-      videoId: "1juWFLTrfHM",
-      topic: "Smart Investing",
-      duration: "31 min",
-      category: "Investment"
-    },
-    {
-      id: 13,
-      name: "Alex Turner",
-      title: "Financial Educator, LearnFinance",
-      videoId: "dGYATr-ptCE",
-      topic: "Financial Education",
-      duration: "26 min",
-      category: "Education"
+  useEffect(() => {
+    let isMounted = true;
+    async function load() {
+      try {
+        setIsLoading(true);
+        setError("");
+        const res = await fetch(`${apiBaseUrl}/api/videos?type=all`);
+        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+        const data = await res.json();
+        if (isMounted) setVideos(Array.isArray(data) ? data : fallbackVideos);
+      } catch (err) {
+        console.error("Error fetching videos:", err);
+        if (isMounted) {
+          setError("Unable to load videos right now.");
+          setVideos(fallbackVideos);
+        }
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
     }
-  ];
+    load();
+    return () => {
+      isMounted = false;
+    };
+  }, [apiBaseUrl]);
 
   const openModal = (videoId) => setSelectedVideo(videoId);
   const closeModal = () => setSelectedVideo(null);
@@ -164,9 +207,35 @@ const AllVideos = () => {
           </h2>
         </div>
 
+        {/* Loading State */}
+        {isLoading && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {Array.from({ length: 12 }).map((_, idx) => (
+              <div key={`skeleton-${idx}`} className="group cursor-pointer transition-all duration-700 perspective-1000">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-white/50 animate-pulse">
+                  <div className="aspect-[4/3] bg-gradient-to-br from-slate-100 to-slate-200"></div>
+                  <div className="p-6 bg-white">
+                    <div className="h-6 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-4 w-3/4"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && (
+          <div className="text-center py-12">
+            <p className="text-red-500 text-lg">{error}</p>
+          </div>
+        )}
+
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {speakers.map((speaker, index) => (
+        {!isLoading && !error && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {videos.map((speaker, index) => (
             <div
               key={speaker.id}
               className={`group cursor-pointer transition-all duration-700 perspective-1000 ${
@@ -235,6 +304,14 @@ const AllVideos = () => {
             </div>
           ))}
         </div>
+        )}
+
+        {/* Empty State */}
+        {!isLoading && !error && videos.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No videos available right now.</p>
+          </div>
+        )}
       </div>
 
       {/* Modal */}

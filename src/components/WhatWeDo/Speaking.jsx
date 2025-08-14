@@ -1,76 +1,118 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { PlayCircle, Users, TrendingUp, Zap, ChevronRight } from 'lucide-react';
+import { PlayCircle, TrendingUp, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+
+// Function to generate YouTube thumbnail URL
+const getYoutubeThumbnail = (videoId) => {
+  if (!videoId) return 'path/to/fallback-image.jpg'; // Replace with actual fallback image path
+  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+};
+
+// Fallback speaking videos in case API fails
+const fallbackSpeakingVideos = [
+  {
+    id: 1,
+    name: "Anshul Gupta",
+    title: "Co-Founder, Wint Wealth",
+    videoId: "xp1y9g-KrXQ",
+    topic: "Fixed Income Investing",
+    duration: "25 min",
+    category: "Investment",
+    type: "speaking"
+  },
+  {
+    id: 2,
+    name: "John Jordan",
+    title: "Executive Director, BC Digital Trust",
+    videoId: "jzGmR51vBts",
+    topic: "Digital Trust Ecosystems",
+    duration: "32 min",
+    category: "Technology",
+    type: "speaking"
+  },
+  {
+    id: 3,
+    name: "Mac Gardner",
+    title: "CEO, FinLit Tech",
+    videoId: "brcViwob9fs",
+    topic: "FinTech Literacy",
+    duration: "28 min",
+    category: "FinTech",
+    type: "speaking"
+  },
+  {
+    id: 4,
+    name: "Khadija Khartit",
+    title: "Managing Director, IFS Advisory",
+    videoId: "bXyLoXoG0Us",
+    topic: "Islamic Finance",
+    duration: "35 min",
+    category: "Finance",
+    type: "speaking"
+  },
+  {
+    id: 5,
+    name: "Sarah Johnson",
+    title: "Blockchain Analyst, CryptoVision",
+    videoId: "BPVuPCDxDvk",
+    topic: "Cryptocurrency Investment",
+    duration: "40 min",
+    category: "Crypto",
+    type: "speaking"
+  },
+  {
+    id: 6,
+    name: "Michael Chen",
+    title: "Senior Financial Advisor",
+    videoId: "d0zOIujjHYE",
+    topic: "Retirement Planning",
+    duration: "30 min",
+    category: "Planning",
+    type: "speaking"
+  }
+];
 
 const Speaking = () => {
   const navigate = useNavigate();
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // Prefer env override if provided; falls back to localhost
+  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  const getYoutubeThumbnail = (videoId) =>
-    `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-
-  const speakers = [
-    {
-      id: 1,
-      name: "Anshul Gupta",
-      title: "Co-Founder, Wint Wealth",
-      videoId: "xp1y9g-KrXQ",
-      topic: "Fixed Income Investing",
-      duration: "25 min",
-      category: "Investment"
-    },
-    {
-      id: 2,
-      name: "John Jordan",
-      title: "Executive Director, BC Digital Trust",
-      videoId: "jzGmR51vBts",
-      topic: "Digital Trust Ecosystems",
-      duration: "32 min",
-      category: "Technology"
-    },
-    {
-      id: 3,
-      name: "Mac Gardner",
-      title: "CEO, FinLit Tech",
-      videoId: "brcViwob9fs",
-      topic: "FinTech Literacy",
-      duration: "28 min",
-      category: "FinTech"
-    },
-    {
-      id: 4,
-      name: "Khadija Khartit",
-      title: "Managing Director, IFS Advisory",
-      videoId: "bXyLoXoG0Us",
-      topic: "Islamic Finance",
-      duration: "35 min",
-      category: "Finance"
-    },
-    {
-      id: 5,
-      name: "Sarah Johnson",
-      title: "Blockchain Analyst, CryptoVision",
-      videoId: "BPVuPCDxDvk",
-      topic: "Cryptocurrency Investment",
-      duration: "40 min",
-      category: "Crypto"
-    },
-    {
-      id: 6,
-      name: "Michael Chen",
-      title: "Senior Financial Advisor",
-      videoId: "d0zOIujjHYE",
-      topic: "Retirement Planning",
-      duration: "30 min",
-      category: "Planning"
+  useEffect(() => {
+    let isMounted = true;
+    async function load() {
+      try {
+        setIsLoading(true);
+        setError("");
+        const res = await fetch(`${apiBaseUrl}/api/videos?type=speaking`);
+        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+        const data = await res.json();
+        if (isMounted) setVideos(Array.isArray(data) ? data : fallbackSpeakingVideos);
+      } catch (err) {
+        console.error("Error fetching speaking videos:", err);
+        if (isMounted) {
+          setError("Unable to load speaking videos right now.");
+          setVideos(fallbackSpeakingVideos);
+        }
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
     }
-  ];
+    load();
+    return () => {
+      isMounted = false;
+    };
+  }, [apiBaseUrl]);
 
   const openModal = (videoId) => setSelectedVideo(videoId);
   const closeModal = () => setSelectedVideo(null);
@@ -103,77 +145,112 @@ const Speaking = () => {
           </h2>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {speakers.map((speaker, index) => (
-            <div
-              key={speaker.id}
-              className={`group cursor-pointer transition-all duration-700 perspective-1000 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-              }`}
-              style={{ transitionDelay: `${800 + index * 100}ms` }}
-              onClick={() => openModal(speaker.videoId)}
-            >
-              <div
-                className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-white/50 transition-all duration-500 group-hover:shadow-2xl group-hover:bg-white/90 group-hover:-translate-y-2 group-hover:scale-[1.04] group-hover:border-yellow-400 group-hover:shadow-yellow-200 animate-card-float"
-                style={{ transformStyle: 'preserve-3d' }}
-              >
-                {/* Image Container */}
-                <div className="relative overflow-hidden group-hover:animate-tilt-glow">
-                  <div className="aspect-[4/3] bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center relative">
-                    <img 
-                      src={getYoutubeThumbnail(speaker.videoId)}
-                      alt={speaker.name}
-                      className="w-full h-full object-cover absolute inset-0 transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
-                        <PlayCircle className="w-8 h-8 text-white" />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Category Badge */}
-                  <div className="absolute top-4 left-4 z-20">
-                    <span className="bg-yellow-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full transform group-hover:scale-110 transition-transform duration-300">
-                      {speaker.category}
-                    </span>
-                  </div>
-
-                  {/* Duration Badge */}
-                  <div className="absolute top-4 right-4 z-20">
-                    <span className="bg-slate-900/70 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
-                      {speaker.duration}
-                    </span>
+        {/* Loading State */}
+        {isLoading && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <div key={`skeleton-${idx}`} className="group cursor-pointer transition-all duration-700 perspective-1000">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-white/50 animate-pulse">
+                  <div className="aspect-[4/3] bg-gradient-to-br from-slate-100 to-slate-200"></div>
+                  <div className="p-6 bg-white">
+                    <div className="h-6 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-4 w-3/4"></div>
                   </div>
                 </div>
+              </div>
+            ))}
+          </div>
+        )}
 
-                {/* Card Footer */}
-                <div className="p-6 bg-white">
-                  <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-yellow-600 transition-colors duration-300">
-                    {speaker.name}
-                  </h3>
-                  <p className="text-slate-600 text-sm mb-2">
-                    {speaker.title}
-                  </p>
-                  <p className="text-slate-700 text-sm font-semibold mb-4">
-                    {speaker.topic}
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                      Watch episode
+        {/* Error State */}
+        {error && (
+          <div className="text-center py-12">
+            <p className="text-red-500 text-lg">{error}</p>
+          </div>
+        )}
+
+        {/* Cards Grid */}
+        {!isLoading && !error && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {videos.map((speaker, index) => (
+              <div
+                key={speaker.id}
+                className={`group cursor-pointer transition-all duration-700 perspective-1000 ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                }`}
+                style={{ transitionDelay: `${800 + index * 100}ms` }}
+                onClick={() => openModal(speaker.videoId)}
+              >
+                <div
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-white/50 transition-all duration-500 group-hover:shadow-2xl group-hover:bg-white/90 group-hover:-translate-y-2 group-hover:scale-[1.04] group-hover:border-yellow-400 group-hover:shadow-yellow-200 animate-card-float"
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  {/* Image Container */}
+                  <div className="relative overflow-hidden group-hover:animate-tilt-glow">
+                    <div className="aspect-[4/3] bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center relative">
+                      <img 
+                        src={getYoutubeThumbnail(speaker.videoId)}
+                        alt={speaker.name}
+                        onError={(e) => { e.target.src = 'path/to/fallback-image.jpg'; }} // Replace with actual fallback image path
+                        className="w-full h-full object-cover absolute inset-0 transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
+                          <PlayCircle className="w-8 h-8 text-white" />
+                        </div>
+                      </div>
                     </div>
-                    <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:rotate-12">
-                      <ChevronRight className="w-4 h-4 text-white" />
+                    
+                    {/* Category Badge */}
+                    <div className="absolute top-4 left-4 z-20">
+                      <span className="bg-yellow-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full transform group-hover:scale-110 transition-transform duration-300">
+                        {speaker.category}
+                      </span>
+                    </div>
+
+                    {/* Duration Badge */}
+                    <div className="absolute top-4 right-4 z-20">
+                      <span className="bg-slate-900/70 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
+                        {speaker.duration}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card Footer */}
+                  <div className="p-6 bg-white">
+                    <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-yellow-600 transition-colors duration-300">
+                      {speaker.name}
+                    </h3>
+                    <p className="text-slate-600 text-sm mb-2">
+                      {speaker.title}
+                    </p>
+                    <p className="text-slate-700 text-sm font-semibold mb-4">
+                      {speaker.topic}
+                    </p>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-xs text-slate-500">
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        Watch episode
+                      </div>
+                      <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:rotate-12">
+                        <ChevronRight className="w-4 h-4 text-white" />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!isLoading && !error && videos.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No videos available right now.</p>
+          </div>
+        )}
 
         {/* CTA Section */}
         <div 
@@ -242,7 +319,7 @@ const Speaking = () => {
         )}
       </AnimatePresence>
 
-      /* Custom Styles */
+      {/* Custom Styles */}
       <style jsx>{`
         .animate-card-float {
           animation: cardFloat 3s ease-in-out infinite alternate;
@@ -259,7 +336,7 @@ const Speaking = () => {
         @keyframes tiltGlow {
           0% { transform: rotateY(0deg) scale(1); }
           60% { transform: rotateY(8deg) scale(1.05); }
-          100% { transform: rotateY(0deg EDITOR
+          100% { transform: rotateY(0deg) scale(1); }
         }
         .animate-float1 { animation: float1 7s ease-in-out infinite alternate; }
         .animate-float2 { animation: float2 9s ease-in-out infinite alternate; }
@@ -272,18 +349,16 @@ const Speaking = () => {
           content: "";
           display: block;
           position: absolute;
-          bordernotes: {
-            radius: 50%;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            background: rgba(255, 255, 255, 0.3);
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 0.4s, transform 0.4s;
-          }
+          border-radius: 50%;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          pointer-events: none;
+          background: rgba(255, 255, 255, 0.3);
+          opacity: 0;
+          transform: scale(0.8);
+          transition: opacity 0.4s, transform 0.4s;
         }
         .ripple:active:after {
           opacity: 1;
