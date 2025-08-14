@@ -101,10 +101,10 @@ const TestimonialsSection = () => {
       <div className="container mx-auto">
         <div className="max-w-6xl mx-auto">
           <motion.div className="text-center mb-12" variants={itemVariant}>
-            <div className="inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-3 py-1.5 mb-4">
+            {/* <div className="inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-3 py-1.5 mb-4">
               <Quote className="w-4 h-4 text-yellow-400" />
               <span className="text-xs font-medium text-yellow-400">Testimonials</span>
-            </div>
+            </div> */}
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-800">
               What People Say
             </h2>
