@@ -187,13 +187,14 @@ const ESG = () => {
             <span className="text-xs font-semibold text-green-700">ESG Investing</span>
           </div> */}
           
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-3 leading-tight">
-            <span className="text-slate-800">Invest with</span>
-            <br />
-            <span className="bg-gradient-to-r from-green-400 via-green-500 to-green-600 bg-clip-text text-transparent">
-              Purpose & Profit
-            </span>
-          </h1>
+    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight transition-all duration-1000 delay-200">
+  <span className="text-slate-800">Invest with</span>
+  <br />
+  <span className="bg-gradient-to-r from-green-400 via-green-500 to-green-600 bg-clip-text text-transparent">
+    Purpose & Profit
+  </span>
+</h1>
+
           
           <p className="text-sm md:text-sm text-slate-600 max-w-3xl mx-auto leading-relaxed mb-6">
             <span className="font-semibold text-slate-700">ESG Mutual Funds: Where Your Money Meets Your Values</span>
