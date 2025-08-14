@@ -372,10 +372,10 @@ const Hero = () => {
 
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-3 py-1.5 mb-4">
+            {/* <div className="inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-3 py-1.5 mb-4">
               <Target className="w-3 h-3 text-yellow-400" />
               <span className="text-xs font-medium text-yellow-400">Our Vision</span>
-            </div>
+            </div> */}
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">Our Aspirations</h2>
           </div>
 
@@ -420,7 +420,7 @@ const Hero = () => {
       </motion.section>
 
       {/* The Challenge Section */}
-      <motion.section className="relative bg-gradient-to-br from-slate-800 via-slate-900 to-black py-16 px-4 md:px-8 overflow-hidden">
+      <motion.section className="relative bg-gradient-to-br from-slate-800 via-slate-900 to-black py-8 px-4 md:px-8 overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <div
             className="absolute inset-0 bg-repeat"
@@ -432,10 +432,10 @@ const Hero = () => {
 
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-red-500/20 backdrop-blur-sm rounded-full px-3 py-1.5 mb-4">
+            {/* <div className="inline-flex items-center gap-2 bg-red-500/20 backdrop-blur-sm rounded-full px-3 py-1.5 mb-4">
               <Users className="w-3 h-3 text-red-400" />
               <span className="text-xs font-medium text-red-400">Global Issue</span>
-            </div>
+            </div> */}
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">The Challenge</h2>
           </div>
 
