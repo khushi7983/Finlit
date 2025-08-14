@@ -153,13 +153,14 @@ const Fund = () => {
             <span className="text-xs font-semibold text-yellow-700">Mutual Fund Investing</span>
           </div> */}
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 leading-tight">
-            <span className="text-slate-800">Mutual Fund Investing</span>
-            <br />
-            <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
-              Made Simple
-            </span>
-          </h1>
+       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight transition-all duration-1000 delay-200">
+  <span className="text-slate-800">Mutual Fund Investing</span>
+  <br />
+  <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
+    Made Simple
+  </span>
+</h1>
+
 
           <p className="text-sm md:text-base text-slate-600 max-w-3xl mx-auto leading-relaxed mb-6">
             <span className="font-semibold text-slate-700">Invest with Confidence. Learn as You Grow.</span>
