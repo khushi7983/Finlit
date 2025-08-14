@@ -105,14 +105,14 @@ const MediaPresence = () => {
       </div>
 
       {/* Interactive Mouse Cursor Effect */}
-      <div
+      {/* <div
         className="fixed w-6 h-6 bg-yellow-500/30 rounded-full pointer-events-none z-50 mix-blend-multiply transition-all duration-300 ease-out"
         style={{
           left: mousePosition.x - 12,
           top: mousePosition.y - 12,
           transform: hoveredCard !== null ? "scale(3)" : "scale(1)",
         }}
-      />
+      /> */}
 
       {/* Floating Particles */}
       {particles.map((particle) => (
@@ -170,7 +170,7 @@ const MediaPresence = () => {
 
                 {/* Enhanced Icon */}
                 <div className="relative mb-6 perspective-1000">
-                  <div className={`${media.iconColor} transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500`}>
+                  <div className={`${media.iconColor} transform group-hover:scale-110  transition-all duration-500`}>
                     {media.icon}
                   </div>
 
@@ -195,7 +195,7 @@ const MediaPresence = () => {
                 </div>
 
                 {/* Hover Effect Line with Wave Animation */}
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-yellow-500 rounded-b-2xl transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left animate-wave"></div>
+                {/* <div className="absolute bottom-0 left-0 w-full h-1 bg-yellow-500 rounded-b-2xl transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left animate-wave"></div> */}
 
                 {/* Enhanced Hover Button */}
                 <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-700 transform translate-y-4 scale-75 group-hover:translate-y-0 group-hover:scale-100">
