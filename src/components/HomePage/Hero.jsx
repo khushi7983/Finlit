@@ -420,7 +420,7 @@ const Hero = () => {
       </motion.section>
 
       {/* The Challenge Section */}
-      <motion.section className="relative bg-gradient-to-br from-slate-800 via-slate-900 to-black py-16 px-4 md:px-8 overflow-hidden">
+      <motion.section className="relative bg-gradient-to-br from-slate-800 via-slate-900 to-black py-8 px-4 md:px-8 overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <div
             className="absolute inset-0 bg-repeat"

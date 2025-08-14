@@ -2,6 +2,12 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PlayCircle, Users, TrendingUp, ChevronRight } from 'lucide-react';
 
+// Function to generate YouTube thumbnail URL
+const getYoutubeThumbnail = (videoId) => {
+  if (!videoId) return 'path/to/fallback-image.jpg'; // Replace with actual fallback image path
+  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+};
+
 // Fallback videos in case API fails
 const fallbackVideos = [
   {
@@ -185,9 +191,9 @@ const AllVideos = () => {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23f1f5f9\' fill-opacity=\'0.4\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'1\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
 
       {/* Floating Background Elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style={{ animationDelay: '2s' }}></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style={{ animationDelay: '4s' }}></div>
+      <div key="bg-1" className="absolute top-20 left-10 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+      <div key="bg-2" className="absolute bottom-20 right-10 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style={{ animationDelay: '2s' }}></div>
+      <div key="bg-3" className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style={{ animationDelay: '4s' }}></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -236,74 +242,75 @@ const AllVideos = () => {
         {!isLoading && !error && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {videos.map((speaker, index) => (
-            <div
-              key={speaker.id}
-              className={`group cursor-pointer transition-all duration-700 perspective-1000 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-              }`}
-              style={{ transitionDelay: `${800 + index * 100}ms` }}
-              onClick={() => openModal(speaker.videoId)}
-            >
               <div
-                className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-white/50 transition-all duration-500 group-hover:shadow-2xl group-hover:bg-white/90 group-hover:-translate-y-2 group-hover:scale-[1.04] group-hover:border-yellow-400 group-hover:shadow-yellow-200 animate-card-float"
-                style={{ transformStyle: 'preserve-3d' }}
+                key={speaker.id}
+                className={`group cursor-pointer transition-all duration-700 perspective-1000 ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                }`}
+                style={{ transitionDelay: `${800 + index * 100}ms` }}
+                onClick={() => openModal(speaker.videoId)}
               >
-                {/* Image Container */}
-                <div className="relative overflow-hidden group-hover:animate-tilt-glow">
-                  <div className="aspect-[4/3] bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center relative">
-                    <img 
-                      src={getYoutubeThumbnail(speaker.videoId)}
-                      alt={speaker.name}
-                      className="w-full h-full object-cover absolute inset-0 transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
-                        <PlayCircle className="w-8 h-8 text-white" />
+                <div
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-white/50 transition-all duration-500 group-hover:shadow-2xl group-hover:bg-white/90 group-hover:-translate-y-2 group-hover:scale-[1.04] group-hover:border-yellow-400 group-hover:shadow-yellow-200 animate-card-float"
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  {/* Image Container */}
+                  <div className="relative overflow-hidden group-hover:animate-tilt-glow">
+                    <div className="aspect-[4/3] bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center relative">
+                      <img 
+                        src={getYoutubeThumbnail(speaker.videoId)}
+                        alt={speaker.name}
+                        onError={(e) => { e.target.src = 'path/to/fallback-image.jpg'; }} // Replace with actual fallback image path
+                        className="w-full h-full object-cover absolute inset-0 transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
+                          <PlayCircle className="w-8 h-8 text-white" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  
-                  {/* Category Badge */}
-                  <div className="absolute top-4 left-4 z-20">
-                    <span className="bg-yellow-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full transform group-hover:scale-110 transition-transform duration-300">
-                      {speaker.category}
-                    </span>
-                  </div>
-
-                  {/* Duration Badge */}
-                  <div className="absolute top-4 right-4 z-20">
-                    <span className="bg-slate-900/70 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
-                      {speaker.duration}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Card Footer */}
-                <div className="p-6 bg-white">
-                  <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-yellow-600 transition-colors duration-300">
-                    {speaker.name}
-                  </h3>
-                  <p className="text-slate-600 text-sm mb-2">
-                    {speaker.title}
-                  </p>
-                  <p className="text-slate-700 text-sm font-semibold mb-4">
-                    {speaker.topic}
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                      Watch episode
+                    
+                    {/* Category Badge */}
+                    <div className="absolute top-4 left-4 z-20">
+                      <span className="bg-yellow-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full transform group-hover:scale-110 transition-transform duration-300">
+                        {speaker.category}
+                      </span>
                     </div>
-                    <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:rotate-12">
-                      <ChevronRight className="w-4 h-4 text-white" />
+
+                    {/* Duration Badge */}
+                    <div className="absolute top-4 right-4 z-20">
+                      <span className="bg-slate-900/70 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
+                        {speaker.duration}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card Footer */}
+                  <div className="p-6 bg-white">
+                    <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-yellow-600 transition-colors duration-300">
+                      {speaker.name}
+                    </h3>
+                    <p className="text-slate-600 text-sm mb-2">
+                      {speaker.title}
+                    </p>
+                    <p className="text-slate-700 text-sm font-semibold mb-4">
+                      {speaker.topic}
+                    </p>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-xs text-slate-500">
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        Watch episode
+                      </div>
+                      <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:rotate-12">
+                        <ChevronRight className="w-4 h-4 text-white" />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
         )}
 
         {/* Empty State */}
@@ -325,9 +332,9 @@ const AllVideos = () => {
             onClick={closeModal}
           >
             {/* Animated floating shapes in modal background */}
-            <div className="absolute top-10 left-10 w-40 h-40 bg-gradient-to-br from-yellow-400 to-pink-400 rounded-full opacity-30 blur-2xl animate-float1 pointer-events-none" />
-            <div className="absolute bottom-10 right-10 w-56 h-56 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full opacity-30 blur-2xl animate-float2 pointer-events-none" />
-            <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-pink-400 to-yellow-400 rounded-full opacity-20 blur-2xl animate-float3 pointer-events-none" style={{ transform: 'translate(-50%, -50%)' }} />
+            <div key="modal-float-1" className="absolute top-10 left-10 w-40 h-40 bg-gradient-to-br from-yellow-400 to-pink-400 rounded-full opacity-30 blur-2xl animate-float1 pointer-events-none" />
+            <div key="modal-float-2" className="absolute bottom-10 right-10 w-56 h-56 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full opacity-30 blur-2xl animate-float2 pointer-events-none" />
+            <div key="modal-float-3" className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-pink-400 to-yellow-400 rounded-full opacity-20 blur-2xl animate-float3 pointer-events-none" style={{ transform: 'translate(-50%, -50%)' }} />
             
             <motion.div
               className="bg-slate-900 text-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl relative"
@@ -357,8 +364,8 @@ const AllVideos = () => {
         )}
       </AnimatePresence>
 
-      /* Custom Styles */
-      <style jsx>{`
+      {/* Custom Styles */}
+      <style>{`
         .animate-card-float {
           animation: cardFloat 3s ease-in-out infinite alternate;
         }
@@ -388,8 +395,10 @@ const AllVideos = () => {
           display: block;
           position: absolute;
           border-radius: 50%;
-          width: 100%; height: 100%;
-          top: 0; left: 0;
+          width: 100%; 
+          height: 100%;
+          top: 0; 
+          left: 0;
           pointer-events: none;
           background: rgba(255,255,255,0.3);
           opacity: 0;
