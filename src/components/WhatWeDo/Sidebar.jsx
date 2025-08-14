@@ -18,7 +18,7 @@ const SidebarLayout = () => {
   const closeSidebar = () => setIsOpen(false);
 
   return (
-    <div className="flex min-h-screen bg-slate-900 text-white pt-[100px]">
+    <div className="flex min-h-screen bg-slate-900 text-white pt-20">
       {/* Mobile Hamburger - Fixed position */}
       <button
         onClick={toggleSidebar}
@@ -37,7 +37,7 @@ const SidebarLayout = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed md:sticky top-[100px] h-[calc(100vh-100px)] w-72 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
+        className={`fixed md:sticky top-20 h-[calc(100vh-80px)] w-72 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
           transform transition-all duration-300 ease-in-out z-50
           ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
           md:relative md:transform-none`}

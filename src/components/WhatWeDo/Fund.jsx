@@ -140,7 +140,7 @@ const Fund = () => {
       <div className="absolute bottom-20 right-10 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-18 animate-pulse" style={{ animationDelay: "2s" }} />
       <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-12 animate-pulse" style={{ animationDelay: "4s" }} />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 relative z-10">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 relative z-10">
         {/* Header Section */}
         <motion.div
           className="text-center mb-14"
