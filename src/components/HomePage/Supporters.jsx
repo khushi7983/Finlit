@@ -114,9 +114,9 @@ const Supporters = () => {
       <div className="container mx-auto">
         <div className="max-w-6xl mx-auto">
           <motion.div className="text-center mb-12" variants={itemVariant}>
-            <div className="inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-3 py-1.5 mb-4">
+            {/* <div className="inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-3 py-1.5 mb-4">
               <span className="text-xs font-medium text-yellow-400">Partners</span>
-            </div>
+            </div> */}
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-800">
               Our Supporters
             </h2>
