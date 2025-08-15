@@ -28,6 +28,8 @@ import courseRoutes from "./routes/courseRoutes.js";
 app.use("/api/courses", courseRoutes);
 import videoRoutes from "./routes/videoRoutes.js";
 app.use("/api/videos", videoRoutes);
+import awardRoutes from "./routes/awardRoutes.js";
+app.use("/api/awards", awardRoutes);
 
 
 app.get('/', (req, res) => {
