@@ -28,6 +28,10 @@ import courseRoutes from "./routes/courseRoutes.js";
 app.use("/api/courses", courseRoutes);
 import videoRoutes from "./routes/videoRoutes.js";
 app.use("/api/videos", videoRoutes);
+import fraternityRoutes from "./routes/fraternityRoutes.js";
+app.use("/api/fraternity", fraternityRoutes);
+import mediaPresenceRoutes from "./routes/mediaPresenceRoutes.js";
+app.use("/api/media-presence", mediaPresenceRoutes);
 
 
 app.get('/', (req, res) => {

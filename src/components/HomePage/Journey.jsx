@@ -117,10 +117,10 @@ const Journey = () => {
                     <div className="h-4 bg-yellow-400/20 rounded mb-3 w-1/3"></div>
                     <div className="h-3 bg-white/20 rounded mb-2"></div>
                     <div className="h-3 bg-white/20 rounded w-5/6"></div>
-                  </div>
-                </div>
-              ))}
+              </div>
             </div>
+              ))}
+          </div>
           )}
           
           {!isLoading && journeyItems.length > 0 && (
@@ -128,32 +128,32 @@ const Journey = () => {
               {journeyItems.map((item, index) => (
                 <div key={index} className="relative flex items-start ml-10 group">
                   <div className={`absolute -left-10 w-8 h-8 bg-gradient-to-br ${item.isLatest ? 'from-yellow-300 to-yellow-500 animate-pulse' : 'from-yellow-400 to-yellow-500'} rounded-full flex items-center justify-center shadow-lg shadow-yellow-400/30 group-hover:shadow-yellow-400/50 transition-all duration-300 group-hover:scale-110`}>
-                    <div className="w-3 h-3 bg-slate-900 rounded-full group-hover:bg-slate-800 transition-colors duration-300"></div>
+              <div className="w-3 h-3 bg-slate-900 rounded-full group-hover:bg-slate-800 transition-colors duration-300"></div>
                     <div className={`absolute inset-0 rounded-full ${item.isLatest ? 'bg-yellow-400/30' : 'bg-yellow-400/20'} animate-ping`} style={{animationDelay: `${index * 0.5}s`}}></div>
-                  </div>
+            </div>
                   <div className={`bg-gradient-to-br ${item.isLatest ? 'from-slate-800/70 to-slate-900/50 border-2 border-yellow-400/30 hover:border-yellow-400/60' : 'from-slate-800/60 to-slate-900/40 border border-slate-700/50 hover:border-yellow-400/50'} backdrop-blur-sm rounded-xl p-6 transition-all duration-500 w-full group-hover:translate-x-2 group-hover:shadow-xl group-hover:shadow-yellow-400/10 relative overflow-hidden`}>
-                    <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     {item.isLatest && (
-                      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
+              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
                     )}
-                    <div className="relative z-10">
-                      <div className="flex items-center gap-3 mb-3">
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-3">
                         <span className={`font-bold text-sm tracking-wide group-hover:text-yellow-300 transition-colors duration-300 ${item.isLatest ? 'text-yellow-300' : 'text-yellow-400'}`}>
                           {item.period}
                         </span>
                         <div className={`flex-1 h-px bg-gradient-to-r ${item.isLatest ? 'from-yellow-300 via-yellow-400/60' : 'from-yellow-400 via-yellow-400/50'} to-transparent group-hover:from-yellow-300 transition-colors duration-300`}></div>
                         {item.isLatest && (
-                          <div className="px-2 py-1 bg-yellow-400/20 rounded-full">
-                            <span className="text-yellow-300 text-xs font-semibold">LATEST</span>
-                          </div>
+                  <div className="px-2 py-1 bg-yellow-400/20 rounded-full">
+                    <span className="text-yellow-300 text-xs font-semibold">LATEST</span>
+                  </div>
                         )}
-                      </div>
+                </div>
                       <p className={`text-sm leading-relaxed group-hover:text-white transition-colors duration-300 ${item.isLatest ? 'text-white/95 font-medium' : 'text-white/90'}`}>
                         {item.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                </p>
+              </div>
+            </div>
+          </div>
               ))}
             </>
           )}
@@ -161,12 +161,12 @@ const Journey = () => {
       </div>
       
       {!isLoading && journeyItems.length > 0 && (
-        <div className="mt-8 text-center">
-          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-yellow-400/10 via-yellow-400/20 to-yellow-400/10 text-yellow-300 text-sm font-medium border border-yellow-400/30 backdrop-blur-sm hover:border-yellow-400/50 hover:bg-gradient-to-r hover:from-yellow-400/20 hover:via-yellow-400/30 hover:to-yellow-400/20 transition-all duration-300 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-            <span className="relative z-10">Addressing the critical gap in financial literacy through technology</span>
-          </div>
+      <div className="mt-8 text-center">
+        <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-yellow-400/10 via-yellow-400/20 to-yellow-400/10 text-yellow-300 text-sm font-medium border border-yellow-400/30 backdrop-blur-sm hover:border-yellow-400/50 hover:bg-gradient-to-r hover:from-yellow-400/20 hover:via-yellow-400/30 hover:to-yellow-400/20 transition-all duration-300 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+          <span className="relative z-10">Addressing the critical gap in financial literacy through technology</span>
         </div>
+      </div>
       )}
       
       {!isLoading && journeyItems.length === 0 && !error && (
@@ -186,7 +186,7 @@ const Journey = () => {
       )}
     </div>
   </section>
-  );
+);
 };
 
 export default Journey;

@@ -217,27 +217,27 @@ const AllCourses = () => {
 
       {/* Courses Grid */}
       {!isLoading && !error && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
           {filteredCourses.map((course, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center bg-white rounded-2xl shadow-md p-2 transition-transform duration-200 hover:scale-105 hover:shadow-xl max-w-xs mx-auto cursor-pointer"
+          <div
+            key={index}
+            className="flex flex-col items-center bg-white rounded-2xl shadow-md p-2 transition-transform duration-200 hover:scale-105 hover:shadow-xl max-w-xs mx-auto cursor-pointer"
               onClick={() => openModal(course)}
-            >
-              <img
+          >
+            <img
                 src={course.imageUrl}
                 alt={course.title}
-                className="object-contain rounded-lg border border-gray-100 shadow-sm"
-              />
+              className="object-contain rounded-lg border border-gray-100 shadow-sm"
+            />
               <div className="mt-2 text-center">
                 <h3 className="font-semibold text-sm text-gray-800">{course.title}</h3>
                 {course.description && (
                   <p className="text-xs text-gray-600 mt-1">{course.description}</p>
                 )}
               </div>
-            </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
       )}
 
       {/* Empty State */}

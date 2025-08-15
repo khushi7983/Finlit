@@ -1,55 +1,121 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Users, Star } from "lucide-react";
+import { Users, Star, AlertCircle, Loader2 } from "lucide-react";
 import neha from "../../assets/members/neha.png";
 import dcmishra from "../../assets/members/dcmishra.png";
 import archanah from "../../assets/members/archanah.png";
 import jimmy from "../../assets/members/jimmy.png";
-
-const fraternityMembers = [
-  {
-    name: "Neha Misra",
-    role: "CEO",
-    description: "Visionary leader driving financial literacy innovation",
-    image: neha,
-    color: "from-gray-900 via-blue-500 to-gray-600",
-    bgHover: "bg-white/95",
-    delay: "0s",
-  },
-  {
-    name: "Dr. D C Misra",
-    role: "CTO & CIO",
-    description: "Technology strategist and innovation architect",
-    image: dcmishra,
-    color: "from-gray-900 via-blue-500 to-gray-600",
-    bgHover: "bg-gray-50/95",
-    delay: "0.2s",
-  },
-  {
-    name: "Jimmy Vishwakarma",
-    role: "IT Manager",
-    description: "Technical operations and system management",
-    image: jimmy,
-    color: "from-gray-900 via-blue-500 to-gray-600",
-    bgHover: "bg-indigo-50/95",
-    delay: "0.4s",
-  },
-  {
-    name: "Archana Yadav",
-    role: "Executive Assistant",
-    description: "Operations coordination and executive support",
-    image: archanah,
-    color: "from-gray-900 via-blue-500 to-gray-600",
-    bgHover: "bg-white/95",
-    delay: "0.6s",
-  },
-];
 
 const Fraternity = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredCard, setHoveredCard] = useState(null);
   const [particles, setParticles] = useState([]);
+  const [fraternityMembers, setFraternityMembers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const sectionRef = useRef(null);
+  
+  // Styling configuration (frontend only)
+  const stylingConfig = [
+    {
+      color: "from-gray-900 via-blue-500 to-gray-600",
+      bgHover: "bg-white/95",
+      delay: "0s",
+    },
+    {
+      color: "from-gray-900 via-blue-500 to-gray-600",
+      bgHover: "bg-gray-50/95",
+      delay: "0.2s",
+    },
+    {
+      color: "from-gray-900 via-blue-500 to-gray-600",
+      bgHover: "bg-indigo-50/95",
+      delay: "0.4s",
+    },
+    {
+      color: "from-gray-900 via-blue-500 to-gray-600",
+      bgHover: "bg-white/95",
+      delay: "0.6s",
+    },
+  ];
+
+  // Fallback data in case API fails
+  const fallbackMembers = [
+    {
+      name: "Neha Misra",
+      role: "CEO",
+      description: "Visionary leader driving financial literacy innovation",
+      imageUrl: neha,
+    },
+    {
+      name: "Dr. D C Misra",
+      role: "CTO & CIO",
+      description: "Technology strategist and innovation architect",
+      imageUrl: dcmishra,
+    },
+    {
+      name: "Jimmy Vishwakarma",
+      role: "IT Manager",
+      description: "Technical operations and system management",
+      imageUrl: jimmy,
+    },
+    {
+      name: "Archana Yadav",
+      role: "Executive Assistant",
+      description: "Operations coordination and executive support",
+      imageUrl: archanah,
+    },
+  ];
+
+  // Fetch fraternity members from API
+  useEffect(() => {
+    const fetchFraternityMembers = async () => {
+      try {
+        setIsLoading(true);
+        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+        const response = await fetch(`${apiBaseUrl}/api/fraternity`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+          // Map API data with styling and image property for compatibility
+          const mappedData = data.map((member, index) => ({
+            ...member,
+            image: member.imageUrl, // Add image property for existing code compatibility
+            ...stylingConfig[index % stylingConfig.length], // Apply styling based on index
+          }));
+          setFraternityMembers(mappedData);
+        } else {
+          // Use fallback data with styling if API returns empty array
+          const fallbackWithStyling = fallbackMembers.map((member, index) => ({
+            ...member,
+            image: member.imageUrl,
+            ...stylingConfig[index % stylingConfig.length],
+          }));
+          setFraternityMembers(fallbackWithStyling);
+        }
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching fraternity members:', err);
+        setError(err.message);
+        // Use fallback data with styling on error
+        const fallbackWithStyling = fallbackMembers.map((member, index) => ({
+          ...member,
+          image: member.imageUrl,
+          ...stylingConfig[index % stylingConfig.length],
+        }));
+        setFraternityMembers(fallbackWithStyling);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchFraternityMembers();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -151,11 +217,57 @@ const Fraternity = () => {
 
         {/* Team Section with Advanced Animations */}
         <div className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {fraternityMembers.map((member, index) => (
+          {/* Loading State */}
+          {isLoading && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[...Array(4)].map((_, index) => (
+                <div key={index} className="group relative transform transition-all duration-700 h-full">
+                  {/* Match exact card structure with skeleton */}
+                  <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-500 overflow-hidden h-full flex flex-col">
+                    {/* Avatar Skeleton with same structure */}
+                    <div className="relative mb-6 perspective-1000">
+                      <div className="w-32 h-32 mx-auto rounded-2xl bg-gray-300 p-1 animate-pulse">
+                        <div className="w-full h-full bg-gray-200 rounded-2xl"></div>
+                      </div>
+                    </div>
+
+                    {/* Content Skeleton with exact text heights */}
+                    <div className="text-center flex-grow flex flex-col justify-center">
+                      {/* Name - text-xl height */}
+                      <div className="h-7 bg-gray-300 rounded mb-3 mx-auto w-3/4 animate-pulse"></div>
+                      {/* Role - text-lg height */}
+                      <div className="h-6 bg-gray-300 rounded mb-4 mx-auto w-1/2 animate-pulse"></div>
+                      {/* Description - text-base height, 2 lines */}
+                      <div className="h-5 bg-gray-300 rounded mx-auto w-full animate-pulse"></div>
+                      <div className="h-5 bg-gray-300 rounded mt-2 mx-auto w-5/6 animate-pulse"></div>
+                    </div>
+
+                    {/* Bottom line skeleton */}
+                    <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-300 rounded-b-2xl animate-pulse"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && !isLoading && (
+            <div className="text-center py-12">
+              <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Unable to Load Team Members</h3>
+              <p className="text-gray-600 mb-4">
+                {error}. Showing default team information.
+              </p>
+            </div>
+          )}
+
+          {/* Team Members Grid */}
+          {!isLoading && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {fraternityMembers.map((member, index) => (
               <div
                 key={index}
-                className={`group relative transform transition-all duration-700 hover:scale-105 ${
+                className={`group relative transform transition-all duration-700 hover:scale-105 h-full ${
                   isVisible
                     ? "translate-y-0 opacity-100"
                     : "translate-y-20 opacity-0"
@@ -169,7 +281,7 @@ const Fraternity = () => {
               >
                 {/* Card with Morphing Effect */}
                 <div
-                  className={`relative bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-500 ${member.bgHover} overflow-hidden`}
+                  className={`relative bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-500 ${member.bgHover} overflow-hidden h-full flex flex-col`}
                 >
                   {/* Animated Background Pattern */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
@@ -227,7 +339,7 @@ const Fraternity = () => {
                   </div>
 
                   {/* Content with Typewriter Effect */}
-                  <div className="text-center">
+                  <div className="text-center flex-grow flex flex-col justify-center">
                     <h3
                       className="text-xl font-bold text-gray-900 mb-3 transition-colors overflow-hidden group-hover:text-gray-700"
                     >
@@ -258,8 +370,9 @@ const Fraternity = () => {
                   ></div>
                 </div>
               </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Quote Section */}

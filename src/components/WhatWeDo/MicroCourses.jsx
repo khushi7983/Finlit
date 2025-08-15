@@ -171,21 +171,21 @@ const MicroCourses = () => {
 
       {/* Courses Grid */}
       {!isLoading && !error && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-6xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-6xl">
           {coursesToShow.map((course, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl shadow-md p-2 flex items-center justify-center transition-transform duration-200 hover:scale-105 hover:shadow-xl cursor-pointer max-w-xs mx-auto"
+          <div
+            key={index}
+            className="bg-white rounded-2xl shadow-md p-2 flex items-center justify-center transition-transform duration-200 hover:scale-105 hover:shadow-xl cursor-pointer max-w-xs mx-auto"
               onClick={() => openModal(course)}
-            >
-              <img
+          >
+            <img
                 src={course.imageUrl}
                 alt={course.title}
-                className="object-contain rounded-lg border border-gray-100 shadow-sm"
-              />
-            </div>
-          ))}
-        </div>
+              className="object-contain rounded-lg border border-gray-100 shadow-sm"
+            />
+          </div>
+        ))}
+      </div>
       )}
 
       {/* Empty State */}

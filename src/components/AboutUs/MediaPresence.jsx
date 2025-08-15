@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Video, Users, Mic, GraduationCap, Play, ExternalLink } from "lucide-react";
+import { Video, Users, Mic, GraduationCap, Play, ExternalLink, AlertCircle, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const MediaPresence = () => {
@@ -7,7 +7,141 @@ const MediaPresence = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [particles, setParticles] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [mediaTypes, setMediaTypes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  // Icon mapping function
+  const getIconComponent = (iconType) => {
+    switch (iconType) {
+      case "Video":
+        return <Video className="w-8 h-8" />;
+      case "Users":
+        return <Users className="w-8 h-8" />;
+      case "Mic":
+        return <Mic className="w-8 h-8" />;
+      case "GraduationCap":
+        return <GraduationCap className="w-8 h-8" />;
+      default:
+        return <Video className="w-8 h-8" />;
+    }
+  };
+
+  // Styling configuration (frontend only)
+  const stylingConfig = [
+    {
+      color: "from-gray-900 via-blue-500 to-gray-600",
+      bgHover: "bg-white/95",
+      iconColor: "text-blue-600",
+      delay: "0s",
+    },
+    {
+      color: "from-gray-900 via-blue-500 to-gray-600",
+      bgHover: "bg-gray-50/95",
+      iconColor: "text-blue-600",
+      delay: "0.2s",
+    },
+    {
+      color: "from-gray-900 via-blue-500 to-gray-600",
+      bgHover: "bg-indigo-50/95",
+      iconColor: "text-blue-600",
+      delay: "0.4s",
+    },
+    {
+      color: "from-gray-900 via-blue-500 to-gray-600",
+      bgHover: "bg-white/95",
+      iconColor: "text-blue-600",
+      delay: "0.6s",
+    },
+  ];
+
+  // Fallback data in case API fails
+  const fallbackMediaTypes = [
+    {
+      id: 1,
+      title: "Interview",
+      iconType: "Video",
+      description: "Exclusive interviews and media appearances",
+      count: "12+ Features",
+      link: "/interview",
+    },
+    {
+      id: 2,
+      title: "Conference",
+      iconType: "Users",
+      description: "Speaking engagements and panel discussions",
+      count: "8+ Events",
+      link: "/conference",
+    },
+    {
+      id: 3,
+      title: "Podcast",
+      iconType: "Mic",
+      description: "Audio conversations and thought leadership",
+      count: "15+ Episodes",
+      link: "/podcast",
+    },
+    {
+      id: 4,
+      title: "Lecture Series",
+      iconType: "GraduationCap",
+      description: "Educational presentations and workshops",
+      count: "6+ Sessions",
+      link: "/lecture",
+    },
+  ];
+
+  // Fetch media presence data from API
+  useEffect(() => {
+    const fetchMediaPresence = async () => {
+      try {
+        setIsLoading(true);
+        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+        const response = await fetch(`${apiBaseUrl}/api/media-presence`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+          // Map API data with styling and icon property for compatibility
+          const mappedData = data.map((media, index) => ({
+            ...media,
+            id: media._id, // Map MongoDB _id to id for compatibility
+            icon: getIconComponent(media.iconType), // Generate icon component
+            ...stylingConfig[index % stylingConfig.length], // Apply styling based on index
+          }));
+          setMediaTypes(mappedData);
+        } else {
+          // Use fallback data with styling if API returns empty array
+          const fallbackWithStyling = fallbackMediaTypes.map((media, index) => ({
+            ...media,
+            icon: getIconComponent(media.iconType),
+            ...stylingConfig[index % stylingConfig.length],
+          }));
+          setMediaTypes(fallbackWithStyling);
+        }
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching media presence:', err);
+        setError(err.message);
+        // Use fallback data with styling on error
+        const fallbackWithStyling = fallbackMediaTypes.map((media, index) => ({
+          ...media,
+          icon: getIconComponent(media.iconType),
+          ...stylingConfig[index % stylingConfig.length],
+        }));
+        setMediaTypes(fallbackWithStyling);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchMediaPresence();
+  }, []);
 
   useEffect(() => {
     const generateParticles = () => {
@@ -43,56 +177,7 @@ const MediaPresence = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const mediaTypes = [
-    {
-      id: 1,
-      title: "Interview",
-      icon: <Video className="w-8 h-8" />,
-      description: "Exclusive interviews and media appearances",
-      count: "12+ Features",
-      color: "from-gray-900 via-blue-500 to-gray-600",
-      bgHover: "bg-white/95",
-      iconColor: "text-blue-600",
-      link: "/interview",
-      delay: "0s",
-    },
-    {
-      id: 2,
-      title: "Conference",
-      icon: <Users className="w-8 h-8" />,
-      description: "Speaking engagements and panel discussions",
-      count: "8+ Events",
-      color: "from-gray-900 via-blue-500 to-gray-600",
-      bgHover: "bg-gray-50/95",
-      iconColor: "text-blue-600",
-      link: "/conference",
-      delay: "0.2s",
-    },
-    {
-      id: 3,
-      title: "Podcast",
-      icon: <Mic className="w-8 h-8" />,
-      description: "Audio conversations and thought leadership",
-      count: "15+ Episodes",
-      color: "from-gray-900 via-blue-500 to-gray-600",
-      bgHover: "bg-indigo-50/95",
-      iconColor: "text-blue-600",
-      link: "/podcast",
-      delay: "0.4s",
-    },
-    {
-      id: 4,
-      title: "Lecture Series",
-      icon: <GraduationCap className="w-8 h-8" />,
-      description: "Educational presentations and workshops",
-      count: "6+ Sessions",
-      color: "from-gray-900 via-blue-500 to-gray-600",
-      bgHover: "bg-white/95",
-      iconColor: "text-blue-600",
-      link: "/lecture",
-      delay: "0.6s",
-    },
-  ];
+
 
   return (
     <section className="relative bg-gradient-to-br from-slate-50 via-gray-100 to-indigo-100 py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -141,11 +226,58 @@ const MediaPresence = () => {
         </div>
 
         {/* Cards Grid with Enhanced Hovering */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {mediaTypes.map((media, index) => (
+        
+        {/* Loading State */}
+        {isLoading && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[...Array(4)].map((_, index) => (
+              <div key={index} className="group relative transform transition-all duration-700 h-full">
+                {/* Match exact card structure with skeleton */}
+                <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-500 overflow-hidden h-full flex flex-col cursor-pointer">
+                  {/* Icon Skeleton */}
+                  <div className="relative mb-6 perspective-1000">
+                    <div className="w-8 h-8 bg-gray-300 rounded animate-pulse"></div>
+                  </div>
+
+                  {/* Content Skeleton with exact text heights */}
+                  <div className="text-center flex-grow flex flex-col justify-center">
+                    {/* Title - text-xl height */}
+                    <div className="h-7 bg-gray-300 rounded mb-3 mx-auto w-3/4 animate-pulse"></div>
+                    {/* Count - text-lg height */}
+                    <div className="h-6 bg-gray-300 rounded mb-4 mx-auto w-1/2 animate-pulse"></div>
+                    {/* Description - text-base height, 2 lines */}
+                    <div className="h-5 bg-gray-300 rounded mx-auto w-full animate-pulse"></div>
+                    <div className="h-5 bg-gray-300 rounded mt-2 mx-auto w-5/6 animate-pulse"></div>
+                  </div>
+
+                  {/* Button skeleton */}
+                  <div className="absolute bottom-4 right-4">
+                    <div className="w-8 h-8 bg-gray-300 rounded-full animate-pulse"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && !isLoading && (
+          <div className="text-center py-12">
+            <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Unable to Load Media Presence</h3>
+            <p className="text-gray-600 mb-4">
+              {error}. Showing default media information.
+            </p>
+          </div>
+        )}
+
+        {/* Media Types Grid */}
+        {!isLoading && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {mediaTypes.map((media, index) => (
             <div
               key={media.id}
-              className={`group relative transform transition-all duration-700 hover:scale-105 ${
+              className={`group relative transform transition-all duration-700 hover:scale-105 h-full ${
                 isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
               }`}
               style={{
@@ -157,7 +289,7 @@ const MediaPresence = () => {
               onClick={() => navigate(media.link)}
             >
               {/* Card with Morphing Effect */}
-              <div className={`relative bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-500 ${media.bgHover} overflow-hidden cursor-pointer`}>
+              <div className={`relative bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-500 ${media.bgHover} overflow-hidden cursor-pointer h-full flex flex-col`}>
                 
                 {/* Animated Background Pattern */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
@@ -182,7 +314,7 @@ const MediaPresence = () => {
                 </div>
 
                 {/* Content */}
-                <div className="text-center">
+                <div className="text-center flex-grow flex flex-col justify-center">
                   <h3 className="text-xl font-bold text-gray-900 mb-3 transition-colors overflow-hidden group-hover:text-gray-700">
                     {media.title}
                   </h3>
@@ -206,7 +338,8 @@ const MediaPresence = () => {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+        )}
 
         {/* Stats Section - EMOJIS COMPLETELY REMOVED */}
         <div className={`mt-16 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 shadow-lg p-6 rounded-2xl relative overflow-hidden transform transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"}`} style={{ transitionDelay: "0.8s" }}>
