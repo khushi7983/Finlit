@@ -30,11 +30,6 @@ const pulseVariant = {
   },
 };
 
-function getGradientClasses(gradient) {
-  const sanitized = typeof gradient === "string" && gradient.trim().length > 0 ? gradient.trim() : "from-slate-700 to-slate-900";
-  return `bg-gradient-to-r ${sanitized}`;
-}
-
 const SkeletonCard = () => (
   <div className="relative p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm min-h-[280px] animate-pulse">
     <div className="h-1 w-full rounded-t-2xl bg-gradient-to-r from-slate-700 to-slate-900 mb-4" />
@@ -50,7 +45,10 @@ const Offerings = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
+  const apiBaseUrl = useMemo(
+    () => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000",
+    []
+  );
 
   useEffect(() => {
     let isMounted = true;
@@ -74,7 +72,6 @@ const Offerings = () => {
       isMounted = false;
     };
   }, [apiBaseUrl]);
-  console.log("Offerings:", offerings);
 
   return (
     <motion.section
@@ -103,20 +100,33 @@ const Offerings = () => {
               Our Offerings
             </h2>
           </motion.div>
-          <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" variants={containerVariant}>
-            {isLoading && Array.from({ length: 4 }).map((_, idx) => <SkeletonCard key={`s-${idx}`} />)}
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            variants={containerVariant}
+          >
+            {isLoading &&
+              Array.from({ length: 4 }).map((_, idx) => (
+                <SkeletonCard key={`s-${idx}`} />
+              ))}
             {!isLoading &&
               offerings.map((offering, index) => (
                 <motion.div
-                  key={offering?._id || `${offering?.title || "offering"}-${index}`}
+                  key={
+                    offering?._id ||
+                    `${offering?.title || "offering"}-${index}`
+                  }
                   className="relative bg-white/10 backdrop-blur-sm rounded-2xl shadow-lg border border-white/10 p-6 flex flex-col justify-between min-h-[280px] hover:shadow-xl transition-all duration-300"
                   variants={itemVariant}
                   whileHover={{ y: -4, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-3">{offering?.title}</h3>
-                    <p className="text-sm text-slate-300 leading-relaxed">{offering?.description}</p>
+                    <h3 className="text-xl font-bold text-white mb-3">
+                      {offering?.title}
+                    </h3>
+                    <p className="text-sm text-slate-300 leading-relaxed">
+                      {offering?.description}
+                    </p>
                   </div>
                   <a
                     href={offering?.link || "#"}
@@ -142,27 +152,9 @@ const Offerings = () => {
               </motion.p>
             </motion.div>
           )}
-          {error && <div className="text-center mt-12 text-red-300">{error}</div>}
-          <motion.div
-            className="text-center mt-12"
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <motion.p className="text-base text-slate-300 mb-6" variants={pulseVariant} animate="animate">
-              Ready to transform your financial future?
-            </motion.p>
-            <motion.a
-              href="#"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-slate-800 to-slate-900 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Explore All Services
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </motion.a>
-          </motion.div>
+          {error && (
+            <div className="text-center mt-12 text-red-300">{error}</div>
+          )}
         </div>
       </div>
     </motion.section>
