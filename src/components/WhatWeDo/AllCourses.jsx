@@ -191,11 +191,11 @@ const AllCourses = () => {
       </div>
 
       {/* Download Buttons */}
-      <div className="mb-6">
+      {/* <div className="mb-6">
         <h2 className="text-2xl font-bold">Download</h2>
         <button className="mt-2 mr-2 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800">Download Android App</button>
         <button className="mt-2 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800">Download iOS App</button>
-      </div>
+      </div> */}
 
       {/* Loading State */}
       {isLoading && (
