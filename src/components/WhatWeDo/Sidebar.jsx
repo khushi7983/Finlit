@@ -22,9 +22,9 @@ const SidebarLayout = () => {
       {/* Mobile Hamburger */}
       <button
         onClick={toggleSidebar}
-        className="md:hidden fixed top-24 left-4 z-50 p-3 bg-slate-800 rounded-lg shadow-lg border border-slate-700"
+        className="md:hidden fixed top-20 left-4 z-50 p-3 bg-slate-800 rounded-lg shadow-lg border border-slate-700"
       >
-        <Menu className="w-6 h-6 text-yellow-400" />
+        <Menu className="w-6 h-6 text-blue-400" />
       </button>
 
       {/* Mobile Overlay */}
@@ -37,7 +37,7 @@ const SidebarLayout = () => {
 
       {/* Sidebar - Fixed positioning */}
       <aside
-        className={`fixed top-20 left-0 h-[calc(100vh-80px)] w-72 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
+        className={`fixed top-16 left-0 h-[calc(100vh-64px)] w-72 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
           transform transition-all duration-300 ease-in-out z-50
           ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
           border-r border-slate-700`}
@@ -60,7 +60,7 @@ const SidebarLayout = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-4 p-3 rounded-lg transition-all duration-200
                   ${isActive 
-                    ? 'bg-yellow-500/20 border-l-4 border-yellow-400 shadow-lg' 
+                    ? 'bg-blue-500/20 border-l-4 border-blue-400 shadow-lg' 
                     : 'hover:bg-slate-700 hover:border-l-4 hover:border-slate-600'
                   }`
                 }
@@ -71,8 +71,8 @@ const SidebarLayout = () => {
                 }}
               >
                 <div className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors
-                  ${({ isActive }) => isActive ? 'bg-yellow-400/20' : 'bg-slate-700/50'}`}>
-                  <Icon className="text-yellow-400 w-5 h-5" />
+                  ${({ isActive }) => isActive ? 'bg-blue-400/20' : 'bg-slate-700/50'}`}>
+                  <Icon className="text-blue-400 w-5 h-5" />
                 </div>
                 <span className="font-medium">{label}</span>
               </NavLink>
@@ -82,8 +82,8 @@ const SidebarLayout = () => {
       </aside>
 
       {/* Main Content - Properly constrained */}
-      <main className="pt-20 md:ml-72">
-        <div className="w-full h-[calc(100vh-80px)] overflow-y-auto">
+      <main className="pt-16 md:ml-72">
+        <div className="w-full h-[calc(100vh-64px)] overflow-y-auto">
           <Outlet />
         </div>
       </main>
