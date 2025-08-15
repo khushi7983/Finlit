@@ -128,7 +128,7 @@ const Fund = () => {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 overflow-hidden">
+    <div className="w-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
       {/* Background Pattern */}
       <div
         className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=60 height=60 viewBox=0 0 60 60 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23f1f5f9%22 fill-opacity=%220.4%22%3E%3Ccircle cx=%2230%22 cy=%2230%22 r=%221%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-40"
@@ -136,35 +136,28 @@ const Fund = () => {
       />
 
       {/* Floating Background Elements */}
-      <div className="absolute top-20 left-10 w-60 h-60 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-18 animate-pulse" style={{ animationDelay: "2s" }} />
+      <div className="absolute top-10 left-10 w-60 h-60 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" />
+      <div className="absolute bottom-10 right-10 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-18 animate-pulse" style={{ animationDelay: "2s" }} />
       <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-12 animate-pulse" style={{ animationDelay: "4s" }} />
 
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10 max-w-7xl">
         {/* Header Section */}
         <motion.div
-          className="text-center mb-14"
+          className="text-center mb-8"
           initial={{ opacity: 0, y: -18 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -18 }}
           transition={{ duration: 0.7 }}
         >
-          {/* <div className="inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-5 py-2.5 mb-5">
-            <TrendingUp className="w-4 h-4 text-yellow-600" />
-            <span className="text-xs font-semibold text-yellow-700">Mutual Fund Investing</span>
-          </div> */}
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 leading-tight">
+            <span className="text-slate-800">Mutual Fund Investing</span>
+            <br />
+            <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
+              Made Simple
+            </span>
+          </h1>
 
-       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight transition-all duration-1000 delay-200">
-  <span className="text-slate-800">Mutual Fund Investing</span>
-  <br />
-  <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
-    Made Simple
-  </span>
-</h1>
-
-
-          <p className="text-sm md:text-base text-slate-600 max-w-3xl mx-auto leading-relaxed mb-6">
+          <p className="text-base md:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed mb-4">
             <span className="font-semibold text-slate-700">Invest with Confidence. Learn as You Grow.</span>
-           
           </p>
 
           {/* Credentials Banner */}
@@ -190,15 +183,15 @@ const Fund = () => {
 
         {/* Introduction Card */}
         <motion.div
-          className="mb-12"
+          className="mb-8"
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 18 }}
           transition={{ duration: 0.7, delay: 0.15 }}
         >
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-6 md:p-10 shadow-xl border border-white/50 relative overflow-hidden">
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-6 md:p-8 shadow-xl border border-white/50 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full blur-3xl opacity-18" />
             <div className="relative z-10">
-              <h2 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+              <h2 className="text-xl font-bold text-slate-800 mb-3 flex items-center gap-3">
                 <BookOpen className="w-6 h-6 text-yellow-500" />
                 Our Mission
               </h2>
@@ -210,9 +203,9 @@ const Fund = () => {
         </motion.div>
 
         {/* Why Invest Section */}
-        <motion.div className="mb-12" variants={containerVariant} initial="hidden" animate={isVisible ? "visible" : "hidden"}>
-          <motion.div className="text-center mb-10" variants={cardVariant}>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-3">Why Invest in Mutual Funds with Us?</h2>
+        <motion.div className="mb-8" variants={containerVariant} initial="hidden" animate={isVisible ? "visible" : "hidden"}>
+          <motion.div className="text-center mb-6" variants={cardVariant}>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">Why Invest in Mutual Funds with Us?</h2>
             <p className="text-sm text-slate-600 max-w-2xl mx-auto">Experience the perfect blend of education, technology, and trust</p>
           </motion.div>
 
@@ -224,8 +217,8 @@ const Fund = () => {
                 className="group cursor-pointer"
                 onMouseEnter={() => setActiveFeature(feature.id)}
                 onMouseLeave={() => setActiveFeature(null)}
-                whileHover={{ y: -6, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ y: -4, scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
               >
                 <div className={`${feature.bgColor} rounded-3xl p-6 h-full shadow-md border border-white/50 transition-all duration-400 group-hover:shadow-xl relative overflow-hidden`}>
                   <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${feature.color} rounded-full blur-2xl opacity-18 group-hover:opacity-30 transition-opacity duration-300`} />
@@ -254,15 +247,15 @@ const Fund = () => {
         </motion.div>
 
         {/* What We Offer Section */}
-        <motion.div className="mb-12" variants={containerVariant} initial="hidden" animate={isVisible ? "visible" : "hidden"}>
-          <motion.div className="text-center mb-10" variants={cardVariant}>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-3">What We Offer</h2>
+        <motion.div className="mb-8" variants={containerVariant} initial="hidden" animate={isVisible ? "visible" : "hidden"}>
+          <motion.div className="text-center mb-6" variants={cardVariant}>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">What We Offer</h2>
             <p className="text-sm text-slate-600 max-w-2xl mx-auto">Comprehensive solutions for your investment journey</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {whatWeOfferFeatures.map((feature) => (
-              <motion.div key={feature.id} variants={cardVariant} className="group" whileHover={{ y: -6, scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <motion.div key={feature.id} variants={cardVariant} className="group" whileHover={{ y: -4, scale: 1.01 }} whileTap={{ scale: 0.99 }}>
                 <div className={`${feature.bgColor} rounded-3xl p-6 h-full shadow-md border border-white/50 transition-all duration-400 group-hover:shadow-xl relative overflow-hidden`}>
                   <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${feature.color} rounded-full blur-2xl opacity-18 group-hover:opacity-30 transition-opacity duration-300`} />
 
@@ -282,8 +275,8 @@ const Fund = () => {
         </motion.div>
 
         {/* Safety Assurance */}
-        <motion.div className="mb-12" initial={{ opacity: 0, y: 18 }} animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 18 }} transition={{ duration: 0.7, delay: 0.25 }}>
-          <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-3xl p-6 md:p-10 text-white shadow-2xl relative overflow-hidden">
+        <motion.div className="mb-8" initial={{ opacity: 0, y: 18 }} animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 18 }} transition={{ duration: 0.7, delay: 0.25 }}>
+          <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-3xl p-6 md:p-8 text-white shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-36 h-36 bg-white/10 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-28 h-28 bg-white/6 rounded-full blur-2xl" />
 
@@ -306,13 +299,13 @@ const Fund = () => {
         </motion.div>
 
         {/* ESG Section */}
-        <motion.div className="mb-12" variants={containerVariant} initial="hidden" animate={isVisible ? "visible" : "hidden"}>
+        <motion.div className="mb-8" variants={containerVariant} initial="hidden" animate={isVisible ? "visible" : "hidden"}>
           <motion.div variants={cardVariant}>
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-6 md:p-10 shadow-xl border border-white/50 relative overflow-hidden">
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-6 md:p-8 shadow-xl border border-white/50 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-br from-green-400 to-green-500 rounded-full blur-3xl opacity-18" />
 
               <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-6">
+                <div className="flex items-center gap-3 mb-4">
                   <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center">
                     <Leaf className="w-5 h-5 text-white" />
                   </div>
@@ -347,10 +340,10 @@ const Fund = () => {
                       <Zap className="w-5 h-5 text-blue-600" />
                       How It Works
                     </h4>
-                    <p className="text-sm text-slate-700 leading-relaxed">
+                    <p className="text-sm text-slate-700 leading-relaxed mb-3">
                       ESG funds invest in companies with strong environmental, social, and governance practices, excluding polluters and unethical businesses.
                     </p>
-                    <div className="mt-3 p-3 bg-white rounded-xl">
+                    <div className="p-3 bg-white rounded-xl">
                       <p className="text-xs text-slate-600">
                         <strong>Start with ₹100/month</strong> • Paperless process • Multilingual support
                       </p>
@@ -374,18 +367,18 @@ const Fund = () => {
         </motion.div>
 
         {/* Contact Section */}
-        <motion.div className="mb-12" initial={{ opacity: 0, y: 18 }} animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 18 }} transition={{ duration: 0.7, delay: 0.35 }}>
-          <div className="text-center mb-8">
+        <motion.div className="mb-8" initial={{ opacity: 0, y: 18 }} animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 18 }} transition={{ duration: 0.7, delay: 0.35 }}>
+          <div className="text-center mb-6">
             <h2 className="text-2xl font-semibold text-slate-800 mb-2">Talk to Us</h2>
             <p className="text-sm text-slate-600">Not sure where to begin? We're here to guide you.</p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6 px-4">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
             <motion.a
               href="tel:+919502696570"
               className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-2xl font-semibold text-sm hover:from-blue-600 hover:to-blue-700 hover:shadow-lg transition"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               <Phone className="w-4 h-4" />
               +91-9502696570
@@ -394,8 +387,8 @@ const Fund = () => {
             <motion.a
               href="https://api.whatsapp.com/message/6EUW7ZLTHSGCB1?autoload=1&app_absent=0"
               className="flex items-center gap-2 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-2xl font-semibold text-sm hover:from-green-600 hover:to-green-700 hover:shadow-lg transition"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.085"/>
@@ -406,8 +399,8 @@ const Fund = () => {
             <motion.a
               href="mailto:info@thefinlitproject.com"
               className="flex items-center gap-2 bg-gradient-to-r from-slate-600 to-slate-700 text-white px-6 py-3 rounded-2xl font-semibold text-sm hover:from-slate-700 hover:to-slate-800 hover:shadow-lg transition"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               <Mail className="w-4 h-4" />
               Email Us
@@ -418,8 +411,8 @@ const Fund = () => {
             <motion.a
               href="#start-investing"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-slate-900 px-8 py-3 rounded-2xl font-bold text-sm hover:from-yellow-500 hover:to-yellow-600 hover:shadow-xl transition-all duration-300"
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.02, y: -1 }}
+              whileTap={{ scale: 0.98 }}
             >
               <TrendingUp className="w-5 h-5" />
               Start Your Investment Journey Now
@@ -430,7 +423,7 @@ const Fund = () => {
 
         {/* Join the Movement */}
         <motion.div className="text-center" initial={{ opacity: 0, y: 18 }} animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 18 }} transition={{ duration: 0.7, delay: 0.45 }}>
-          <div className="bg-gradient-to-r from-slate-800 to-slate-900 rounded-3xl p-6 md:p-10 text-white relative overflow-hidden">
+          <div className="bg-gradient-to-r from-slate-800 to-slate-900 rounded-3xl p-6 md:p-8 text-white relative overflow-hidden">
             <div className="absolute top-0 left-0 w-36 h-36 bg-yellow-400/20 rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-28 h-28 bg-blue-400/20 rounded-full blur-2xl" />
 
@@ -451,7 +444,7 @@ const Fund = () => {
           </div>
         </motion.div>
       </div>
-    </section>
+    </div>
   );
 };
 

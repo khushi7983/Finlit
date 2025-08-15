@@ -18,11 +18,11 @@ const SidebarLayout = () => {
   const closeSidebar = () => setIsOpen(false);
 
   return (
-    <div className="flex min-h-screen bg-slate-900 text-white pt-20">
-      {/* Mobile Hamburger - Fixed position */}
+    <div className="min-h-screen bg-slate-900 text-white">
+      {/* Mobile Hamburger */}
       <button
         onClick={toggleSidebar}
-        className="md:hidden fixed top-[120px] left-4 z-50 p-3 bg-slate-800 rounded-lg shadow-lg border border-slate-700"
+        className="md:hidden fixed top-24 left-4 z-50 p-3 bg-slate-800 rounded-lg shadow-lg border border-slate-700"
       >
         <Menu className="w-6 h-6 text-yellow-400" />
       </button>
@@ -35,14 +35,13 @@ const SidebarLayout = () => {
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar - Fixed positioning */}
       <aside
-        className={`fixed md:sticky top-20 h-[calc(100vh-80px)] w-72 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
+        className={`fixed top-20 left-0 h-[calc(100vh-80px)] w-72 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
           transform transition-all duration-300 ease-in-out z-50
           ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-          md:relative md:transform-none`}
+          border-r border-slate-700`}
       >
-        {/* Mobile Close Button */}
         <div className="md:hidden flex justify-end p-4 border-b border-slate-700">
           <button
             onClick={closeSidebar}
@@ -52,7 +51,7 @@ const SidebarLayout = () => {
           </button>
         </div>
 
-        <div className="pt-2 md:pt-6">
+        <div className="pt-4 md:pt-6">
           <nav className="p-4 space-y-3">
             {navItems.map(({ path, label, icon: Icon }) => (
               <NavLink
@@ -66,7 +65,6 @@ const SidebarLayout = () => {
                   }`
                 }
                 onClick={() => {
-                  // Close sidebar on mobile after navigation
                   if (window.innerWidth < 768) {
                     closeSidebar();
                   }
@@ -83,9 +81,11 @@ const SidebarLayout = () => {
         </div>
       </aside>
 
-      {/* Content Area */}
-      <main className="flex-1 p-4 md:p-6 overflow-y-auto">
-        <Outlet />
+      {/* Main Content - Properly constrained */}
+      <main className="pt-20 md:ml-72">
+        <div className="w-full h-[calc(100vh-80px)] overflow-y-auto">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
