@@ -31,6 +31,8 @@ import Interview from "./components/AboutUs/media/Interview";
 import Lecture from "./components/AboutUs/media/Lecture";
 import Podcast from "./components/AboutUs/media/Podcast";
 import Awards from "./components/HomePage/Awards.jsx";
+import { authAPI } from "./services/api.js";
+
 
 
 
@@ -59,7 +61,7 @@ function AppWrapper() {
         <Route path="/about-finlit-story" element={<LearnMoreStory />} />
 
         {/* Login/Signup */}
-        <Route path="/login-signup" element={<AuthForm />} />
+        <Route path="/login-signup" element={<AuthForm authAPI={authAPI} />} />
 
         {/* Blog detail page */}
         <Route path="/blog/:id" element={<BlogPage />} />

@@ -1,18 +1,28 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import connectDB from './config/db.js'; // fixed path
+import connectDB from './config/db.js';
 
 dotenv.config();
 connectDB();
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+// CORS configuration
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'], // <-- add this
+  })
+);
 
-// Routes
-import exampleRoutes from './routes/exampleRoutes.js'; // fixed path
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Your existing routes
+import exampleRoutes from './routes/exampleRoutes.js';
 app.use('/api/example', exampleRoutes);
 import offeringRoutes from "./routes/offeringRoutes.js";
 app.use("/api/offerings", offeringRoutes);
@@ -29,6 +39,9 @@ app.use("/api/courses", courseRoutes);
 import videoRoutes from "./routes/videoRoutes.js";
 app.use("/api/videos", videoRoutes);
 
+// NEW: Auth Routes
+import authRoutes from "./routes/authRoutes.js";
+app.use("/api/auth", authRoutes);
 
 app.get('/', (req, res) => {
   res.send('API is running...');
@@ -36,5 +49,5 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
-  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`)
+  console.log(` Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`)
 );
