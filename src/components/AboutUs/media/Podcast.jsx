@@ -6,6 +6,8 @@ const Podcast = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [particles, setParticles] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [podcasts, setPodcasts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const generateParticles = () => {
@@ -41,32 +43,34 @@ const Podcast = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const podcasts = [
-    {
-      id: 1,
-      title: "Investment Basics for Beginners",
-      thumbnail: "https://via.placeholder.com/300x200/F59E0B/FFFFFF?text=Podcast+1",
-      color: "from-gray-900 via-blue-500 to-gray-600",
-      bgHover: "bg-white/95",
-      delay: "0s",
-    },
-    {
-      id: 2,
-      title: "Understanding Stock Markets",
-      thumbnail: "https://via.placeholder.com/300x200/3B82F6/FFFFFF?text=Podcast+2",
-      color: "from-gray-900 via-blue-500 to-gray-600",
-      bgHover: "bg-gray-50/95",
-      delay: "0.2s",
-    },
-    {
-      id: 3,
-      title: "Digital Banking Revolution",
-      thumbnail: "https://via.placeholder.com/300x200/10B981/FFFFFF?text=Podcast+3",
-      color: "from-gray-900 via-blue-500 to-gray-600",
-      bgHover: "bg-indigo-50/95",
-      delay: "0.4s",
-    },
-  ];
+  // Fetch podcasts from API
+  useEffect(() => {
+    const fetchPodcasts = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/podcasts');
+        const data = await response.json();
+        if (data.success) {
+          setPodcasts(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching podcasts:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPodcasts();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="relative bg-gradient-to-br from-slate-50 via-gray-100 to-indigo-100 py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden mt-14">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="text-2xl font-semibold text-gray-600">Loading podcasts...</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative bg-gradient-to-br from-slate-50 via-gray-100 to-indigo-100 py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden mt-14">
@@ -118,7 +122,7 @@ const Podcast = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {podcasts.map((podcast) => (
             <div
-              key={podcast.id}
+              key={podcast._id}
               className={`group relative transform transition-all duration-700 hover:scale-105 ${
                 isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
               }`}
@@ -126,7 +130,7 @@ const Podcast = () => {
                 transitionDelay: isVisible ? podcast.delay : "0s",
                 animationDelay: podcast.delay,
               }}
-              onMouseEnter={() => setHoveredCard(podcast.id)}
+              onMouseEnter={() => setHoveredCard(podcast._id)}
               onMouseLeave={() => setHoveredCard(null)}
             >
               <div
