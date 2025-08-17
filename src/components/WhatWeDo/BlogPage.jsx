@@ -8,14 +8,24 @@ const BlogPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get blog data from localStorage
-    const blogData = localStorage.getItem('selectedBlog');
-    if (blogData) {
-      const parsedBlog = JSON.parse(blogData);
-      setBlog(parsedBlog);
-    }
-    setLoading(false);
+    fetchBlog();
   }, [id]);
+
+  const fetchBlog = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/blogs/${id}`);
+      if (response.ok) {
+        const blogData = await response.json();
+        setBlog(blogData);
+      } else {
+        console.error('Blog not found');
+      }
+    } catch (error) {
+      console.error('Error fetching blog:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const goBack = () => {
     navigate('/what-we-do/finlit-blogs');

@@ -100,6 +100,10 @@ app.use("/api/auth", authRoutes);
 import finTermRoutes from "./routes/finterms.js";
 app.use("/api/finterms", finTermRoutes);
 
+// Blog Routes
+import blogRoutes from "./routes/blogRoutes.js";
+app.use("/api/blogs", blogRoutes);
+
 app.get('/', (req, res) => {
   res.send('API is running...');
 });
