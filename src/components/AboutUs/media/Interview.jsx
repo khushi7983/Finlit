@@ -6,6 +6,8 @@ const Interview = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [particles, setParticles] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [interviews, setInterviews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const generateParticles = () => {
@@ -41,48 +43,38 @@ const Interview = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const interviews = [
-    {
-      id: 1,
-      title: "What is Your Superpower? | Ulyana Zilbermints",
-      youtubeUrl: "https://www.youtube.com/watch?v=MNh_eECEmpk",
-      thumbnail: "https://img.youtube.com/vi/MNh_eECEmpk/maxresdefault.jpg",
-      color: "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900",
-      bgHover: "bg-white/95",
-      delay: "0s",
-    },
-    {
-      id: 2,
-      title: "N Neha Misra, co-founder The Fin Lit Proje",
-      youtubeUrl: "https://www.youtube.com/watch?v=JbH5fnJgie8&t=1s",
-      thumbnail: "https://img.youtube.com/vi/JbH5fnJgie8/maxresdefault.jpg",
-      color: "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900",
-      bgHover: "bg-gray-50/95",
-      delay: "0.2s",
-    },
-    {
-      id: 3,
-      title: "Financial Literacy & Investment Strategies",
-      youtubeUrl: "https://www.youtube.com/watch?v=rcacz5NJ0SA",
-      thumbnail: "https://img.youtube.com/vi/rcacz5NJ0SA/maxresdefault.jpg",
-      color: "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900",
-      bgHover: "bg-indigo-50/95",
-      delay: "0.4s",
-    },
-    {
-      id: 4,
-      title: "Digital Banking & Financial Technology",
-      youtubeUrl: "https://youtu.be/FD8Bz1wb4KI?si=-z7l7lx23Q4QpU0A",
-      thumbnail: "https://img.youtube.com/vi/FD8Bz1wb4KI/maxresdefault.jpg",
-      color: "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900",
-      bgHover: "bg-white/95",
-      delay: "0.6s",
-    },
-  ];
+  // Fetch interviews from API
+  useEffect(() => {
+    const fetchInterviews = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/interviews');
+        const data = await response.json();
+        if (data.success) {
+          setInterviews(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching interviews:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchInterviews();
+  }, []);
 
   const handleWatchOnYouTube = (url) => {
     window.open(url, "_blank");
   };
+
+  if (loading) {
+    return (
+      <section className="relative bg-gradient-to-br from-slate-50 via-gray-100 to-indigo-100 py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden mt-14">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="text-2xl font-semibold text-gray-600">Loading interviews...</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative bg-gradient-to-br from-slate-50 via-gray-100 to-indigo-100 py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden mt-14">
@@ -129,12 +121,11 @@ const Interview = () => {
           </div>
         </div>
 
-
         {/* Interview Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {interviews.map((interview) => (
             <div
-              key={interview.id}
+              key={interview._id}
               className={`group relative transform transition-all duration-700 hover:scale-105 ${
                 isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
               }`}
@@ -142,7 +133,7 @@ const Interview = () => {
                 transitionDelay: isVisible ? interview.delay : "0s",
                 animationDelay: interview.delay,
               }}
-              onMouseEnter={() => setHoveredCard(interview.id)}
+              onMouseEnter={() => setHoveredCard(interview._id)}
               onMouseLeave={() => setHoveredCard(null)}
             >
               <div
