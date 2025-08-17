@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { X, ChevronLeft, ChevronRight, BookOpen, TrendingUp, Zap } from "lucide-react";
+
+// Keep your existing image imports as fallbacks (they won't be used but good to have)
 import algo_13 from '../../assets/finTerms/algo-13.png';
 import Aquisition from '../../assets/finTerms/Aquisition.png';
 import coll_5 from '../../assets/finTerms/coll - 5.png';
@@ -15,127 +17,48 @@ import share_14 from '../../assets/finTerms/share- 14.png';
 import skew_8 from '../../assets/finTerms/skew - 8.png';
 import volfo_3 from '../../assets/finTerms/volfo - 3.png';
 
-// Sample financial terms data - replace with your actual images
-const finTerms = [
-  {
-    id: 1,
-    title: "Acquisition",
-    image: Aquisition,
-    category: "Corporate Finance",
-    description: "The process of one company purchasing most or all of another company's shares to gain control"
-  },
-  {
-    id: 2,
-    title: "Algorithmic Trading",
-    image: algo_13,
-    category: "Trading",
-    description: "Automated trading using pre-programmed instructions based on variables like time, price, and volume"
-  },
-  {
-    id: 3,
-    title: "Collateral",
-    image: coll_5,
-    category: "Banking",
-    description: "An asset that a borrower offers to a lender to secure a loan"
-  },
-  {
-    id: 4,
-    title: "Debenture",
-    image: deb_4,
-    category: "Investment",
-    description: "A type of debt instrument that is not secured by physical assets or collateral"
-  },
-  {
-    id: 5,
-    title: "Federal Reserve",
-    image: fed_7,
-    category: "Economics",
-    description: "The central banking system of the United States"
-  },
-  {
-    id: 6,
-    title: "Financial Planning",
-    image: fin_11,
-    category: "Finance",
-    description: "The process of estimating capital requirements and determining how to finance them"
-  },
-  {
-    id: 7,
-    title: "Fixed Deposit",
-    image: fixed_12,
-    category: "Banking",
-    description: "A financial instrument provided by banks with a higher rate of interest than savings accounts"
-  },
-  {
-    id: 8,
-    title: "FOMC",
-    image: fomc_9,
-    category: "Economics",
-    description: "Federal Open Market Committee - the monetary policymaking body of the Federal Reserve"
-  },
-  {
-    id: 9,
-    title: "FOMC",
-    image: fomc_10,
-    category: "Economics",
-    description: "Federal Open Market Committee - the monetary policymaking body of the Federal Reserve"
-  },
-  {
-    id: 10,
-    title: "Navigation",
-    image: nav_6,
-    category: "Finance",
-    description: "The process of guiding financial decisions effectively"
-  },
-  {
-    id: 11,
-    title: "Nostro",
-    image: Nostro_1,
-    category: "Banking",
-    description: "A foreign bank account maintained by a domestic bank"
-  },
-  {
-    id: 12,
-    title: "Share",
-    image: share_14,
-    category: "Investment",
-    description: "A unit of ownership in a company or financial asset"
-  },
-  {
-    id: 13,
-    title: "Skew",
-    image: skew_8,
-    category: "Trading",
-    description: "A measure of the asymmetry of the probability distribution of returns"
-  },
-  {
-    id: 14,
-    title: "Volatility",
-    image: volfo_3,
-    category: "Trading",
-    description: "A statistical measure of the dispersion of returns for a given security or market index"
-  }
-];
-
 const categories = ["All", "Corporate Finance", "Trading", "Banking", "Investment", "Economics", "Finance"];
 
 const Terms = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedTerm, setSelectedTerm] = useState(null);
   const [activeCategory, setActiveCategory] = useState("All");
-  const [filteredTerms, setFilteredTerms] = useState(finTerms);
+  const [finTerms, setFinTerms] = useState([]); // Changed: Now from API
+  const [filteredTerms, setFilteredTerms] = useState([]); // Changed: Controlled by API
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true); // Added: Loading state
+  const [error, setError] = useState(null); // Added: Error state
+
+  // Fetch financial terms from API
+  const fetchFinTerms = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const categoryParam = activeCategory === 'All' ? '' : `?category=${encodeURIComponent(activeCategory)}`;
+      const response = await fetch(`http://localhost:5000/api/finterms${categoryParam}`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setFinTerms(data.data);
+        setFilteredTerms(data.data);
+      } else {
+        setError(data.message || 'Failed to fetch financial terms');
+      }
+    } catch (error) {
+      console.error('Error fetching terms:', error);
+      setError('Unable to connect to the server. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   useEffect(() => {
-    if (activeCategory === "All") {
-      setFilteredTerms(finTerms);
-    } else {
-      setFilteredTerms(finTerms.filter(term => term.category === activeCategory));
-    }
+    fetchFinTerms(); // Changed: Fetch from API when category changes
   }, [activeCategory]);
 
   const openModal = (term, index) => {
@@ -180,7 +103,7 @@ const Terms = () => {
       {/* Main Section */}
       <section className="relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20 md:py-24 overflow-hidden min-h-screen">
         {/* Background Pattern */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23f1f5f9\' fill-opacity=\'0.4\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'1\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23f1f5f9\\' fill-opacity=\\'0.4\\'%3E%3Ccircle cx=\\'30\\' cy=\\'30\\' r=\\'1\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
 
         {/* Floating Background Elements */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
@@ -224,63 +147,104 @@ const Terms = () => {
             ))}
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredTerms.map((term, index) => (
-              <div
-                key={term.id}
-                className={`group cursor-pointer transition-all duration-700 perspective-1000 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                }`}
-                style={{ transitionDelay: `${800 + index * 100}ms` }}
-                onClick={() => openModal(term, index)}
-              >
-                <div
-                  className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-white/50 transition-all duration-500 group-hover:shadow-2xl group-hover:bg-white/90 group-hover:-translate-y-2 group-hover:scale-[1.04] group-hover:border-yellow-400 group-hover:shadow-yellow-200 animate-card-float"
-                  style={{ transformStyle: 'preserve-3d' }}
+          {/* Loading State */}
+          {loading && (
+            <div className="flex items-center justify-center py-20">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-yellow-500 mx-auto mb-4"></div>
+                <p className="text-slate-600 text-lg">Loading financial terms...</p>
+              </div>
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && (
+            <div className="flex items-center justify-center py-20">
+              <div className="text-center bg-red-50 border border-red-200 rounded-lg p-8 max-w-md">
+                <p className="text-red-600 text-lg mb-4">{error}</p>
+                <button 
+                  onClick={fetchFinTerms}
+                  className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors"
                 >
-                  {/* Image Container */}
-                  <div className="relative overflow-hidden group-hover:animate-tilt-glow">
-                    <div className="aspect-[4/3] bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center relative">
-                      <img src={term.image} alt={term.title} className="w-full h-full object-cover absolute inset-0 transition-transform duration-500 group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
-                          <TrendingUp className="w-8 h-8 text-white" />
+                  Try Again
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* No Data State */}
+          {!loading && !error && filteredTerms.length === 0 && (
+            <div className="flex items-center justify-center py-20">
+              <div className="text-center">
+                <p className="text-slate-600 text-lg mb-4">No financial terms found for this category</p>
+                <p className="text-slate-500">Try selecting a different category or add some terms</p>
+              </div>
+            </div>
+          )}
+
+          {/* Cards Grid - Only show when we have data */}
+          {!loading && !error && filteredTerms.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredTerms.map((term, index) => (
+                <div
+                  key={term._id || term.id} 
+                  className={`group cursor-pointer transition-all duration-700 perspective-1000 ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                  }`}
+                  style={{ transitionDelay: `${800 + index * 100}ms` }}
+                  onClick={() => openModal(term, index)}
+                >
+                  <div
+                    className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-white/50 transition-all duration-500 group-hover:shadow-2xl group-hover:bg-white/90 group-hover:-translate-y-2 group-hover:scale-[1.04] group-hover:border-yellow-400 group-hover:shadow-yellow-200 animate-card-float"
+                    style={{ transformStyle: 'preserve-3d' }}
+                  >
+                    {/* Image Container */}
+                    <div className="relative overflow-hidden group-hover:animate-tilt-glow">
+                      <div className="aspect-[4/3] bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center relative">
+                        <img 
+                          src={term.imageUrl || term.image} 
+                          alt={term.title} 
+                          className="w-full h-full object-cover absolute inset-0 transition-transform duration-500 group-hover:scale-110" 
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
+                            <TrendingUp className="w-8 h-8 text-white" />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    
-                    {/* Category Badge */}
-                    <div className="absolute top-4 left-4 z-20">
-                      <span className="bg-yellow-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full transform group-hover:scale-110 transition-transform duration-300">
-                        {term.category}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Card Footer */}
-                  <div className="p-6 bg-white">
-                    <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-yellow-600 transition-colors duration-300">
-                      {term.title}
-                    </h3>
-                    <p className="text-slate-600 text-sm line-clamp-2 mb-4">
-                      {term.description}
-                    </p>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-xs text-slate-500">
-                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                        Click to explore
+                      
+                      {/* Category Badge */}
+                      <div className="absolute top-4 left-4 z-20">
+                        <span className="bg-yellow-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full transform group-hover:scale-110 transition-transform duration-300">
+                          {term.category}
+                        </span>
                       </div>
-                      <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:rotate-12">
-                        <ChevronRight className="w-4 h-4 text-white" />
+                    </div>
+
+                    {/* Card Footer */}
+                    <div className="p-6 bg-white">
+                      <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-yellow-600 transition-colors duration-300">
+                        {term.title}
+                      </h3>
+                      <p className="text-slate-600 text-sm line-clamp-2 mb-4">
+                        {term.description}
+                      </p>
+                      
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-xs text-slate-500">
+                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                          Click to explore
+                        </div>
+                        <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:rotate-12">
+                          <ChevronRight className="w-4 h-4 text-white" />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           {/* CTA Section */}
           <div 
@@ -331,7 +295,7 @@ const Terms = () => {
             {/* Full Image Only with animation */}
             <div className="flex justify-center items-center" style={{ minHeight: '350px' }}>
               <img
-                src={selectedTerm.image}
+                src={selectedTerm.imageUrl || selectedTerm.image}
                 alt={selectedTerm.title}
                 className="max-h-[70vh] max-w-full rounded-xl shadow-lg border border-white/20 object-contain bg-white animate-modal-img-float"
                 style={{ background: 'white' }}
@@ -358,7 +322,7 @@ const Terms = () => {
         </div>
       )}
 
-      {/* Custom Styles */}
+      {/* Custom Styles - Same as before */}
       <style jsx>{`
         .line-clamp-2 {
           display: -webkit-box;
@@ -406,7 +370,7 @@ const Terms = () => {
           100% { transform: translateY(-8px); }
         }
         /* 3D tilt and glow on hover */
-        .group:hover .group-hover\:animate-tilt-glow {
+        .group:hover .group-hover\\:animate-tilt-glow {
           animation: tiltGlow 0.7s cubic-bezier(.25,.46,.45,.94) both;
           box-shadow: 0 0 32px 8px #fde04799;
           border-color: #fde047;
