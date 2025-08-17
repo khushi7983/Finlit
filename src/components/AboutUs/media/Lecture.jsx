@@ -6,6 +6,8 @@ const Lecture = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [particles, setParticles] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [lectures, setLectures] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const generateParticles = () => {
@@ -41,32 +43,34 @@ const Lecture = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const lectures = [
-    {
-      id: 1,
-      title: "Introduction to Financial Markets",
-      thumbnail: "https://via.placeholder.com/300x200/8B5CF6/FFFFFF?text=Lecture+1",
-      color: "from-gray-900 via-blue-500 to-gray-600",
-      bgHover: "bg-white/95",
-      delay: "0s",
-    },
-    {
-      id: 2,
-      title: "Investment Portfolio Management",
-      thumbnail: "https://via.placeholder.com/300x200/3B82F6/FFFFFF?text=Lecture+2",
-      color: "from-gray-900 via-blue-500 to-gray-600",
-      bgHover: "bg-gray-50/95",
-      delay: "0.2s",
-    },
-    {
-      id: 3,
-      title: "Digital Banking & Fintech",
-      thumbnail: "https://via.placeholder.com/300x200/10B981/FFFFFF?text=Lecture+3",
-      color: "from-gray-900 via-blue-500 to-gray-600",
-      bgHover: "bg-indigo-50/95",
-      delay: "0.4s",
-    },
-  ];
+  // Fetch lectures from API
+  useEffect(() => {
+    const fetchLectures = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/lectures');
+        const data = await response.json();
+        if (data.success) {
+          setLectures(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching lectures:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLectures();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="relative bg-gradient-to-br from-slate-50 via-gray-100 to-indigo-100 py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden mt-14">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="text-2xl font-semibold text-gray-600">Loading lectures...</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative bg-gradient-to-br from-slate-50 via-gray-100 to-indigo-100 py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden mt-14">
@@ -118,7 +122,7 @@ const Lecture = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {lectures.map((lecture) => (
             <div
-              key={lecture.id}
+              key={lecture._id}
               className={`group relative transform transition-all duration-700 hover:scale-105 ${
                 isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
               }`}
@@ -126,7 +130,7 @@ const Lecture = () => {
                 transitionDelay: isVisible ? lecture.delay : "0s",
                 animationDelay: lecture.delay,
               }}
-              onMouseEnter={() => setHoveredCard(lecture.id)}
+              onMouseEnter={() => setHoveredCard(lecture._id)}
               onMouseLeave={() => setHoveredCard(null)}
             >
               <div

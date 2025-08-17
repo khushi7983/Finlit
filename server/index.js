@@ -41,6 +41,18 @@ app.use("/api/videos", videoRoutes);
 import awardRoutes from "./routes/awardRoutes.js";
 app.use("/api/awards", awardRoutes);
 
+// NEW: Interview Routes
+import interviewRoutes from "./routes/interviewRoutes.js";
+app.use("/api/interviews", interviewRoutes);
+
+// NEW: Podcast Routes
+import podcastRoutes from "./routes/podcastRoutes.js";
+app.use("/api/podcasts", podcastRoutes);
+
+// NEW: Lecture Routes
+import lectureRoutes from "./routes/lectureRoutes.js";
+app.use("/api/lectures", lectureRoutes);
+
 // NEW: Auth Routes
 import authRoutes from "./routes/authRoutes.js";
 app.use("/api/auth", authRoutes);
