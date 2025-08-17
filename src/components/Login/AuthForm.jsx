@@ -1,5 +1,6 @@
-// src/App.jsx
+// components/Login/AuthForm.jsx (COMPLETE FILE)
 import { useState, useEffect } from 'react';
+import { authAPI } from '../../services/api';
 import { motion } from 'framer-motion';
 import { 
   Mail, 
@@ -11,11 +12,18 @@ import {
   Globe
 } from 'lucide-react';
 
-function App() {
+function AuthForm({ authAPI }) { // Receive authAPI as prop
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+
+  // Form states
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [loginData, setLoginData] = useState({ email: '', password: '' });
+  const [signupData, setSignupData] = useState({ email: '', password: '', confirmPassword: '' });
 
   useEffect(() => {
     setIsVisible(true);
@@ -23,6 +31,8 @@ function App() {
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
+    setError('');
+    setSuccess('');
   };
 
   const togglePasswordVisibility = () => {
@@ -31,6 +41,91 @@ function App() {
 
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  // LOGIN HANDLER
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess('');
+
+    console.log('🔄 Attempting login with:', loginData);
+
+    try {
+      const response = await authAPI.login(loginData.email, loginData.password);
+      
+      if (response.success) {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
+        setSuccess('Login successful! Redirecting...');
+        
+        setTimeout(() => {
+          window.location.href = '/what-we-do';
+        }, 1500);
+      }
+    } catch (error) {
+      console.error('❌ Login error:', error);
+      
+      // IMPROVED ERROR HANDLING FOR LOGIN
+      if (error.response?.data?.errors && error.response.data.errors.length > 0) {
+        const errorMessages = error.response.data.errors.map(err => err.msg).join('. ');
+        setError(errorMessages);
+      } else {
+        setError(error.response?.data?.message || 'Login failed. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // SIGNUP HANDLER WITH IMPROVED ERROR HANDLING
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess('');
+
+    // FRONTEND VALIDATION
+    if (signupData.password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      setLoading(false);
+      return;
+    }
+
+    if (signupData.password !== signupData.confirmPassword) {
+      setError('Passwords do not match');
+      setLoading(false);
+      return;
+    }
+
+    console.log('🔄 Attempting signup with:', signupData);
+
+    try {
+      const response = await authAPI.register(signupData.email, signupData.password);
+      
+      if (response.success) {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
+        setSuccess('Account created successfully! Redirecting...');
+        
+        setTimeout(() => {
+          window.location.href = '/what-we-do';
+        }, 1500);
+      }
+    } catch (error) {
+      console.error('❌ Signup error:', error);
+      
+      // IMPROVED ERROR HANDLING - Show specific validation errors
+      if (error.response?.data?.errors && error.response.data.errors.length > 0) {
+        const errorMessages = error.response.data.errors.map(err => err.msg).join('. ');
+        setError(errorMessages);
+      } else {
+        setError(error.response?.data?.message || 'Registration failed. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const containerVariant = {
@@ -85,14 +180,20 @@ function App() {
                     {isLogin ? 'Welcome Back' : 'Get Started'}
                   </span>
                 </h2>
-                
-                {/* <p className="text-slate-600 text-sm">
-                  {isLogin 
-                    ? 'Sign in to access your dashboard' 
-                    : 'Create your account to get started'
-                  }
-                </p> */}
               </div>
+
+              {/* ERROR/SUCCESS MESSAGES */}
+              {error && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-red-600 text-sm">{error}</p>
+                </div>
+              )}
+
+              {success && (
+                <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                  <p className="text-green-600 text-sm">{success}</p>
+                </div>
+              )}
 
               {/* Form Container */}
               <div className="relative overflow-hidden">
@@ -103,7 +204,7 @@ function App() {
                   animate={{ opacity: isLogin ? 1 : 0, x: isLogin ? 0 : 20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <form className="space-y-4">
+                  <form onSubmit={handleLogin} className="space-y-4">
                     <div>
                       <label className="block text-slate-800 text-sm font-medium mb-2" htmlFor="loginEmail">
                         Email Address
@@ -115,6 +216,8 @@ function App() {
                           id="loginEmail"
                           type="email"
                           placeholder="Enter your email"
+                          value={loginData.email}
+                          onChange={(e) => setLoginData({...loginData, email: e.target.value})}
                           required
                         />
                       </div>
@@ -131,6 +234,8 @@ function App() {
                           id="loginPassword"
                           type={showPassword ? "text" : "password"}
                           placeholder="Enter your password"
+                          value={loginData.password}
+                          onChange={(e) => setLoginData({...loginData, password: e.target.value})}
                           required
                         />
                         <button
@@ -155,12 +260,13 @@ function App() {
 
                     <motion.button
                       type="submit"
-                      className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-slate-900 font-semibold flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg group"
-                      whileHover={{ scale: 1.02, y: -1 }}
-                      whileTap={{ scale: 0.98 }}
+                      disabled={loading}
+                      className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-slate-900 font-semibold flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg group disabled:opacity-50 disabled:cursor-not-allowed"
+                      whileHover={{ scale: loading ? 1 : 1.02, y: loading ? 0 : -1 }}
+                      whileTap={{ scale: loading ? 1 : 0.98 }}
                     >
-                      Sign In
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      {loading ? 'Signing In...' : 'Sign In'}
+                      {!loading && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
                     </motion.button>
                   </form>
                 </motion.div>
@@ -172,7 +278,7 @@ function App() {
                   animate={{ opacity: !isLogin ? 1 : 0, x: !isLogin ? 0 : -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <form className="space-y-4">
+                  <form onSubmit={handleSignup} className="space-y-4">
                     <div>
                       <label className="block text-slate-800 text-sm font-medium mb-2" htmlFor="signupEmail">
                         Email Address
@@ -184,6 +290,8 @@ function App() {
                           id="signupEmail"
                           type="email"
                           placeholder="Enter your email"
+                          value={signupData.email}
+                          onChange={(e) => setSignupData({...signupData, email: e.target.value})}
                           required
                         />
                       </div>
@@ -199,7 +307,9 @@ function App() {
                           className="w-full pl-10 pr-10 py-2.5 border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-300 bg-white/50"
                           id="signupPassword"
                           type={showPassword ? "text" : "password"}
-                          placeholder="Create a password"
+                          placeholder="Create a password (min 6 characters)"
+                          value={signupData.password}
+                          onChange={(e) => setSignupData({...signupData, password: e.target.value})}
                           required
                         />
                         <button
@@ -223,6 +333,8 @@ function App() {
                           id="confirmPassword"
                           type={showConfirmPassword ? "text" : "password"}
                           placeholder="Confirm your password"
+                          value={signupData.confirmPassword}
+                          onChange={(e) => setSignupData({...signupData, confirmPassword: e.target.value})}
                           required
                         />
                         <button
@@ -244,12 +356,13 @@ function App() {
 
                     <motion.button
                       type="submit"
-                      className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-slate-900 font-semibold flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg group"
-                      whileHover={{ scale: 1.02, y: -1 }}
-                      whileTap={{ scale: 0.98 }}
+                      disabled={loading}
+                      className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-slate-900 font-semibold flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg group disabled:opacity-50 disabled:cursor-not-allowed"
+                      whileHover={{ scale: loading ? 1 : 1.02, y: loading ? 0 : -1 }}
+                      whileTap={{ scale: loading ? 1 : 0.98 }}
                     >
-                      Create Account
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      {loading ? 'Creating Account...' : 'Create Account'}
+                      {!loading && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
                     </motion.button>
                   </form>
                 </motion.div>
@@ -318,4 +431,4 @@ function App() {
   );
 }
 
-export default App;
+export default AuthForm;
