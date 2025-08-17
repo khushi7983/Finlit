@@ -34,7 +34,7 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center w-full max-w-[90vw]">
         {/* Left: Logo */}
         <Link to="/" onClick={() => setMenuOpen(false)}>
-          <img src={logo} alt="FinLit Logo" className="h-28 sm:h-16 w-auto ml-2 sm:ml-4" />
+        <img src={logo} alt="FinLit Logo" className="h-20 sm:h-14 w-auto ml-2 sm:ml-4" />
         </Link>
 
         {/* Mobile Hamburger */}

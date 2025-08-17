@@ -149,7 +149,7 @@ const MicroCourses = () => {
           </span>
         </h2>
       </div>
-      <p className="mb-8 text-lg text-center max-w-2xl text-yellow-700/80">Explore our range of micro-courses designed to enhance your financial literacy.</p>
+      {/* <p className="mb-8 text-lg text-center max-w-2xl text-yellow-700/80">Explore our range of micro-courses designed to enhance your financial literacy.</p> */}
       
       {/* Loading State */}
       {isLoading && (

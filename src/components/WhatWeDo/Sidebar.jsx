@@ -18,13 +18,13 @@ const SidebarLayout = () => {
   const closeSidebar = () => setIsOpen(false);
 
   return (
-    <div className="flex min-h-screen bg-slate-900 text-white pt-[100px]">
-      {/* Mobile Hamburger - Fixed position */}
+    <div className="min-h-screen bg-slate-900 text-white">
+      {/* Mobile Hamburger */}
       <button
         onClick={toggleSidebar}
-        className="md:hidden fixed top-[120px] left-4 z-50 p-3 bg-slate-800 rounded-lg shadow-lg border border-slate-700"
+        className="md:hidden fixed top-20 left-4 z-50 p-3 bg-slate-800 rounded-lg shadow-lg border border-slate-700"
       >
-        <Menu className="w-6 h-6 text-yellow-400" />
+        <Menu className="w-6 h-6 text-blue-400" />
       </button>
 
       {/* Mobile Overlay */}
@@ -35,14 +35,13 @@ const SidebarLayout = () => {
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar - Fixed positioning */}
       <aside
-        className={`fixed md:sticky top-[100px] h-[calc(100vh-100px)] w-72 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
+        className={`fixed top-16 left-0 h-[calc(100vh-64px)] w-72 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
           transform transition-all duration-300 ease-in-out z-50
           ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-          md:relative md:transform-none`}
+          border-r border-slate-700`}
       >
-        {/* Mobile Close Button */}
         <div className="md:hidden flex justify-end p-4 border-b border-slate-700">
           <button
             onClick={closeSidebar}
@@ -52,7 +51,7 @@ const SidebarLayout = () => {
           </button>
         </div>
 
-        <div className="pt-2 md:pt-6">
+        <div className="pt-4 md:pt-6">
           <nav className="p-4 space-y-3">
             {navItems.map(({ path, label, icon: Icon }) => (
               <NavLink
@@ -61,20 +60,19 @@ const SidebarLayout = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-4 p-3 rounded-lg transition-all duration-200
                   ${isActive 
-                    ? 'bg-yellow-500/20 border-l-4 border-yellow-400 shadow-lg' 
+                    ? 'bg-blue-500/20 border-l-4 border-blue-400 shadow-lg' 
                     : 'hover:bg-slate-700 hover:border-l-4 hover:border-slate-600'
                   }`
                 }
                 onClick={() => {
-                  // Close sidebar on mobile after navigation
                   if (window.innerWidth < 768) {
                     closeSidebar();
                   }
                 }}
               >
                 <div className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors
-                  ${({ isActive }) => isActive ? 'bg-yellow-400/20' : 'bg-slate-700/50'}`}>
-                  <Icon className="text-yellow-400 w-5 h-5" />
+                  ${({ isActive }) => isActive ? 'bg-blue-400/20' : 'bg-slate-700/50'}`}>
+                  <Icon className="text-blue-400 w-5 h-5" />
                 </div>
                 <span className="font-medium">{label}</span>
               </NavLink>
@@ -83,9 +81,11 @@ const SidebarLayout = () => {
         </div>
       </aside>
 
-      {/* Content Area */}
-      <main className="flex-1 p-4 md:p-6 overflow-y-auto">
-        <Outlet />
+      {/* Main Content - Properly constrained */}
+      <main className="pt-16 md:ml-72">
+        <div className="w-full h-[calc(100vh-64px)] overflow-y-auto">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
