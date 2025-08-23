@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { BookOpen, TrendingUp, ChevronRight } from "lucide-react";
+import Image from "../../assets/invest.png";
 
 const containerVariant = {
   hidden: { opacity: 0 },
@@ -29,25 +30,24 @@ const Investing = () => (
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: Enhanced Content */}
 
-          <motion.div className="relative" variants={itemVariant}>
-            <div className="relative">
-              {/* Decorative background */}
-              <div className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-3xl opacity-20"></div>
-              <div className="absolute -bottom-6 -right-6 w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl opacity-10"></div>
+<motion.div className="relative" variants={itemVariant}>
+  <div className="relative">
+    {/* Decorative background */}
+    <div className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-3xl opacity-20"></div>
+    <div className="absolute -bottom-6 -right-6 w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl opacity-10"></div>
 
-              {/* Main content area */}
-              <div className="relative bg-white rounded-3xl shadow-2xl p-8 border border-slate-200">
-                <div className="aspect-square bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center">
-                  <div className="text-center">
-                    <TrendingUp className="w-24 h-24 text-yellow-500 mx-auto mb-4" />
-                    <div className="text-slate-600 font-medium">
-                      Investment Growth
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+    {/* Main content area */}
+    <div className="relative bg-white rounded-3xl shadow-2xl p-8 border border-slate-200">
+      <div className="aspect-square rounded-2xl overflow-hidden">
+        <img 
+          src={Image}
+          alt="Financial Learning Illustration"
+          className="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</motion.div>
 
           {/* Right: Enhanced Visual */}
           <motion.div className="space-y-8" variants={itemVariant}>

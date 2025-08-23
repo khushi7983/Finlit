@@ -22,7 +22,8 @@ import Journey from "./Journey";
 import FAQ from "./FAQ";
 import playstoreIcon from '../../assets/playstore.png';
 import appleIcon from '../../assets/apple.png';
-import PremiumMutualFundSection from "./PremiumMutualFundSection";
+import OurAspirations from "./OurAspirations";
+import FinancialLiteracy from "./FinancialLiteracy";
 
 // Animation variants
 const containerVariant = {
@@ -359,120 +360,13 @@ const Hero = () => {
         `}</style>
       </section>
 
-      {/* Our Aspirations Section */}
-      <motion.section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-16 px-4 md:px-8 overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div
-            className="absolute inset-0 bg-repeat"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 40l15-15v30l-15-15z' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E")`,
-            }}
-          ></div>
-        </div>
 
-        <div className="max-w-5xl mx-auto relative z-10">
-          <div className="text-center mb-12">
-            {/* <div className="inline-flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-3 py-1.5 mb-4">
-              <Target className="w-3 h-3 text-yellow-400" />
-              <span className="text-xs font-medium text-yellow-400">Our Vision</span>
-            </div> */}
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">Our Aspirations</h2>
-          </div>
 
-          <div className="grid lg:grid-cols-2 gap-6">
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-              <div className="flex items-center gap-2 mb-3">
-                <BookOpen className="w-4 h-4 text-yellow-400" />
-                <h3 className="text-xl font-bold text-white">Our Objective</h3>
-              </div>
-              <p className="text-base leading-relaxed text-slate-300">
-                We believe that financial literacy is the skill of managing your finances. It starts with practicing financial attitude and financial behavior leading to financial capability. With the{" "}
-                <span className="text-yellow-400 font-semibold">"Fin Lit Project"</span>{" "}
-                we want to make finance and fintech simple and accessible to everyone.
-              </p>
-            </div>
-
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-              <div className="flex items-center gap-2 mb-3">
-                <TrendingUp className="w-4 h-4 text-blue-400" />
-                <h3 className="text-xl font-bold text-white">Our Goal</h3>
-              </div>
-              <p className="text-base leading-relaxed text-slate-300 mb-4">
-                We aim to take financial literacy to a minimum forty percent by the end of the next five years. To achieve this we have devised:
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full"></div>
-                  <span className="text-slate-300">
-                    <span className="text-yellow-400 font-semibold">Fin Lit Learn</span> - Gamified microcourse self-paced learning
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full"></div>
-                  <span className="text-slate-300">
-                    <span className="text-yellow-400 font-semibold">Fin Lit Invest</span> - Tech-powered investing in Indian Financial markets
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* The Challenge Section */}
-      <motion.section className="relative bg-gradient-to-br from-slate-800 via-slate-900 to-black py-8 px-4 md:px-8 overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div
-            className="absolute inset-0 bg-repeat"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1.5' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E")`,
-            }}
-          ></div>
-        </div>
-
-        <div className="max-w-4xl mx-auto relative z-10">
-          <div className="text-center mb-12">
-            {/* <div className="inline-flex items-center gap-2 bg-red-500/20 backdrop-blur-sm rounded-full px-3 py-1.5 mb-4">
-              <Users className="w-3 h-3 text-red-400" />
-              <span className="text-xs font-medium text-red-400">Global Issue</span>
-            </div> */}
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">The Challenge</h2>
-          </div>
-
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10">
-            <div className="text-center mb-8">
-              <div className="text-5xl md:text-6xl font-black text-red-400 mb-2">75%</div>
-              <div className="text-lg md:text-xl text-white font-bold mb-2">
-                of adults are financially illiterate
-              </div>
-              <div className="text-base text-slate-400">
-                According to S&P Global Study
-              </div>
-            </div>
-
-            <div className="grid sm:grid-cols-3 gap-4">
-              <div className="text-center p-4 bg-white/5 rounded-lg border border-white/10">
-                <div className="text-2xl font-bold text-yellow-400 mb-1">40%</div>
-                <div className="text-base text-white font-semibold mb-1">Target by 2029</div>
-                <div className="text-xs text-slate-400">Our ambitious goal</div>
-              </div>
-              <div className="text-center p-4 bg-white/5 rounded-lg border border-white/10">
-                <div className="text-2xl font-bold text-blue-400 mb-1">5</div>
-                <div className="text-base text-white font-semibold mb-1">Years Timeline</div>
-                <div className="text-xs text-slate-400">To achieve our goal</div>
-              </div>
-              <div className="text-center p-4 bg-white/5 rounded-lg border border-white/10">
-                <div className="text-2xl font-bold text-green-400 mb-1">2029</div>
-                <div className="text-base text-white font-semibold mb-1">Target Year</div>
-                <div className="text-xs text-slate-400">Mission deadline</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.section>
+      <OurAspirations/>
+      <FinancialLiteracy/>
 
      {/* What is Financial Literacy Section - Enhanced */}
-      <motion.section
+      {/* <motion.section
         className="bg-gradient-to-br from-slate-50 to-white py-24 px-6 md:px-12"
         initial="hidden"
         whileInView="visible"
@@ -483,15 +377,15 @@ const Hero = () => {
   <div className="max-w-6xl mx-auto">
     <div className="grid lg:grid-cols-2 gap-12 items-center">
       {/* Left: Enhanced Content */}
-      <motion.div className="space-y-8" variants={itemVariant}>
+      {/* <motion.div className="space-y-8" variants={itemVariant}>
         <div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-slate-800 leading-tight">
             What is Financial Literacy?
           </h2>
 
-                </div>
+                </div> */}
 
-<div className="text-sm sm:text-base md:text-base text-slate-700 max-w-3xl mx-auto leading-relaxed px-4">
+{/* <div className="text-sm sm:text-base md:text-base text-slate-700 max-w-3xl mx-auto leading-relaxed px-4">
   <p className="mb-4">
     <strong>Fin Lit Learn</strong> is your go-to platform for bite-sized, India-focused financial education.
     Forget the jargon – our learning modules are crafted for real people with real goals, in their own language and on their own terms.
@@ -504,13 +398,13 @@ const Hero = () => {
     <strong>Mutual Funds – What’s Right for Me?</strong> Should I choose lumpsum or SIP? Debt or hybrid? Is ELSS worth it?
     Valuation = value + vision – but how do I calculate it?
   </p>
-</div>
+</div> */}
 
 
 
 
                 {/* Feature List */}
-                <div className="grid sm:grid-cols-2 gap-4">
+                {/* <div className="grid sm:grid-cols-2 gap-4">
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
                     <span className="text-slate-700">Personal Finance Management</span>
@@ -527,9 +421,9 @@ const Hero = () => {
                     <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
                     <span className="text-slate-700">Credit Management</span>
                   </div>
-                </div>
+                </div> */}
 
-<div className="flex flex-row gap-3 flex-wrap">
+{/* <div className="flex flex-row gap-3 flex-wrap">
   <a href="https://play.google.com/store/apps/details?id=com.thefinlitproject.app" target="_blank" rel="noopener noreferrer">
     <button className="group bg-gradient-to-r from-slate-800 to-slate-900 text-white px-5 py-2.5 rounded-xl font-medium text-base shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-1.5">
       <BookOpen className="w-4 h-4" />
@@ -545,32 +439,32 @@ const Hero = () => {
       <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
     </button>
   </a>
-</div>
+</div> */}
 
-            </motion.div>
+            {/* </motion.div> */}
 
               {/* Right: Enhanced Visual */}
-              <motion.div className="relative" variants={itemVariant}>
+              {/* <motion.div className="relative" variants={itemVariant}>
                 <div className="relative">
                   {/* Decorative background */}
-                  <div className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-3xl opacity-20"></div>
+                  {/* <div className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-3xl opacity-20"></div>
                   <div className="absolute -bottom-6 -right-6 w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl opacity-10"></div>
 
                   {/* Main content area */}
-                  <div className="relative bg-white rounded-3xl shadow-2xl p-8 border border-slate-200">
+                  {/* <div className="relative bg-white rounded-3xl shadow-2xl p-8 border border-slate-200">
                     <div className="aspect-square bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center">
                       <div className="text-center">
                         <TrendingUp className="w-24 h-24 text-yellow-500 mx-auto mb-4" />
                         <div className="text-slate-600 font-medium">Financial Growth</div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+                    </div> */}
+                  {/* </div>
+                </div> */}
+              {/* </motion.div> 
             </div>
           </div>
         </div>
-      </motion.section>
+      </motion.section>*/} 
 
       <Investing />
       <Journey />
