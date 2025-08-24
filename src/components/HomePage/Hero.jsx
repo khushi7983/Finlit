@@ -125,12 +125,12 @@ const Hero = () => {
                      {/* Main Flex Layout */}
            <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
                                                      {/* Left: Text and Buttons */}
-               <div className="w-full lg:w-1/2 text-left">
+                               <div className="w-full lg:w-1/2 text-center lg:text-left">
               <div className="mb-4">
                                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight">
                    <div className="flex flex-col">
                                                                  {/* Line 1: Master Your */}
-                       <div className="flex items-center">
+                       <div className="flex items-center justify-center lg:justify-start">
                        <span
                          className={`inline-block text-slate-800 transition-all duration-800 ${
                            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -172,7 +172,7 @@ const Hero = () => {
                      </div>
                      
                                                                  {/* Line 3: in Minutes */}
-                       <div className="flex items-center">
+                       <div className="flex items-center justify-center lg:justify-start">
                        <span
                          className={`inline-block text-slate-800 transition-all duration-800 ${
                            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -184,7 +184,7 @@ const Hero = () => {
                        >
                          in
                        </span>
-                                               <span className="w-2 sm:w-8"></span>
+                                               <span className="w-2 sm:w-4"></span>
                        <span
                          className={`inline-block text-slate-800 transition-all duration-800 ${
                            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
