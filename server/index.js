@@ -80,6 +80,10 @@ app.use("/api/media-presence", mediaPresenceRoutes);
 import awardRoutes from "./routes/awardRoutes.js";
 app.use("/api/awards", awardRoutes);
 
+// Fund Routes
+import fundRoutes from "./routes/fundRoutes.js";
+app.use("/api/fund", fundRoutes);
+
 // NEW: Interview Routes
 import interviewRoutes from "./routes/interviewRoutes.js";
 app.use("/api/interviews", interviewRoutes);

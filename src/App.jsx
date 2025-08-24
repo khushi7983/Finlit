@@ -64,7 +64,8 @@ function AppWrapper() {
         <Route path="/login-signup" element={<AuthForm authAPI={authAPI} />} />
 
         {/* Blog detail page */}
-        <Route path="/blog/:id" element={<BlogPage />} />
+      <Route path="/blog/:slug" element={<BlogPage />} />
+
 
         {/* Sidebar layout with nested routes */}
         <Route path="/what-we-do" element={<SidebarLayout />}>
