@@ -49,52 +49,92 @@ const ESG = () => {
     setTreesPlanted(Math.round(yearlyInvestment / 500));
   }, [monthlyInvestment]);
 
-  const esgTypes = [
-    {
-      id: 1,
-      title: "Environmental Funds",
-      subtitle: "Planet-First Investing",
-      description: "Focus on renewable energy, waste management, and sustainable practices",
-      icon: <Leaf className="w-6 h-6" />,
-      color: "from-green-500 to-green-600",
-      bgColor: "bg-green-50",
-      examples: ["Clean Energy", "Water Management", "Sustainable Agriculture"],
-      impact: "Reduce carbon footprint by 40%"
-    },
-    {
-      id: 2,
-      title: "Social Impact Funds",
-      subtitle: "People-First Investing",
-      description: "Companies promoting diversity, education, and community development",
-      icon: <Heart className="w-6 h-6" />,
-      color: "from-pink-500 to-pink-600",
-      bgColor: "bg-pink-50",
-      examples: ["Healthcare Access", "Education", "Gender Equality"],
-      impact: "Support 1000+ jobs creation"
-    },
-    {
-      id: 3,
-      title: "Governance Funds",
-      subtitle: "Ethics-First Investing",
-      description: "Companies with transparent practices and ethical leadership",
-      icon: <Shield className="w-6 h-6" />,
-      color: "from-blue-500 to-blue-600",
-      bgColor: "bg-blue-50",
-      examples: ["Corporate Transparency", "Fair Wages", "Anti-Corruption"],
-      impact: "Promote ethical business"
-    },
-    {
-      id: 4,
-      title: "Thematic ESG Funds",
-      subtitle: "Future-First Investing",
-      description: "Combine all ESG factors for comprehensive sustainable investing",
-      icon: <Globe className="w-6 h-6" />,
-      color: "from-purple-500 to-purple-600",
-      bgColor: "bg-purple-50",
-      examples: ["Climate Change", "Circular Economy", "Sustainable Cities"],
-      impact: "Holistic positive impact"
+  const [esgTypes, setEsgTypes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch ESG funds from API
+  useEffect(() => {
+    fetchESGFunds();
+  }, []);
+
+  const fetchESGFunds = async () => {
+    try {
+      setLoading(true);
+      console.log('🔍 Fetching ESG funds from API...');
+      
+      // Use full URL for development
+      const apiUrl = import.meta.env.DEV 
+        ? 'http://localhost:5000/api/esg-funds' 
+        : '/api/esg-funds';
+      
+      console.log('📡 API URL:', apiUrl);
+      
+      const response = await fetch(apiUrl);
+      console.log('📥 Response status:', response.status);
+      
+      const data = await response.json();
+      console.log('📊 API Response:', data);
+      
+      if (data.success) {
+        // Transform the data to include React icons and fixed colors
+        const transformedData = data.data.map((fund, index) => ({
+          ...fund,
+          icon: getIconComponent(fund.icon),
+          // Fixed colors for each card (not from database)
+          color: getFixedColor(index),
+          bgColor: getFixedBgColor(index)
+        }));
+        console.log('✅ Transformed data:', transformedData);
+        setEsgTypes(transformedData);
+      } else {
+        console.error('❌ API Error:', data.message);
+        setError('Failed to fetch ESG funds');
+      }
+    } catch (error) {
+      console.error('❌ Fetch Error:', error);
+      setError('Error fetching ESG funds');
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  // Function to get fixed colors for each card
+  const getFixedColor = (index) => {
+    const colors = [
+      'from-green-500 to-green-600',    // Environmental - Green
+      'from-pink-500 to-pink-600',      // Social - Pink
+      'from-blue-500 to-blue-600',      // Governance - Blue
+      'from-purple-500 to-purple-600'   // Thematic - Purple
+    ];
+    return colors[index] || 'from-gray-500 to-gray-600';
+  };
+
+  // Function to get fixed background colors for each card
+  const getFixedBgColor = (index) => {
+    const bgColors = [
+      'bg-green-50',    // Environmental - Light Green
+      'bg-pink-50',     // Social - Light Pink
+      'bg-blue-50',     // Governance - Light Blue
+      'bg-purple-50'    // Thematic - Light Purple
+    ];
+    return bgColors[index] || 'bg-gray-50';
+  };
+
+  // Function to get icon component based on icon name
+  const getIconComponent = (iconName) => {
+    const iconMap = {
+      'Leaf': <Leaf className="w-6 h-6" />,
+      'Heart': <Heart className="w-6 h-6" />,
+      'Shield': <Shield className="w-6 h-6" />,
+      'Globe': <Globe className="w-6 h-6" />,
+      'Star': <Star className="w-6 h-6" />,
+      'TrendingUp': <TrendingUp className="w-6 h-6" />,
+      'Target': <Target className="w-6 h-6" />,
+      'Zap': <Zap className="w-6 h-6" />
+    };
+    return iconMap[iconName] || <Star className="w-6 h-6" />;
+  };
 
   const whyInvestReasons = [
     {
@@ -296,8 +336,37 @@ const ESG = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {esgTypes.map((fund) => (
+          {/* Loading State */}
+          {loading && (
+            <div className="col-span-full text-center py-8">
+              <div className="inline-flex items-center gap-2 text-slate-600">
+                <div className="w-4 h-4 border-2 border-slate-300 border-t-slate-600 rounded-full animate-spin"></div>
+                <span>Loading ESG funds from database...</span>
+              </div>
+              <p className="text-xs text-slate-500 mt-2">Please ensure server is running on port 5000</p>
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && !loading && (
+            <div className="col-span-full text-center py-8">
+              <div className="text-red-500 mb-4">
+                <Shield className="w-8 h-8 mx-auto mb-2" />
+                <p className="text-sm">{error}</p>
+              </div>
+              <button 
+                onClick={fetchESGFunds}
+                className="px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors"
+              >
+                Try Again
+              </button>
+            </div>
+          )}
+
+          {/* ESG Funds Grid */}
+          {!loading && !error && esgTypes.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {esgTypes.map((fund) => (
               <motion.div
                 key={fund.id}
                 variants={cardVariant}
@@ -357,7 +426,8 @@ const ESG = () => {
                 </div>
               </motion.div>
             ))}
-          </div>
+            </div>
+          )}
         </motion.div>
 
         {/* Why Invest in ESG */}

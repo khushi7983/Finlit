@@ -100,6 +100,10 @@ app.use("/api/auth", authRoutes);
 import finTermRoutes from "./routes/finterms.js";
 app.use("/api/finterms", finTermRoutes);
 
+// ESG Funds Routes
+import esgFundRoutes from "./routes/esgFundRoutes.js";
+app.use("/api/esg-funds", esgFundRoutes);
+
 // Blog Routes
 import blogRoutes from "./routes/blogRoutes.js";
 app.use("/api/blogs", blogRoutes);
