@@ -1,29 +1,22 @@
-import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  Play,
-  Download,
   BookOpen,
-  TrendingUp,
-  Users,
-  Target,
-  ChevronRight,
-  Star,
-  Award,
-  DollarSign,
+  TrendingUp
 } from "lucide-react";
-import Supporters from "./Supporters";
-import Offerings from "./Offerings";
-import phone from "../../assets/phone.mp4";
-import finance from "../../assets/finance.gif";
-import Investing from "./Investing";
-import TestimonialsSection from "./TestimonialsSection";
-import Journey from "./Journey";
-import FAQ from "./FAQ";
-import playstoreIcon from '../../assets/playstore.png';
+import React, { useEffect, useState } from "react";
 import appleIcon from '../../assets/apple.png';
-import OurAspirations from "./OurAspirations";
+import phone from "../../assets/phone.mp4";
+import playstoreIcon from '../../assets/playstore.png';
+import { useHeroData } from "../../hooks/useHeroData";
+import { getIconComponent } from "../../utils/iconMapper";
+import FAQ from "./FAQ";
 import FinancialLiteracy from "./FinancialLiteracy";
+import Investing from "./Investing";
+import Journey from "./Journey";
+import Offerings from "./Offerings";
+import OurAspirations from "./OurAspirations";
+import Supporters from "./Supporters";
+import TestimonialsSection from "./TestimonialsSection";
 
 // Animation variants
 const containerVariant = {
@@ -68,6 +61,7 @@ const slides = [
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { heroData, loading, error } = useHeroData();
 
   useEffect(() => {
     setIsVisible(true);
@@ -85,189 +79,241 @@ const Hero = () => {
     };
   }, []);
 
+  // Show loading state
+  if (loading) {
+    return (
+      <section className="relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-28 md:pt-20 lg:pt-24 pb-16 md:pb-24 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500 mx-auto mb-4"></div>
+              <p className="text-slate-600">Loading hero data from database...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Show error state if no data
+  if (error || !heroData) {
+    return (
+      <section className="relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-28 md:pt-20 lg:pt-24 pb-16 md:pb-24 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="text-center">
+              <p className="text-red-600 mb-2">Error loading hero data</p>
+              <p className="text-slate-600 text-sm">{error || 'No hero data found in database'}</p>
+              <p className="text-slate-500 text-xs mt-2">Please ensure your server is running and database has hero data</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <>
-      {/* Main Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-28 md:pt-20 lg:pt-24 pb-16 md:pb-24 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23f1f5f9\' fill-opacity=\'0.4\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'1\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
+             {/* Main Hero Section */}
+       <section className={`relative bg-gradient-to-br ${heroData.backgroundGradient} pt-28 md:pt-20 lg:pt-24 pb-16 md:pb-24 overflow-hidden`}>
+         {/* Background Elements */}
+         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23f1f5f9\' fill-opacity=\'0.4\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'1\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
+
+         
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Main Flex Layout */}
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-            {/* Left: Text and Buttons */}
-            <div className="w-full lg:w-1/2 text-center lg:text-left">
+                     {/* Main Flex Layout */}
+           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+                                                     {/* Left: Text and Buttons */}
+                               <div className="w-full lg:w-1/2 text-center lg:text-left">
               <div className="mb-4">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-4 leading-tight">
-                  <span
-                    className={`inline-block text-slate-800 transition-all duration-800 ${
-                      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                    }`}
-                    style={{
-                      animationDelay: "0.3s",
-                      animation: isVisible ? "bounce-in 0.8s ease-out 0.3s both" : "none",
-                    }}
-                  >
-                    Master Your
-                  </span>
-                  <br />
-                  <span
-                    className={`inline-block bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent transition-all duration-800 ${
-                      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                    }`}
-                    style={{
-                      animationDelay: "0.5s",
-                      animation: isVisible ? "glow-pulse 1.8s ease-in-out infinite, bounce-in 0.8s ease-out 0.5s both" : "none",
-                    }}
-                  >
-                    Money
-                  </span>
-                  <br />
-                  <span
-                    className={`inline-block text-slate-800 transition-all duration-800 ${
-                      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                    }`}
-                    style={{
-                      animationDelay: "0.7s",
-                      animation: isVisible ? "bounce-in 0.8s ease-out 0.7s both" : "none",
-                    }}
-                  >
-                    in Minutes
-                  </span>
-                </h1>
+                                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight">
+                   <div className="flex flex-col">
+                                                                 {/* Line 1: Master Your */}
+                       <div className="flex items-center justify-center lg:justify-start">
+                       <span
+                         className={`inline-block text-slate-800 transition-all duration-800 ${
+                           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                         }`}
+                         style={{
+                           animationDelay: "0.3s",
+                           animation: isVisible ? "bounce-in 0.8s ease-out 0.3s both" : "none",
+                         }}
+                       >
+                         Master
+                       </span>
+                                               <span className="w-2 sm:w-4"></span>
+                       <span
+                         className={`inline-block text-slate-800 transition-all duration-800 ${
+                           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                         }`}
+                         style={{
+                           animationDelay: "0.5s",
+                           animation: isVisible ? "bounce-in 0.8s ease-out 0.5s both" : "none",
+                         }}
+                       >
+                         Your
+                       </span>
+                     </div>
+                     
+                                                                 {/* Line 2: Money (highlighted) */}
+                       <div>
+                       <span
+                         className={`inline-block bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent transition-all duration-800 ${
+                           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                         }`}
+                         style={{
+                           animationDelay: "0.7s",
+                           animation: isVisible ? "glow-pulse 1.8s ease-in-out infinite, bounce-in 0.8s ease-out 0.7s both" : "none",
+                         }}
+                       >
+                         {heroData.title.split(' ')[2]}
+                       </span>
+                     </div>
+                     
+                                                                 {/* Line 3: in Minutes */}
+                       <div className="flex items-center justify-center lg:justify-start">
+                       <span
+                         className={`inline-block text-slate-800 transition-all duration-800 ${
+                           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                         }`}
+                         style={{
+                           animationDelay: "0.9s",
+                           animation: isVisible ? "bounce-in 0.8s ease-out 0.9s both" : "none",
+                         }}
+                       >
+                         in
+                       </span>
+                                               <span className="w-2 sm:w-4"></span>
+                       <span
+                         className={`inline-block text-slate-800 transition-all duration-800 ${
+                           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                         }`}
+                         style={{
+                           animationDelay: "1.1s",
+                           animation: isVisible ? "bounce-in 0.8s ease-out 1.1s both" : "none",
+                         }}
+                       >
+                         Minutes
+                       </span>
+                     </div>
+                   </div>
+                 </h1>
 
-                <p
-                  className={`text-lg sm:text-xl text-slate-600 mb-6 max-w-xl font-light leading-relaxed transition-all duration-800 ${
+                                 <p
+                   className={`text-lg sm:text-xl text-slate-600 mb-6 max-w-xl font-light leading-relaxed transition-all duration-800 ${
+                     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                   }`}
+                   style={{ animationDelay: "0.9s" }}
+                 >
+                   {heroData.subtitle}
+                 </p>
+              </div>
+
+                             {/* Stats Row */}
+               <div
+                 className={`grid grid-cols-3 gap-3 mb-8 transition-all duration-800 ${
+                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                 }`}
+                 style={{ animationDelay: "1s" }}
+               >
+                 {heroData.stats.map((stat, index) => {
+                   const IconComponent = getIconComponent(stat.icon);
+                   const delay = `${1.1 + index * 0.2}s`;
+                   
+                   return (
+                     <div
+                       key={index}
+                       className={`text-center bg-white/60 backdrop-blur-sm rounded-xl p-3 shadow-md border border-white/50 hover:bg-white/80 hover:scale-105 transition-all duration-400 ${
+                         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                       }`}
+                       style={{
+                         animationDelay: delay,
+                         animation: isVisible ? `scale-in 0.6s ease-out ${delay} both` : "none",
+                       }}
+                     >
+                       <IconComponent className="w-5 h-5 mx-auto mb-1 text-yellow-500 animate-bounce" />
+                       <div className="text-xl font-bold text-slate-800">{stat.number}</div>
+                       <div className="text-xs text-slate-600">{stat.label}</div>
+                     </div>
+                   );
+                 })}
+               </div>
+
+                                            {/* CTAs + Download Buttons */}
+                <motion.div
+                  className={`flex flex-col sm:flex-row gap-6 transition-all duration-800 ${
                     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                   }`}
-                  style={{ animationDelay: "0.9s" }}
+                  style={{ animationDelay: "1.6s" }}
                 >
-                  Empowering You, One Financial Decision at a Time.
-                  <span className="font-medium text-slate-700 animate-pulse">
-                    {" "}
-                    No finance background? No worries!
-                  </span>
-                </p>
-              </div>
+                                 {/* FinLit Learn Group */}
+                 <div className="flex flex-col items-center gap-2">
+                   <a
+                     href={heroData.finlitLearn.playStore}
+                     className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden"
+                   >
+                     <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                     <div className="relative flex items-center gap-2">
+                       <BookOpen className="w-4 h-4" />
+                       FinLit Learn
+                     </div>
+                   </a>
+                   <div className="flex flex-row gap-2 mt-1">
+                     <a
+                       href={heroData.finlitLearn.appStore}
+                       className="flex items-center gap-1 bg-white rounded-full px-3 py-1 shadow hover:bg-gray-100 transition group"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                     >
+                       <img src={appleIcon} alt="Apple" className="w-4 h-4" />
+                       <span className="text-xs text-slate-700">App store</span>
+                     </a>
+                     <a
+                       href={heroData.finlitLearn.playStore}
+                       className="flex items-center gap-1 bg-white rounded-full px-3 py-1 shadow hover:bg-gray-100 transition group"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                     >
+                       <img src={playstoreIcon} alt="Play Store" className="w-4 h-4" />
+                       <span className="text-xs text-slate-700">Play store</span>
+                     </a>
+                   </div>
+                 </div>
 
-              {/* Stats Row */}
-              <div
-                className={`grid grid-cols-3 gap-3 mb-8 transition-all duration-800 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-                style={{ animationDelay: "1s" }}
-              >
-                {[
-                  {
-                    number: "50K+",
-                    label: "Active Users",
-                    icon: Users,
-                    delay: "1.1s",
-                  },
-                  {
-                    number: "100+",
-                    label: "Free Courses",
-                    icon: BookOpen,
-                    delay: "1.3s",
-                  },
-                  {
-                    number: "4.8★",
-                    label: "User Rating",
-                    icon: Award,
-                    delay: "1.5s",
-                  },
-                ].map((stat, index) => (
-                  <div
-                    key={index}
-                    className={`text-center bg-white/60 backdrop-blur-sm rounded-xl p-3 shadow-md border border-white/50 hover:bg-white/80 hover:scale-105 transition-all duration-400 ${
-                      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                    }`}
-                    style={{
-                      animationDelay: stat.delay,
-                      animation: isVisible ? `scale-in 0.6s ease-out ${stat.delay} both` : "none",
-                    }}
-                  >
-                    <stat.icon className="w-5 h-5 mx-auto mb-1 text-yellow-500 animate-bounce" />
-                    <div className="text-xl font-bold text-slate-800">{stat.number}</div>
-                    <div className="text-xs text-slate-600">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTAs + Download Buttons */}
-              <motion.div
-                className={`flex flex-col sm:flex-row lg:justify-start justify-center gap-6 transition-all duration-800 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-                style={{ animationDelay: "1.6s" }}
-              >
-                {/* FinLit Learn Group */}
-                <div className="flex flex-col items-center gap-2">
-                  <a
-                    href="https://play.google.com/store/apps/details?id=com.thefinlitproject.app"
-                    className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="relative flex items-center gap-2">
-                      <BookOpen className="w-4 h-4" />
-                      FinLit Learn
-                    </div>
-                  </a>
-                  <div className="flex flex-row gap-2 mt-1">
-                    <a
-                      href="https://apps.apple.com/us/app/the-fin-lit-project/id1576101765#?platform=iphone"
-                      className="flex items-center gap-1 bg-white rounded-full px-3 py-1 shadow hover:bg-gray-100 transition group"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src={appleIcon} alt="Apple" className="w-4 h-4" />
-                      <span className="text-xs text-slate-700">App store</span>
-                    </a>
-                    <a
-                      href="https://play.google.com/store/apps/details?id=com.thefinlitproject.app"
-                      className="flex items-center gap-1 bg-white rounded-full px-3 py-1 shadow hover:bg-gray-100 transition group"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src={playstoreIcon} alt="Play Store" className="w-4 h-4" />
-                      <span className="text-xs text-slate-700">Play store</span>
-                    </a>
-                  </div>
-                </div>
-
-                {/* FinLit Invest Group */}
-                <div className="flex flex-col items-center gap-2">
-                  <a
-                    href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest"
-                    className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="relative flex items-center gap-2">
-                      <TrendingUp className="w-4 h-4" />
-                      FinLit Invest
-                    </div>
-                  </a>
-                  <div className="flex flex-row gap-2 mt-1">
-                    <a
-                      href="#"
-                      className="flex items-center gap-1 bg-white rounded-full px-3 py-1 shadow hover:bg-gray-100 transition group"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src={appleIcon} alt="Apple" className="w-4 h-4" />
-                      <span className="text-xs text-slate-700">App store</span>
-                    </a>
-                    <a
-                      href="https://play.google.com/store/apps/details?id=com.thefinlitproject.invest"
-                      className="flex items-center gap-1 bg-white rounded-full px-3 py-1 shadow hover:bg-gray-100 transition group"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src={playstoreIcon} alt="Play Store" className="w-4 h-4" />
-                      <span className="text-xs text-slate-700">Play store</span>
-                    </a>
-                  </div>
-                </div>
+                                 {/* FinLit Invest Group */}
+                 <div className="flex flex-col items-center gap-2">
+                   <a
+                     href={heroData.finlitInvest.playStore}
+                     className="group relative bg-gradient-to-r from-slate-800 to-slate-900 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden"
+                   >
+                     <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                     <div className="relative flex items-center gap-2">
+                       <TrendingUp className="w-4 h-4" />
+                       FinLit Invest
+                     </div>
+                   </a>
+                   <div className="flex flex-row gap-2 mt-1">
+                     <a
+                       href={heroData.finlitInvest.appStore}
+                       className="flex items-center gap-1 bg-white rounded-full px-3 py-1 shadow hover:bg-gray-100 transition group"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                     >
+                       <img src={appleIcon} alt="Apple" className="w-4 h-4" />
+                       <span className="text-xs text-slate-700">App store</span>
+                     </a>
+                     <a
+                       href={heroData.finlitInvest.playStore}
+                       className="flex items-center gap-1 bg-white rounded-full px-3 py-1 shadow hover:bg-gray-100 transition group"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                     >
+                       <img src={playstoreIcon} alt="Play Store" className="w-4 h-4" />
+                       <span className="text-xs text-slate-700">Play store</span>
+                     </a>
+                   </div>
+                 </div>
               </motion.div>
             </div>
 
