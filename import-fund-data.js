@@ -1,0 +1,156 @@
+// MongoDB Import Script for Fund Data
+// Run this script in MongoDB to import the fund data
+
+// First, make sure you're in the correct database
+use finlit
+
+// Clear existing fund collection (optional - remove this line if you want to keep existing data)
+db.funds.deleteMany({})
+
+// Insert fund data
+db.funds.insertOne({
+  "title": "Mutual Fund Investing",
+  "subtitle": "Made Simple",
+  "description": "Invest with Confidence. Learn as You Grow.",
+  
+  "credentials": {
+    "amfiArn": "249730",
+    "bseCode": "56333",
+    "nseCode": "1000906"
+  },
+  
+  "mission": {
+    "title": "Our Mission",
+    "content": "At The Fin Lit Project, we believe that wealth creation should be accessible, transparent, and rooted in financial literacy. Through our AMFI-registered mutual fund distribution platform and membership with both BSE StarMF and NSE MF, we make it easier for individuals and families across Bharat to invest wisely and grow their money."
+  },
+  
+  "whyInvestFeatures": [
+    {
+      "id": 1,
+      "icon": "Shield",
+      "title": "Guided by Education, Backed by Trust",
+      "description": "Fully registered & regulated. AMFI-registered distributor and authorized member of BSE StarMF and NSE MF, ensuring transparency and security.",
+      "color": "from-blue-500 to-blue-600",
+      "bgColor": "bg-blue-50"
+    },
+    {
+      "id": 2,
+      "icon": "Target",
+      "title": "Goal-Based Investing",
+      "description": "Tailored investments for emergency funds, education, or retirement, designed for your life goals.",
+      "color": "from-green-500 to-green-600",
+      "bgColor": "bg-green-50"
+    },
+    {
+      "id": 3,
+      "icon": "Award",
+      "title": "Zero Commission Bias",
+      "description": "Recommendations based on your best interests, free from hidden incentives.",
+      "color": "from-purple-500 to-purple-600",
+      "bgColor": "bg-purple-50"
+    },
+    {
+      "id": 4,
+      "icon": "Users",
+      "title": "Simple, Human-Centric Experience",
+      "description": "Jargon-free tools for first-time investors, rural/semi-urban families, and all income levels.",
+      "color": "from-orange-500 to-orange-600",
+      "bgColor": "bg-orange-50"
+    }
+  ],
+  
+  "whatWeOfferFeatures": [
+    {
+      "id": 1,
+      "icon": "PieChart",
+      "title": "Curated Mutual Fund Portfolios",
+      "description": "Designed for short-term, long-term, or specific life stages.",
+      "color": "from-pink-500 to-pink-600",
+      "bgColor": "bg-pink-50"
+    },
+    {
+      "id": 2,
+      "icon": "Zap",
+      "title": "Smart Risk Profiling",
+      "description": "Invest based on your comfort level with clear guidance.",
+      "color": "from-yellow-500 to-yellow-600",
+      "bgColor": "bg-yellow-50"
+    },
+    {
+      "id": 3,
+      "icon": "Smartphone",
+      "title": "100% Paperless & Phone-Friendly",
+      "description": "eKYC and SIP setup, optimized for mobile use.",
+      "color": "from-indigo-500 to-indigo-600",
+      "bgColor": "bg-indigo-50"
+    },
+    {
+      "id": 4,
+      "icon": "Globe",
+      "title": "Bharat-First Approach",
+      "description": "Multilingual support and on-ground assistance through partners.",
+      "color": "from-teal-500 to-teal-600",
+      "bgColor": "bg-teal-50"
+    }
+  ],
+  
+  "esg": {
+    "title": "Invest with Purpose",
+    "subtitle": "Explore ESG & Sustainable Funds",
+    "description": "Grow your wealth while staying true to your values with curated ESG Mutual Funds, focusing on climate action, gender equity, and ethical governance.",
+    "features": [
+      {
+        "icon": "CheckCircle",
+        "text": "Backed by top fund houses"
+      },
+      {
+        "icon": "Globe",
+        "text": "Aligned with global sustainability goals"
+      },
+      {
+        "icon": "TrendingUp",
+        "text": "Designed for long-term wealth + impact"
+      },
+      {
+        "icon": "Star",
+        "text": "Suitable for first-time investors"
+      }
+    ],
+    "whyChooseTitle": "Why Choose ESG Funds?",
+    "howItWorksTitle": "How It Works",
+    "howItWorksDescription": "ESG funds invest in companies with strong environmental, social, and governance practices, excluding polluters and unethical businesses.",
+    "startAmount": "Start with ₹100/month",
+    "ctaText": "Explore ESG Funds Now"
+  },
+  
+  "safety": {
+    "title": "Your Money is Safe",
+    "subtitle": "100% Secure & Regulated",
+    "description": "Investments are executed through BSE StarMF and NSE MF platforms. Your money is held with SEBI-regulated fund houses, and we never take custody of your funds."
+  },
+  
+  "contact": {
+    "title": "Talk to Us",
+    "subtitle": "Not sure where to begin? We're here to guide you.",
+    "phone": "+91-9502696570",
+    "whatsapp": "https://api.whatsapp.com/message/6EUW7ZLTHSGCB1?autoload=1&app_absent=0",
+    "email": "info@thefinlitproject.com",
+    "ctaText": "Start Your Investment Journey Now"
+  },
+  
+  "joinMovement": {
+    "title": "Join the Movement",
+    "description": "The Fin Lit Project is more than just a mutual fund distributor. We are a movement to democratize financial literacy, bring trusted investing tools to the last mile, and help every Indian build real wealth—one SIP at a time."
+  },
+  
+  "isActive": true,
+  "order": 0
+})
+
+// Verify the import
+print("Fund data imported successfully!")
+print("Total funds in collection: " + db.funds.countDocuments())
+
+// Show the imported data
+print("Imported fund data:")
+printjson(db.funds.findOne())
