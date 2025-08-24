@@ -31,22 +31,22 @@ const Navbar = () => {
         isSticky ? 'py-1' : 'py-1'
       }`}
     >
-      <div className="container mx-auto flex justify-between items-center w-full max-w-[90vw]">
+      <div className="container mx-auto flex items-center w-full max-w-[90vw] gap-8">
         {/* Left: Logo */}
-        <Link to="/" onClick={() => setMenuOpen(false)}>
-        <img src={logo} alt="FinLit Logo" className="h-20 sm:h-14 w-auto ml-2 sm:ml-4" />
+        <Link to="/" onClick={() => setMenuOpen(false)} className="flex-shrink-0">
+          <img src={logo} alt="FinLit Logo" className="h-20 sm:h-14 w-auto ml-2 sm:ml-4" />
         </Link>
 
         {/* Mobile Hamburger */}
         <div
-          className="sm:hidden text-white text-2xl mr-2 cursor-pointer"
+          className="sm:hidden text-white text-2xl mr-2 cursor-pointer ml-auto"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <FaTimes /> : <FaBars />}
         </div>
 
         {/* Center: Nav Links (Desktop) */}
-        <div className="hidden sm:flex space-x-6">
+        <div className="hidden sm:flex space-x-6 flex-grow">
           {navItems.map(({ name, path }) => (
             <Link
               key={name}
@@ -60,14 +60,15 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Right: Login + Language (Desktop) */}
-        <div className="hidden sm:flex items-center space-x-4">
-          <Link
+        {/* Right: Language Selector (Desktop) */}
+        <div className="hidden sm:flex items-center space-x-4 flex-shrink-0">
+          {/* Login functionality commented out */}
+          {/* <Link
             to="/login-signup"
             className="text-white font-semibold px-4 py-2 hover:opacity-90"
           >
             Login / Get Started
-          </Link>
+          </Link> */}
 
           <select
             value={language}
@@ -92,13 +93,14 @@ const Navbar = () => {
                 {name}
               </Link>
             ))}
-            <Link
+            {/* Mobile login functionality commented out */}
+            {/* <Link
               to="/login-signup"
               className="text-white font-semibold"
               onClick={() => setMenuOpen(false)}
             >
               Login / Get Started
-            </Link>
+            </Link> */}
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
