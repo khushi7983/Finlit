@@ -167,15 +167,6 @@ const Fraternity = () => {
       ref={sectionRef}
       className="relative bg-gradient-to-br from-slate-50 via-gray-100 to-indigo-100 py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
-      {/* Interactive Mouse Cursor Effect */}
-      {/* <div
-        className="fixed w-6 h-6 bg-yellow-500/30 rounded-full pointer-events-none z-50 mix-blend-multiply transition-all duration-300 ease-out"
-        style={{
-          left: mousePosition.x - 12,
-          top: mousePosition.y - 12,
-          transform: hoveredCard !== null ? "scale(3)" : "scale(1)",
-        }}
-      /> */}
 
       {/* Floating Particles */}
       {particles.map((particle) => (
@@ -209,7 +200,7 @@ const Fraternity = () => {
           >
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
               <span className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
-                The FinLit Fraternity
+                Founders of The FinLit Project
               </span>
             </h1>
           </div>
@@ -263,7 +254,8 @@ const Fraternity = () => {
 
           {/* Team Members Grid */}
           {!isLoading && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 justify-items-center ${fraternityMembers.length <= 2 ? 'lg:grid-cols-2 lg:max-w-4xl lg:mx-auto' : 'lg:grid-cols-4'}`}>
+
               {fraternityMembers.map((member, index) => (
               <div
                 key={index}
