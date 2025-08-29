@@ -36,10 +36,10 @@ const LearnMoreStory = () => {
   ];
 
   const stats = [
-    { number: "300+", label: "Programs Conducted", icon: "📊" },
-    { number: "10,000+", label: "Individuals Trained", icon: "👥" },
-    { number: "50+", label: "Partner Organizations", icon: "🤝" },
-    { number: "8+", label: "States Covered", icon: "🗺️" }
+    { number: "300+", label: "Programs Conducted", icon: "" },
+    { number: "10,000+", label: "Individuals Trained", icon: "" },
+    { number: "50+", label: "Partner Organizations", icon: "" },
+    { number: "8+", label: "States Covered", icon: "" }
   ];
 
   const mediaOutlets = [
@@ -62,7 +62,7 @@ const LearnMoreStory = () => {
     <div className="min-h-screen pt-24 pb-12 overflow-hidden">
       
       {/* Hero Section with Enhanced Animations */}
-      <section className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-16 relative">
+      <section className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-8 relative">
         {/* Floating Elements Background */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 rounded-full opacity-20 animate-float"></div>
@@ -70,16 +70,16 @@ const LearnMoreStory = () => {
           <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 rounded-full opacity-30 animate-pulse"></div>
         </div>
 
-        <div className="max-w-4xl mx-auto px-6 md:px-8 text-center relative z-10">
+        <div className="max-w-4xl mx-auto px-4 md:px- text-center relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 animate-fade-in-up">
             The <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent animate-pulse">FinLit Project</span> Journey
           </h1>
-          <p className="text-xl text-gray-600 leading-relaxed mb-12 animate-fade-in-up-delayed">
+          <p className="text-xl text-gray-600 leading-relaxed mb-4 animate-fade-in-up-delayed">
             Transforming Financial Literacy Education Across India
           </p>
 
           {/* Enhanced Live Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
               <div
                 key={index}
@@ -96,12 +96,12 @@ const LearnMoreStory = () => {
                 <div className="text-sm font-medium opacity-90">{stat.label}</div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
 
       {/* Enhanced Video & Mission Section */}
-      <section className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-16 relative">
+      <section className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-0 pb-8 relative">
         <div className="max-w-6xl mx-auto px-6 md:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             
@@ -284,19 +284,19 @@ const LearnMoreStory = () => {
             {/* Enhanced Service Features */}
             <div className="grid md:grid-cols-3 gap-8">
               <div className="group text-center p-8 bg-gradient-to-br from-yellow-400/20 via-yellow-500/20 to-yellow-600/20 rounded-3xl border-2 border-yellow-400/30 hover:border-yellow-400/80 transition-all duration-500 transform hover:scale-110 hover:-rotate-2 cursor-pointer">
-                <div className="text-6xl mb-6 group-hover:animate-bounce">🤖</div>
+                <div className="text-6xl mb-6 group-hover:animate-bounce"></div>
                 <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-yellow-400 transition-colors duration-300">AI-Powered Advisory</h3>
                 <p className="text-gray-300 group-hover:text-white transition-colors duration-300">Intelligent investment recommendations tailored to your needs</p>
               </div>
               
               <div className="group text-center p-8 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-3xl border-2 border-blue-400/30 hover:border-blue-400/80 transition-all duration-500 transform hover:scale-110 hover:rotate-2 cursor-pointer">
-                <div className="text-6xl mb-6 group-hover:animate-spin-slow">📚</div>
+                <div className="text-6xl mb-6 group-hover:animate-spin-slow"></div>
                 <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors duration-300">Micro-Courses</h3>
                 <p className="text-gray-300 group-hover:text-white transition-colors duration-300">Bite-sized learning modules on finance and fintech</p>
               </div>
               
               <div className="group text-center p-8 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-3xl border-2 border-green-400/30 hover:border-green-400/80 transition-all duration-500 transform hover:scale-110 hover:-rotate-1 cursor-pointer">
-                <div className="text-6xl mb-6 group-hover:animate-pulse">🎯</div>
+                <div className="text-6xl mb-6 group-hover:animate-pulse"></div>
                 <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-green-400 transition-colors duration-300">Interactive Quizzes</h3>
                 <p className="text-gray-300 group-hover:text-white transition-colors duration-300">Test your knowledge and track your progress</p>
               </div>
@@ -305,8 +305,8 @@ const LearnMoreStory = () => {
         </div>
       </section>
 
-      {/* Enhanced Media Recognition with 3D Carousel Effect */}
-      <section className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20 relative overflow-hidden">
+      {/* Enhanced Media Recognition with 3D Carousel Effect - COMMENTED OUT */}
+      {/* <section className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-10 left-10 w-20 h-20 bg-yellow-400 rounded-full animate-float blur-xl"></div>
           <div className="absolute top-40 right-20 w-16 h-16 bg-blue-400 rounded-full animate-float-delayed blur-xl"></div>
@@ -322,10 +322,8 @@ const LearnMoreStory = () => {
             Featured in leading publications across India and internationally
           </p>
           
-          {/* 3D Scrolling Container */}
           <div className="relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-sm p-8 shadow-xl border border-white/10">
             <div className="flex animate-scroll-3d space-x-8">
-              {/* First set */}
               {mediaOutlets.map((outlet, index) => (
                 <div
                   key={`first-${index}`}
@@ -340,7 +338,6 @@ const LearnMoreStory = () => {
                 </div>
               ))}
               
-              {/* Duplicate set */}
               {mediaOutlets.map((outlet, index) => (
                 <div
                   key={`second-${index}`}
@@ -357,10 +354,10 @@ const LearnMoreStory = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Enhanced Awards Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-20 relative overflow-hidden">
+      {/* <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-10 left-10 w-20 h-20 bg-yellow-400 rounded-full animate-float blur-xl"></div>
           <div className="absolute top-40 right-20 w-16 h-16 bg-blue-400 rounded-full animate-float-delayed blur-xl"></div>
@@ -393,9 +390,7 @@ const LearnMoreStory = () => {
             ))}
           </div>
         </div>
-      </section>
-
-
+      </section> */}
 
       {/* Enhanced CSS Animations */}
       <style jsx>{`

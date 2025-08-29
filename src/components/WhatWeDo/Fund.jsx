@@ -21,94 +21,84 @@ import {
   Award,
 } from "lucide-react";
 
+// Icon mapping for dynamic icons
+const iconMap = {
+  Shield,
+  Target,
+  Award,
+  Users,
+  PieChart,
+  Zap,
+  Smartphone,
+  Globe,
+  CheckCircle,
+  Leaf,
+  TrendingUp,
+  Star,
+  Heart
+};
+
 const Fund = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [activeFeature, setActiveFeature] = useState(null);
+  const [fundData, setFundData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsVisible(true);
+    fetchFundData();
   }, []);
 
-  const whyInvestFeatures = [
-    {
-      id: 1,
-      icon: <Shield className="w-6 h-6" aria-hidden />,
-      title: "Guided by Education, Backed by Trust",
-      description:
-        "Fully registered & regulated. AMFI-registered distributor and authorized member of BSE StarMF and NSE MF, ensuring transparency and security.",
-      color: "from-blue-500 to-blue-600",
-      bgColor: "bg-blue-50",
-    },
-    {
-      id: 2,
-      icon: <Target className="w-6 h-6" aria-hidden />,
-      title: "Goal-Based Investing",
-      description:
-        "Tailored investments for emergency funds, education, or retirement, designed for your life goals.",
-      color: "from-green-500 to-green-600",
-      bgColor: "bg-green-50",
-    },
-    {
-      id: 3,
-      icon: <Award className="w-6 h-6" aria-hidden />,
-      title: "Zero Commission Bias",
-      description:
-        "Recommendations based on your best interests, free from hidden incentives.",
-      color: "from-purple-500 to-purple-600",
-      bgColor: "bg-purple-50",
-    },
-    {
-      id: 4,
-      icon: <Users className="w-6 h-6" aria-hidden />,
-      title: "Simple, Human-Centric Experience",
-      description:
-        "Jargon-free tools for first-time investors, rural/semi-urban families, and all income levels.",
-      color: "from-orange-500 to-orange-600",
-      bgColor: "bg-orange-50",
-    },
-  ];
+  const fetchFundData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('http://localhost:5000/api/fund');
+      const data = await response.json();
+      
+      if (data.success) {
+        setFundData(data.data);
+      } else {
+        setError('Failed to fetch fund data');
+      }
+    } catch (err) {
+      console.error('Error fetching fund data:', err);
+      setError('Error fetching fund data');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const whatWeOfferFeatures = [
-    {
-      id: 1,
-      icon: <PieChart className="w-6 h-6" aria-hidden />,
-      title: "Curated Mutual Fund Portfolios",
-      description: "Designed for short-term, long-term, or specific life stages.",
-      color: "from-pink-500 to-pink-600",
-      bgColor: "bg-pink-50",
-    },
-    {
-      id: 2,
-      icon: <Zap className="w-6 h-6" aria-hidden />,
-      title: "Smart Risk Profiling",
-      description: "Invest based on your comfort level with clear guidance.",
-      color: "from-yellow-500 to-yellow-600",
-      bgColor: "bg-yellow-50",
-    },
-    {
-      id: 3,
-      icon: <Smartphone className="w-6 h-6" aria-hidden />,
-      title: "100% Paperless & Phone-Friendly",
-      description: "eKYC and SIP setup, optimized for mobile use.",
-      color: "from-indigo-500 to-indigo-600",
-      bgColor: "bg-indigo-50",
-    },
-    {
-      id: 4,
-      icon: <Globe className="w-6 h-6" aria-hidden />,
-      title: "Bharat-First Approach",
-      description: "Multilingual support and on-ground assistance through partners.",
-      color: "from-teal-500 to-teal-600",
-      bgColor: "bg-teal-50",
-    },
-  ];
+  // Loading state
+  if (loading) {
+    return (
+      <div className="w-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-yellow-500 mx-auto mb-4"></div>
+          <p className="text-gray-600 text-lg">Loading Fund Information...</p>
+        </div>
+      </div>
+    );
+  }
 
-  const esgFeatures = [
-    { icon: <CheckCircle className="w-5 h-5" aria-hidden />, text: "Backed by top fund houses" },
-    { icon: <Globe className="w-5 h-5" aria-hidden />, text: "Aligned with global sustainability goals" },
-    { icon: <TrendingUp className="w-5 h-5" aria-hidden />, text: "Designed for long-term wealth + impact" },
-    { icon: <Star className="w-5 h-5" aria-hidden />, text: "Suitable for first-time investors" },
-  ];
+  // Error state
+  if (error || !fundData) {
+    return (
+      <div className="w-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg max-w-md mx-auto">
+            <p className="font-medium">{error || 'Fund data not available'}</p>
+            <button 
+              onClick={fetchFundData}
+              className="mt-2 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const containerVariant = {
     hidden: { opacity: 0 },
@@ -149,15 +139,15 @@ const Fund = () => {
           transition={{ duration: 0.7 }}
         >
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 leading-tight">
-            <span className="text-slate-800">Mutual Fund Investing</span>
+            <span className="text-slate-800">{fundData.title}</span>
             <br />
             <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
-              Made Simple
+              {fundData.subtitle}
             </span>
           </h1>
 
           <p className="text-base md:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed mb-4">
-            <span className="font-semibold text-slate-700">Invest with Confidence. Learn as You Grow.</span>
+            <span className="font-semibold text-slate-700">{fundData.description}</span>
           </p>
 
           {/* Credentials Banner */}
@@ -168,15 +158,15 @@ const Fund = () => {
           >
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-blue-600" />
-              <span className="text-xs font-semibold text-slate-700">AMFI ARN: 249730</span>
+              <span className="text-xs font-semibold text-slate-700">AMFI ARN: {fundData.credentials.amfiArn}</span>
             </div>
             <div className="flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-green-600" />
-              <span className="text-xs font-semibold text-slate-700">BSE: 56333</span>
+              <span className="text-xs font-semibold text-slate-700">BSE: {fundData.credentials.bseCode}</span>
             </div>
             <div className="flex items-center gap-2">
               <PieChart className="w-4 h-4 text-purple-600" />
-              <span className="text-xs font-semibold text-slate-700">NSE: 1000906</span>
+              <span className="text-xs font-semibold text-slate-700">NSE: {fundData.credentials.nseCode}</span>
             </div>
           </motion.div>
         </motion.div>
@@ -193,10 +183,10 @@ const Fund = () => {
             <div className="relative z-10">
               <h2 className="text-xl font-bold text-slate-800 mb-3 flex items-center gap-3">
                 <BookOpen className="w-6 h-6 text-yellow-500" />
-                Our Mission
+                {fundData.mission.title}
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed">
-                At The Fin Lit Project, we believe that wealth creation should be accessible, transparent, and rooted in financial literacy. Through our AMFI-registered mutual fund distribution platform and membership with both BSE StarMF and NSE MF, we make it easier for individuals and families across Bharat to invest wisely and grow their money.
+                {fundData.mission.content}
               </p>
             </div>
           </div>
@@ -210,7 +200,9 @@ const Fund = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {whyInvestFeatures.map((feature) => (
+            {fundData.whyInvestFeatures.map((feature) => {
+              const IconComponent = iconMap[feature.icon];
+              return (
               <motion.div
                 key={feature.id}
                 variants={cardVariant}
@@ -225,7 +217,7 @@ const Fund = () => {
 
                   <div className="relative z-10">
                     <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br ${feature.color} rounded-2xl text-white mb-4 group-hover:scale-105 transition-transform duration-300`}>
-                      {feature.icon}
+                        {IconComponent && <IconComponent className="w-6 h-6" aria-hidden />}
                     </div>
 
                     <h3 className="text-lg font-semibold text-slate-800 mb-2 group-hover:text-slate-900 transition-colors duration-300">{feature.title}</h3>
@@ -242,7 +234,8 @@ const Fund = () => {
                   )}
                 </div>
               </motion.div>
-            ))}
+              );
+            })}
           </div>
         </motion.div>
 
@@ -254,14 +247,16 @@ const Fund = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {whatWeOfferFeatures.map((feature) => (
+            {fundData.whatWeOfferFeatures.map((feature) => {
+              const IconComponent = iconMap[feature.icon];
+              return (
               <motion.div key={feature.id} variants={cardVariant} className="group" whileHover={{ y: -4, scale: 1.01 }} whileTap={{ scale: 0.99 }}>
                 <div className={`${feature.bgColor} rounded-3xl p-6 h-full shadow-md border border-white/50 transition-all duration-400 group-hover:shadow-xl relative overflow-hidden`}>
                   <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${feature.color} rounded-full blur-2xl opacity-18 group-hover:opacity-30 transition-opacity duration-300`} />
 
                   <div className="relative z-10">
                     <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br ${feature.color} rounded-2xl text-white mb-4 group-hover:scale-105 transition-transform duration-300`}>
-                      {feature.icon}
+                        {IconComponent && <IconComponent className="w-6 h-6" aria-hidden />}
                     </div>
 
                     <h3 className="text-lg font-semibold text-slate-800 mb-2">{feature.title}</h3>
@@ -270,7 +265,8 @@ const Fund = () => {
                   </div>
                 </div>
               </motion.div>
-            ))}
+              );
+            })}
           </div>
         </motion.div>
 
@@ -286,13 +282,13 @@ const Fund = () => {
                   <Lock className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold">Your Money is Safe</h3>
-                  <p className="text-green-100 text-sm">100% Secure & Regulated</p>
+                  <h3 className="text-xl font-semibold">{fundData.safety.title}</h3>
+                  <p className="text-green-100 text-sm">{fundData.safety.subtitle}</p>
                 </div>
               </div>
 
               <p className="text-sm text-green-50 leading-relaxed">
-                Investments are executed through BSE StarMF and NSE MF platforms. Your money is held with SEBI-regulated fund houses, and we never take custody of your funds.
+                {fundData.safety.description}
               </p>
             </div>
           </div>
@@ -310,42 +306,45 @@ const Fund = () => {
                     <Leaf className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-semibold text-slate-800">Invest with Purpose</h2>
-                    <p className="text-sm text-slate-600">Explore ESG & Sustainable Funds</p>
+                    <h2 className="text-2xl font-semibold text-slate-800">{fundData.esg.title}</h2>
+                    <p className="text-sm text-slate-600">{fundData.esg.subtitle}</p>
                   </div>
                 </div>
 
                 <p className="text-sm text-slate-700 mb-6 leading-relaxed">
-                  Grow your wealth while staying true to your values with curated ESG Mutual Funds, focusing on climate action, gender equity, and ethical governance.
+                  {fundData.esg.description}
                 </p>
 
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
                   <div className="bg-green-50 rounded-2xl p-4">
                     <h4 className="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2">
                       <Heart className="w-5 h-5 text-green-600" />
-                      Why Choose ESG Funds?
+                      {fundData.esg.whyChooseTitle}
                     </h4>
                     <div className="space-y-2">
-                      {esgFeatures.map((feature, index) => (
+                      {fundData.esg.features.map((feature, index) => {
+                        const IconComponent = iconMap[feature.icon];
+                        return (
                         <div key={index} className="flex items-center gap-3">
-                          <div className="text-green-600">{feature.icon}</div>
+                            <div className="text-green-600">{IconComponent && <IconComponent className="w-5 h-5" aria-hidden />}</div>
                           <span className="text-sm text-slate-700">{feature.text}</span>
                         </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
 
                   <div className="bg-blue-50 rounded-2xl p-4">
                     <h4 className="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2">
                       <Zap className="w-5 h-5 text-blue-600" />
-                      How It Works
+                      {fundData.esg.howItWorksTitle}
                     </h4>
                     <p className="text-sm text-slate-700 leading-relaxed mb-3">
-                      ESG funds invest in companies with strong environmental, social, and governance practices, excluding polluters and unethical businesses.
+                      {fundData.esg.howItWorksDescription}
                     </p>
                     <div className="p-3 bg-white rounded-xl">
                       <p className="text-xs text-slate-600">
-                        <strong>Start with ₹100/month</strong> • Paperless process • Multilingual support
+                        <strong>{fundData.esg.startAmount}</strong> • Paperless process • Multilingual support
                       </p>
                     </div>
                   </div>
@@ -357,7 +356,7 @@ const Fund = () => {
                     className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-2xl font-semibold text-sm hover:from-green-600 hover:to-green-700 hover:shadow-lg transition-all duration-300"
                   >
                     <Leaf className="w-4 h-4" />
-                    Explore ESG Funds Now
+                    {fundData.esg.ctaText}
                     <ChevronRight className="w-4 h-4" />
                   </a>
                 </div>
@@ -369,23 +368,23 @@ const Fund = () => {
         {/* Contact Section */}
         <motion.div className="mb-8" initial={{ opacity: 0, y: 18 }} animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 18 }} transition={{ duration: 0.7, delay: 0.35 }}>
           <div className="text-center mb-6">
-            <h2 className="text-2xl font-semibold text-slate-800 mb-2">Talk to Us</h2>
-            <p className="text-sm text-slate-600">Not sure where to begin? We're here to guide you.</p>
+            <h2 className="text-2xl font-semibold text-slate-800 mb-2">{fundData.contact.title}</h2>
+            <p className="text-sm text-slate-600">{fundData.contact.subtitle}</p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
             <motion.a
-              href="tel:+919502696570"
+              href={`tel:${fundData.contact.phone}`}
               className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-2xl font-semibold text-sm hover:from-blue-600 hover:to-blue-700 hover:shadow-lg transition"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <Phone className="w-4 h-4" />
-              +91-9502696570
+              {fundData.contact.phone}
             </motion.a>
 
             <motion.a
-              href="https://api.whatsapp.com/message/6EUW7ZLTHSGCB1?autoload=1&app_absent=0"
+              href={fundData.contact.whatsapp}
               className="flex items-center gap-2 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-2xl font-semibold text-sm hover:from-green-600 hover:to-green-700 hover:shadow-lg transition"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -397,7 +396,7 @@ const Fund = () => {
             </motion.a>
 
             <motion.a
-              href="mailto:info@thefinlitproject.com"
+              href={`mailto:${fundData.contact.email}`}
               className="flex items-center gap-2 bg-gradient-to-r from-slate-600 to-slate-700 text-white px-6 py-3 rounded-2xl font-semibold text-sm hover:from-slate-700 hover:to-slate-800 hover:shadow-lg transition"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -415,7 +414,7 @@ const Fund = () => {
               whileTap={{ scale: 0.98 }}
             >
               <TrendingUp className="w-5 h-5" />
-              Start Your Investment Journey Now
+              {fundData.contact.ctaText}
               <ChevronRight className="w-5 h-5" />
             </motion.a>
           </div>
@@ -436,9 +435,9 @@ const Fund = () => {
                 <Globe className="w-8 h-8 text-slate-900" />
               </motion.div>
 
-              <h3 className="text-2xl font-semibold mb-3">Join the Movement</h3>
+              <h3 className="text-2xl font-semibold mb-3">{fundData.joinMovement.title}</h3>
               <p className="text-sm text-slate-200 max-w-3xl mx-auto leading-relaxed">
-                The Fin Lit Project is more than just a mutual fund distributor. We are a movement to democratize financial literacy, bring trusted investing tools to the last mile, and help every Indian build real wealth—one SIP at a time.
+                {fundData.joinMovement.description}
               </p>
             </div>
           </div>

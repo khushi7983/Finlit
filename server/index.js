@@ -1,10 +1,10 @@
-import express from 'express';
-import dotenv from 'dotenv';
 import cors from 'cors';
-import connectDB from './config/db.js';
+import dotenv from 'dotenv';
+import express from 'express';
+import mongoose from 'mongoose';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import mongoose from 'mongoose';
+import connectDB from './config/db.js';
 
 // Get __dirname equivalent for ES6 modules
 const __filename = fileURLToPath(import.meta.url);
@@ -57,28 +57,32 @@ mongoose.connection.once('open', async () => {
 });
 
 // Your existing routes
-import exampleRoutes from './routes/exampleRoutes.js';
-app.use('/api/example', exampleRoutes);
-import offeringRoutes from "./routes/offeringRoutes.js";
-app.use("/api/offerings", offeringRoutes);
-import testimonialRoutes from "./routes/testimonialRoutes.js";
-app.use("/api/testimonials", testimonialRoutes);
-import faqRoutes from "./routes/faqRoutes.js";
-app.use("/api/faqs", faqRoutes);
-import supporterRoutes from "./routes/supporterRoutes.js";
-app.use("/api/supporters", supporterRoutes);
-import journeyRoutes from "./routes/journeyRoutes.js";
-app.use("/api/journey", journeyRoutes);
-import courseRoutes from "./routes/courseRoutes.js";
-app.use("/api/courses", courseRoutes);
-import videoRoutes from "./routes/videoRoutes.js";
-app.use("/api/videos", videoRoutes);
-import fraternityRoutes from "./routes/fraternityRoutes.js";
-app.use("/api/fraternity", fraternityRoutes);
-import mediaPresenceRoutes from "./routes/mediaPresenceRoutes.js";
-app.use("/api/media-presence", mediaPresenceRoutes);
 import awardRoutes from "./routes/awardRoutes.js";
+import courseRoutes from "./routes/courseRoutes.js";
+import exampleRoutes from './routes/exampleRoutes.js';
+import faqRoutes from "./routes/faqRoutes.js";
+import fraternityRoutes from "./routes/fraternityRoutes.js";
+import journeyRoutes from "./routes/journeyRoutes.js";
+import mediaPresenceRoutes from "./routes/mediaPresenceRoutes.js";
+import offeringRoutes from "./routes/offeringRoutes.js";
+import supporterRoutes from "./routes/supporterRoutes.js";
+import testimonialRoutes from "./routes/testimonialRoutes.js";
+import videoRoutes from "./routes/videoRoutes.js";
+app.use('/api/example', exampleRoutes);
+app.use("/api/offerings", offeringRoutes);
+app.use("/api/testimonials", testimonialRoutes);
+app.use("/api/faqs", faqRoutes);
+app.use("/api/supporters", supporterRoutes);
+app.use("/api/journey", journeyRoutes);
+app.use("/api/courses", courseRoutes);
+app.use("/api/videos", videoRoutes);
+app.use("/api/fraternity", fraternityRoutes);
+app.use("/api/media-presence", mediaPresenceRoutes);
 app.use("/api/awards", awardRoutes);
+
+// Fund Routes
+import fundRoutes from "./routes/fundRoutes.js";
+app.use("/api/fund", fundRoutes);
 
 // NEW: Interview Routes
 import interviewRoutes from "./routes/interviewRoutes.js";
@@ -99,6 +103,10 @@ app.use("/api/auth", authRoutes);
 // FinTerms Routes
 import finTermRoutes from "./routes/finterms.js";
 app.use("/api/finterms", finTermRoutes);
+
+// Hero Routes
+import heroRoutes from "./routes/heroRoutes.js";
+app.use("/api/hero", heroRoutes);
 
 // ESG Funds Routes
 import esgFundRoutes from "./routes/esgFundRoutes.js";
