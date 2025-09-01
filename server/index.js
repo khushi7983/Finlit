@@ -108,6 +108,10 @@ app.use("/api/finterms", finTermRoutes);
 import heroRoutes from "./routes/heroRoutes.js";
 app.use("/api/hero", heroRoutes);
 
+// ESG Funds Routes
+import esgFundRoutes from "./routes/esgFundRoutes.js";
+app.use("/api/esg-funds", esgFundRoutes);
+
 // Blog Routes
 import blogRoutes from "./routes/blogRoutes.js";
 app.use("/api/blogs", blogRoutes);
