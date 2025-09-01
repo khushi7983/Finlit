@@ -11,8 +11,12 @@ import {
   ArrowRight,
   Globe
 } from 'lucide-react';
+import useScrollToTop from '../../hooks/useScrollToTop';
 
 function AuthForm({ authAPI }) { // Receive authAPI as prop
+  // Scroll to top when component mounts
+  useScrollToTop();
+  
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);

@@ -3,8 +3,12 @@ import learnMore from "./LearnMoreStory";
 import Fraternity from "../AboutUs/Fraternity";
 import MediaPresence from "../AboutUs/MediaPresence";
 import { Link } from "react-router-dom";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 const FinLitStory = () => {
+  // Scroll to top when component mounts
+  useScrollToTop();
+  
   // Custom typewriter effect
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");

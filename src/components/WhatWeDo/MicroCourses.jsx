@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import useScrollToTop from '../../hooks/useScrollToTop';
 
 // Fallback micro courses in case API fails
 const fallbackMicroCourses = [
@@ -69,6 +70,9 @@ const fallbackMicroCourses = [
 ];
 
 const MicroCourses = () => {
+  // Scroll to top when component mounts
+  useScrollToTop();
+  
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImg, setModalImg] = useState(null);
   const [courses, setCourses] = useState([]);

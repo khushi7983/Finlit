@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { Menu, GraduationCap, Mic, Newspaper, BookOpen, HelpCircle, Map, X } from 'lucide-react';
+import useScrollToTop from '../../hooks/useScrollToTop';
 
 const SidebarLayout = () => {
+  // Scroll to top when component mounts
+  useScrollToTop();
+  
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
