@@ -87,11 +87,11 @@ const Conference = () => {
   return (
     <section className="relative bg-gradient-to-br from-slate-50 via-gray-100 to-indigo-100 py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden mt-14">
       {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d animation-delay-2000"></div>
         <div className="absolute top-40 left-40 w-80 h-80 bg-yellow-600/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d animation-delay-4000"></div>
-      </div>
+      </div> */}
 
       {/* Interactive Mouse Cursor Effect */}
       {/* <div
@@ -104,7 +104,7 @@ const Conference = () => {
       /> */}
 
       {/* Floating Particles */}
-      {particles.map((particle) => (
+      {/* {particles.map((particle) => (
         <div
           key={particle.id}
           className="fixed w-2 h-2 bg-yellow-500/40 rounded-full pointer-events-none animate-float-particle"
@@ -115,7 +115,7 @@ const Conference = () => {
             animationDuration: `${particle.duration}s`,
           }}
         />
-      ))}
+      ))} */}
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}

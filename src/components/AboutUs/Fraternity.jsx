@@ -169,7 +169,7 @@ const Fraternity = () => {
     >
 
       {/* Floating Particles */}
-      {particles.map((particle) => (
+      {/* {particles.map((particle) => (
         <div
           key={particle.id}
           className="fixed w-2 h-2 bg-yellow-500/40 rounded-full pointer-events-none animate-float-particle"
@@ -181,14 +181,14 @@ const Fraternity = () => {
             animationDuration: `${particle.speed + 3}s`,
           }}
         />
-      ))}
+      ))} */}
 
       {/* Animated Background Elements with 3D rotation */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d animation-delay-2000"></div>
         <div className="absolute top-40 left-40 w-80 h-80 bg-yellow-600/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d animation-delay-4000"></div>
-      </div>
+      </div> */}
 
       <div className="relative max-w-7xl mx-auto z-10">
         {/* Hero Section */}
@@ -276,7 +276,7 @@ const Fraternity = () => {
                   className={`relative bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-500 ${member.bgHover} overflow-hidden h-full flex flex-col`}
                 >
                   {/* Animated Background Pattern */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                  {/* <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
                     <div
                       className={`absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(${member.color
                         .replace("from-", "")
@@ -285,7 +285,7 @@ const Fraternity = () => {
                         .split(" ")[0]
                         .replace(/[^0-9,]/g, "")},0.5),transparent_50%)] animate-pulse-slow`}
                     ></div>
-                  </div>
+                  </div> */}
 
                   {/* Gradient Border Animation with Rotation */}
                   <div
@@ -316,7 +316,7 @@ const Fraternity = () => {
                     </div> */}
 
                     {/* Orbit Animation */}
-                    <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    {/* <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <div
                         className={`absolute top-1/2 left-1/2 w-40 h-40 -translate-x-1/2 -translate-y-1/2 border border-${member.color
                           .split(" ")[0]
@@ -327,7 +327,7 @@ const Fraternity = () => {
                           .split(" ")[0]
                           .replace("from-", "")}-500 rounded-full -translate-x-1/2 animate-orbit`}
                       ></div>
-                    </div>
+                    </div> */}
                   </div>
 
                   {/* Content with Typewriter Effect */}
