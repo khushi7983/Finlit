@@ -6,7 +6,7 @@ const lectureSchema = new mongoose.Schema({
     required: [true, 'Title is required'],
     trim: true
   },
-  videoUrl: {
+  youtubeUrl: {
     type: String,
     required: [true, 'Video URL is required'],
     trim: true
