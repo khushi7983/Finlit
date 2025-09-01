@@ -198,7 +198,7 @@ const Conference = () => {
 
                 {/* Hover Effect Line */}
                 <div
-                  className={`absolute bottom-0 left-0 w-full h-1 bg-yellow-500 rounded-b-2xl transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left animate-wave`}
+                  className={`absolute bottom-0 left-0 w-full h-1 from-gray-900 via-blue-500 to-gray-600 rounded-b-2xl transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left animate-wave`}
                 ></div>
               </div>
             </div>
