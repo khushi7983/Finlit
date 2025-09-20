@@ -76,10 +76,9 @@ const podcastSchema = new mongoose.Schema({
   }
 });
 
-// Update the updatedAt field before saving
 podcastSchema.pre('save', function(next) {
   this.updatedAt = Date.now();
   next();
 });
 
-export default mongoose.model('Podcast', podcastSchema);
+export default mongoose.model('podcasts', podcastSchema);
