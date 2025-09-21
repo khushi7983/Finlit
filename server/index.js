@@ -34,11 +34,19 @@ app.use(
       // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
       
+      // Check if origin is in allowedOrigins (string match)
       if (allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
+        return callback(null, true);
       }
+      
+      // Check if origin matches any regex patterns
+      for (const allowedOrigin of allowedOrigins) {
+        if (allowedOrigin instanceof RegExp && allowedOrigin.test(origin)) {
+          return callback(null, true);
+        }
+      }
+      
+      callback(new Error('Not allowed by CORS'));
     },
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
