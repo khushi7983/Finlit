@@ -65,7 +65,7 @@ const ESG = () => {
       
       // Use full URL for development
       const apiUrl = import.meta.env.DEV 
-        ? 'http://localhost:5000/api/esg-funds' 
+        ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/esg-funds` 
         : '/api/esg-funds';
       
       console.log('📡 API URL:', apiUrl);
