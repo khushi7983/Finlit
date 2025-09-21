@@ -11,7 +11,8 @@
     "start": "node frontend-server.js",
     "start:frontend": "node frontend-server.js",
     "frontend": "node frontend-server.js",
-    "dev:full": "concurrently \"npm run dev\" \"npm run server\""
+    "dev:full": "concurrently \"npm run dev\" \"npm run server\"",
+    "render-build": "npm install && npm run build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
