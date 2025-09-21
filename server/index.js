@@ -19,8 +19,10 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173',
   'https://finlit-six.vercel.app',
-  'https://finlit-mu2k-jbzu30l6u-khushi-panwars-projects.vercel.app/'
+  'https://finlit-mu2k-jbzu30l6u-khushi-panwars-projects.vercel.app',
   'https://finlit-mu2k-pqu8t1r0v-khushi-panwars-projects.vercel.app',
+  /^https:\/\/.*\.vercel\.app$/,  // Allow all Vercel subdomains
+  /^https:\/\/.*\.onrender\.com$/,  // Allow all Render subdomains
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
