@@ -8,15 +8,22 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// Serve static files from the dist directory (in root, not src/dist)
-app.use(express.static(path.join(__dirname, 'dist')));
+// Get the project root directory (where dist folder is located)
+const projectRoot = path.resolve(__dirname);
+const distPath = path.join(projectRoot, 'dist');
+
+console.log('Project root:', projectRoot);
+console.log('Dist path:', distPath);
+
+// Serve static files from the dist directory
+app.use(express.static(distPath));
 
 // Handle React routing, return all requests to React app
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(distPath, 'index.html'));
 });
 
 app.listen(PORT, () => {
   console.log(`Frontend server is running on port ${PORT}`);
-  console.log(`Serving files from: ${path.join(__dirname, 'dist')}`);
+  console.log(`Serving files from: ${distPath}`);
 });
