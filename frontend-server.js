@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,10 +10,31 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 
 // Get the project root directory (where dist folder is located)
-const projectRoot = path.resolve(__dirname);
-const distPath = path.join(projectRoot, 'dist');
+// Try multiple possible locations for the dist folder
+const possiblePaths = [
+  path.join(__dirname, 'dist'),           // If running from root
+  path.join(__dirname, '..', 'dist'),     // If running from src
+  path.join(process.cwd(), 'dist'),        // Current working directory
+  '/opt/render/project/dist'               // Render's actual dist location
+];
 
-console.log('Project root:', projectRoot);
+let distPath = null;
+for (const possiblePath of possiblePaths) {
+  try {
+    if (fs.existsSync(possiblePath)) {
+      distPath = possiblePath;
+      break;
+    }
+  } catch (error) {
+    // Continue to next path
+  }
+}
+
+// Fallback to the most likely path
+if (!distPath) {
+  distPath = '/opt/render/project/dist';
+}
+
 console.log('Dist path:', distPath);
 
 // Serve static files from the dist directory
