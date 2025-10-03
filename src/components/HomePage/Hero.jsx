@@ -9,6 +9,7 @@ import phone from "../../assets/phone.mp4";
 import playstoreIcon from '../../assets/playstore.png';
 import { useHeroData } from "../../hooks/useHeroData";
 import { getIconComponent } from "../../utils/iconMapper";
+import useScrollToTop from "../../hooks/useScrollToTop";
 import FAQ from "./FAQ";
 import FinancialLiteracy from "./FinancialLiteracy";
 import Investing from "./Investing";
@@ -62,6 +63,9 @@ const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { heroData, loading, error } = useHeroData();
+
+  // Scroll to top when component mounts
+  useScrollToTop();
 
   useEffect(() => {
     setIsVisible(true);

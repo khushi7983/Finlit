@@ -47,7 +47,7 @@ const Interview = () => {
   useEffect(() => {
     const fetchInterviews = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/interviews');
+        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/interviews`);
         const data = await response.json();
         if (data.success) {
           setInterviews(data.data);
@@ -79,11 +79,11 @@ const Interview = () => {
   return (
     <section className="relative bg-gradient-to-br from-slate-50 via-gray-100 to-indigo-100 py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden mt-14">
       {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d animation-delay-2000"></div>
         <div className="absolute top-40 left-40 w-80 h-80 bg-yellow-600/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d animation-delay-4000"></div>
-      </div>
+      </div> */}
 
       {/* Interactive Mouse Cursor Effect */}
       {/* <div
@@ -96,7 +96,7 @@ const Interview = () => {
       /> */}
 
       {/* Floating Particles */}
-      {particles.map((particle) => (
+      {/* {particles.map((particle) => (
         <div
           key={particle.id}
           className="fixed w-2 h-2 bg-yellow-500/40 rounded-full pointer-events-none animate-float-particle"
@@ -107,7 +107,7 @@ const Interview = () => {
             animationDuration: `${particle.duration}s`,
           }}
         />
-      ))}
+      ))} */}
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
@@ -183,7 +183,7 @@ const Interview = () => {
 
                 {/* Hover Effect Line */}
                 <div
-                  className={`absolute bottom-0 left-0 w-full h-1 bg-yellow-500 rounded-b-2xl transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left animate-wave`}
+                  className={`absolute bottom-0 left-0 w-full h-1 from-gray-900 via-blue-500 to-gray-600 rounded-b-2xl transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left animate-wave`}
                 ></div>
               </div>
             </div>

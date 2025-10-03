@@ -8,6 +8,8 @@ import {
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 // Pages
 import OurStory from "./components/AboutUs/OurStory";
@@ -45,6 +47,9 @@ function AppWrapper() {
 
   return (
     <div style={{ minHeight: "100vh" }}>
+      {/* ScrollToTop component to handle automatic scrolling */}
+      <ScrollToTop />
+      
       {/* Navbar visible on all pages */}
       <Navbar />
 
@@ -83,6 +88,9 @@ function AppWrapper() {
 
       {/* Footer visible everywhere except /what-we-do */}
       {!hideFooter && <Footer />}
+      
+      {/* Scroll to top button visible on all pages */}
+      <ScrollToTopButton />
     </div>
   );
 }

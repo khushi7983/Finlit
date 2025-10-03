@@ -19,7 +19,7 @@ const itemVariant = {
 
 const Investing = () => (
   <motion.section
-    className="bg-gradient-to-br from-slate-50 to-white py-24 px-6 md:px-12"
+    className="bg-white py-24 px-6 md:px-12 md:bg-gradient-to-br md:from-slate-50 md:to-white pt-32 md:pt-24"
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true, amount: 0.2 }}
@@ -28,9 +28,8 @@ const Investing = () => (
     <div className="container mx-auto">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Enhanced Content */}
-
-<motion.div className="relative" variants={itemVariant}>
+          {/* Left: Image - Order 2 on mobile, 1 on desktop */}
+          <motion.div className="relative order-2 lg:order-1" variants={itemVariant}>
   <div className="relative">
     {/* Decorative background */}
     <div className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-3xl opacity-20"></div>
@@ -49,8 +48,8 @@ const Investing = () => (
   </div>
 </motion.div>
 
-          {/* Right: Enhanced Visual */}
-          <motion.div className="space-y-8" variants={itemVariant}>
+          {/* Right: Enhanced Visual - Order 1 on mobile, 2 on desktop */}
+          <motion.div className="space-y-8 order-1 lg:order-2" variants={itemVariant}>
             <div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-slate-800 leading-tight">
                 What is Financial Investing?

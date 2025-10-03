@@ -183,11 +183,11 @@ const MediaPresence = () => {
     <section className="relative bg-gradient-to-br from-slate-50 via-gray-100 to-indigo-100 py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       
       {/* EXACT FRATERNITY MOVING COLOR BLOBS */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d animation-delay-2000"></div>
         <div className="absolute top-40 left-40 w-80 h-80 bg-yellow-600/20 rounded-full mix-blend-multiply filter blur-xl animate-blob-3d animation-delay-4000"></div>
-      </div>
+      </div> */}
 
       {/* Interactive Mouse Cursor Effect */}
       {/* <div
@@ -200,7 +200,7 @@ const MediaPresence = () => {
       /> */}
 
       {/* Floating Particles */}
-      {particles.map((particle) => (
+      {/* {particles.map((particle) => (
         <div
           key={particle.id}
           className="fixed w-2 h-2 bg-yellow-500/40 rounded-full pointer-events-none animate-float-particle"
@@ -211,7 +211,7 @@ const MediaPresence = () => {
             animationDuration: `${particle.duration}s`,
           }}
         />
-      ))}
+      ))} */}
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header Section */}
@@ -307,10 +307,10 @@ const MediaPresence = () => {
                   </div>
 
                   {/* Orbit Animation */}
-                  <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  {/* <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     <div className="absolute top-1/2 left-1/2 w-16 h-16 -translate-x-1/2 -translate-y-1/2 border border-yellow-400/30 rounded-full animate-spin-slow"></div>
                     <div className="absolute top-2 left-1/2 w-2 h-2 bg-yellow-500 rounded-full -translate-x-1/2 animate-orbit"></div>
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Content */}
