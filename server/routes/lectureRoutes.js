@@ -14,7 +14,13 @@ const router = express.Router();
 // GET all lectures
 router.get('/', getAllLectures);
 
-// GET lecture by ID
+// GET lectures by category (must come before /:id)
+router.get('/category/:category', getLecturesByCategory);
+
+// GET search lectures (must come before /:id)
+router.get('/search', searchLectures);
+
+// GET lecture by ID (must come after specific routes)
 router.get('/:id', getLectureById);
 
 // POST create new lecture
@@ -25,11 +31,5 @@ router.put('/:id', updateLecture);
 
 // DELETE lecture (soft delete)
 router.delete('/:id', deleteLecture);
-
-// GET lectures by category
-router.get('/category/:category', getLecturesByCategory);
-
-// GET search lectures
-router.get('/search', searchLectures);
 
 export default router;

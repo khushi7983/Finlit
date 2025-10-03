@@ -14,7 +14,13 @@ const router = express.Router();
 // GET all interviews
 router.get('/', getAllInterviews);
 
-// GET interview by ID
+// GET interviews by category (must come before /:id)
+router.get('/category/:category', getInterviewsByCategory);
+
+// GET search interviews (must come before /:id)
+router.get('/search', searchInterviews);
+
+// GET interview by ID (must come after specific routes)
 router.get('/:id', getInterviewById);
 
 // POST create new interview
@@ -25,11 +31,5 @@ router.put('/:id', updateInterview);
 
 // DELETE interview (soft delete)
 router.delete('/:id', deleteInterview);
-
-// GET interviews by category
-router.get('/category/:category', getInterviewsByCategory);
-
-// GET search interviews
-router.get('/search', searchInterviews);
 
 export default router;

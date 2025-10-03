@@ -41,15 +41,18 @@ router.get('/debug', async (req, res) => {
 // GET /api/esg-funds - Get all active ESG funds
 router.get('/', getAllESGFunds);
 
-// GET /api/esg-funds/:id - Get single ESG fund
-router.get('/:id', getESGFundById);
-
-// Admin routes
+// Admin routes (must come before /:id)
 // GET /api/esg-funds/admin/all - Get all ESG funds (including inactive)
 router.get('/admin/all', getAllESGFundsAdmin);
 
+// POST /api/esg-funds/reorder - Reorder ESG funds
+router.post('/reorder', reorderESGFunds);
+
 // POST /api/esg-funds - Create new ESG fund
 router.post('/', createESGFund);
+
+// GET /api/esg-funds/:id - Get single ESG fund (must come after specific routes)
+router.get('/:id', getESGFundById);
 
 // PUT /api/esg-funds/:id - Update ESG fund
 router.put('/:id', updateESGFund);
@@ -59,8 +62,5 @@ router.delete('/:id', deleteESGFund);
 
 // PATCH /api/esg-funds/:id/toggle - Toggle active status
 router.patch('/:id/toggle', toggleActiveStatus);
-
-// POST /api/esg-funds/reorder - Reorder ESG funds
-router.post('/reorder', reorderESGFunds);
 
 export default router;

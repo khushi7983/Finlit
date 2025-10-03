@@ -17,9 +17,11 @@ router.get('/debug', debugHero);
 
 // Admin routes (you can add authentication middleware here later)
 router.post('/', createHero);
+router.get('/all', getAllHero);
+
+// Routes with parameters (must come after specific routes)
 router.put('/:id', updateHero);
 router.delete('/:id', deleteHero);
-router.get('/all', getAllHero);
 router.patch('/:id/toggle', toggleHeroStatus);
 
 export default router;
