@@ -21,7 +21,8 @@ const allowedOrigins = [
   'https://finlit-six.vercel.app',
   'https://finlit-mu2k-jbzu30l6u-khushi-panwars-projects.vercel.app',
   'https://finlit-mu2k-pqu8t1r0v-khushi-panwars-projects.vercel.app',
-   'https://finlit-frontend-njzg.onrender.com', 
+   'https://finlit-frontend-njzg.onrender.com'
+  'http://72.60.200.136:5000', 
   
   /^https:\/\/.*\.vercel\.app$/,  // Allow all Vercel subdomains
   /^https:\/\/.*\.onrender\.com$/,  // Allow all Render subdomains
