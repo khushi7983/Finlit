@@ -47,7 +47,7 @@ const Interview = () => {
   useEffect(() => {
     const fetchInterviews = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/interviews');
+        const response = await fetch('/api/interviews');
         const data = await response.json();
         if (data.success) {
           setInterviews(data.data);

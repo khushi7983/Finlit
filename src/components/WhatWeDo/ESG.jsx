@@ -63,10 +63,8 @@ const ESG = () => {
       setLoading(true);
       console.log('🔍 Fetching ESG funds from API...');
       
-      // Use full URL for development
-      const apiUrl = import.meta.env.DEV 
-        ? 'http://localhost:5000/api/esg-funds' 
-        : '/api/esg-funds';
+      // Use relative path for production
+      const apiUrl = '/api/esg-funds';
       
       console.log('📡 API URL:', apiUrl);
       

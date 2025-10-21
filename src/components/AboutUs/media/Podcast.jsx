@@ -16,7 +16,7 @@ const Podcast = () => {
   useEffect(() => {
     const fetchPodcasts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/podcasts');
+        const response = await fetch('/api/podcasts');
         const data = await response.json();
         console.log('API Response:', data);
         
