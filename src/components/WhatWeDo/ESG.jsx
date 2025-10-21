@@ -1,33 +1,32 @@
-import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Leaf, 
-  Globe, 
-  Heart, 
-  Shield, 
-  TrendingUp, 
-  Calculator,
-  Download,
-  ChevronRight,
-  Zap,
-  Award,
-  Users,
-  Factory,
-  Recycle,
-  Sun,
-  Droplets,
-  TreePine,
-  Building,
-  CheckCircle,
-  Star,
-  ArrowRight,
-  Play,
-  Target,
-  DollarSign,
-  Smartphone,
-  Phone,
-  Mail
+import {
+    ArrowRight,
+    Award,
+    Building,
+    Calculator,
+    CheckCircle,
+    ChevronRight,
+    DollarSign,
+    Download,
+    Droplets,
+    Factory,
+    Globe,
+    Heart,
+    Leaf,
+    Mail,
+    Phone,
+    Play,
+    Recycle,
+    Shield,
+    Smartphone,
+    Star,
+    Sun,
+    Target,
+    TreePine,
+    TrendingUp,
+    Zap
 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 
 const ESG = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -64,7 +63,7 @@ const ESG = () => {
       console.log('🔍 Fetching ESG funds from API...');
       
       // Use environment variable for API URL
-      const apiUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/esg-funds`;
+      const apiUrl = '/api/esg-funds';
       
       console.log('📡 API URL:', apiUrl);
       

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Trophy, Award, Star, Medal, ArrowLeft, ExternalLink, X } from 'lucide-react';
+import { ExternalLink, Trophy, X } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Awards = () => {
@@ -19,7 +19,7 @@ const Awards = () => {
   const fetchAwards = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/awards`);
+      const response = await fetch('/api/awards');
       const data = await response.json();
       
       if (data.success) {

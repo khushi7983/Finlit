@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
 import useScrollToTop from '../../hooks/useScrollToTop';
 
 // Fallback micro courses in case API fails
@@ -81,7 +80,7 @@ const MicroCourses = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   // Prefer env override if provided; falls back to localhost
-  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
+  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : ''), []);
 
   useEffect(() => {
     let isMounted = true;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const BlogPage = () => {
   const { slug } = useParams();
@@ -13,7 +13,7 @@ const BlogPage = () => {
 
   const fetchBlog = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/blogs/${slug}`);
+      const response = await fetch(`/api/blogs/${slug}`);
       if (response.ok) {
         const blogData = await response.json();
         setBlog(blogData);

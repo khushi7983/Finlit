@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  TrendingUp,
-  Shield,
-  Target,
-  Smartphone,
-  Globe,
-  Lock,
-  Leaf,
-  Phone,
-  Mail,
-  ChevronRight,
-  BookOpen,
-  Users,
-  PieChart,
-  Zap,
-  Star,
-  CheckCircle,
-  Heart,
-  Award,
+    Award,
+    BookOpen,
+    CheckCircle,
+    ChevronRight,
+    Globe,
+    Heart,
+    Leaf,
+    Lock,
+    Mail,
+    Phone,
+    PieChart,
+    Shield,
+    Smartphone,
+    Star,
+    Target,
+    TrendingUp,
+    Users,
+    Zap,
 } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 // Icon mapping for dynamic icons
 const iconMap = {
@@ -53,7 +53,7 @@ const Fund = () => {
   const fetchFundData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/fund`);
+      const response = await fetch('/api/fund');
       const data = await response.json();
       
       if (data.success) {

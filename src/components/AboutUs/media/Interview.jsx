@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Play, ExternalLink } from "lucide-react";
+import { Play } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 const Interview = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -47,7 +47,7 @@ const Interview = () => {
   useEffect(() => {
     const fetchInterviews = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/interviews`);
+        const response = await fetch('/api/interviews');
         const data = await response.json();
         if (data.success) {
           setInterviews(data.data);

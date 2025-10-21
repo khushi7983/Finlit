@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Play, Headphones, Clock, User } from "lucide-react";
+import { Clock, Headphones, Play, User } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 const Podcast = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -16,7 +16,7 @@ const Podcast = () => {
   useEffect(() => {
     const fetchPodcasts = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/podcasts`);
+        const response = await fetch('/api/podcasts');
         const data = await response.json();
         console.log('API Response:', data);
         

@@ -8,8 +8,8 @@ import appleIcon from '../../assets/apple.png';
 import phone from "../../assets/phone.mp4";
 import playstoreIcon from '../../assets/playstore.png';
 import { useHeroData } from "../../hooks/useHeroData";
-import { getIconComponent } from "../../utils/iconMapper";
 import useScrollToTop from "../../hooks/useScrollToTop";
+import { getIconComponent } from "../../utils/iconMapper";
 import FAQ from "./FAQ";
 import FinancialLiteracy from "./FinancialLiteracy";
 import Investing from "./Investing";
@@ -119,7 +119,7 @@ const Hero = () => {
   return (
     <>
              {/* Main Hero Section */}
-       <section className={`relative bg-gradient-to-br ${heroData.backgroundGradient} pt-28 md:pt-20 lg:pt-24 pb-16 md:pb-24 overflow-hidden`}>
+       <section className={`relative bg-gradient-to-br ${heroData.backgroundGradient || 'from-blue-900 via-purple-900 to-indigo-900'} pt-28 md:pt-20 lg:pt-24 pb-16 md:pb-24 overflow-hidden`}>
          {/* Background Elements */}
          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23f1f5f9\' fill-opacity=\'0.4\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'1\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
 
@@ -221,7 +221,7 @@ const Hero = () => {
                  }`}
                  style={{ animationDelay: "1s" }}
                >
-                 {heroData.stats.map((stat, index) => {
+                 {heroData.stats && heroData.stats.map((stat, index) => {
                    const IconComponent = getIconComponent(stat.icon);
                    const delay = `${1.1 + index * 0.2}s`;
                    
@@ -265,7 +265,7 @@ const Hero = () => {
                    </a>
                    <div className="flex flex-row gap-2 mt-1">
                      <a
-                       href={heroData.finlitLearn.appStore}
+                       href={heroData.finlitLearn?.appStore || "#"}
                        className="flex items-center gap-1 bg-white rounded-full px-3 py-1 shadow hover:bg-gray-100 transition group"
                        target="_blank"
                        rel="noopener noreferrer"
@@ -274,7 +274,7 @@ const Hero = () => {
                        <span className="text-xs text-slate-700">App store</span>
                      </a>
                      <a
-                       href={heroData.finlitLearn.playStore}
+                       href={heroData.finlitLearn?.playStore || "#"}
                        className="flex items-center gap-1 bg-white rounded-full px-3 py-1 shadow hover:bg-gray-100 transition group"
                        target="_blank"
                        rel="noopener noreferrer"
@@ -299,7 +299,7 @@ const Hero = () => {
                    </a>
                    <div className="flex flex-row gap-2 mt-1">
                      <a
-                       href={heroData.finlitInvest.appStore}
+                       href={heroData.finlitInvest?.appStore || "#"}
                        className="flex items-center gap-1 bg-white rounded-full px-3 py-1 shadow hover:bg-gray-100 transition group"
                        target="_blank"
                        rel="noopener noreferrer"
@@ -308,7 +308,7 @@ const Hero = () => {
                        <span className="text-xs text-slate-700">App store</span>
                      </a>
                      <a
-                       href={heroData.finlitInvest.playStore}
+                       href={heroData.finlitInvest?.playStore || "#"}
                        className="flex items-center gap-1 bg-white rounded-full px-3 py-1 shadow hover:bg-gray-100 transition group"
                        target="_blank"
                        rel="noopener noreferrer"
@@ -345,7 +345,7 @@ const Hero = () => {
         </div>
 
         {/* Custom Styles */}
-        <style jsx>{`
+        <style>{`
           @keyframes float {
             0%,
             100% {

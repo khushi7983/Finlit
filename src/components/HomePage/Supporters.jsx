@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
 import { motion } from "framer-motion";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import brtsif from "../../assets/partners/brtsif.jpg";
+import iimb from "../../assets/partners/iimb.jpg";
+import iitd from "../../assets/partners/iitd.jpg";
+import science from "../../assets/partners/science.jpg";
 import upstartup from "../../assets/partners/upstartup.jpg";
 import zone from "../../assets/partners/zone.jpg";
-import iitd from "../../assets/partners/iitd.jpg";
-import iimb from "../../assets/partners/iimb.jpg";
-import science from "../../assets/partners/science.jpg";
 
 // Fallback logos in case API fails
 const fallbackLogos = [
@@ -43,7 +43,7 @@ const Supporters = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   // Prefer env override if provided; falls back to localhost
-  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
+  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : ''), []);
 
   useEffect(() => {
     let isMounted = true;

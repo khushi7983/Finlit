@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { PlayCircle, TrendingUp, ChevronRight } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronRight, PlayCircle, TrendingUp } from 'lucide-react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Function to generate YouTube thumbnail URL
@@ -82,7 +82,7 @@ const Speaking = () => {
   const [error, setError] = useState("");
 
   // Prefer env override if provided; falls back to localhost
-  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
+  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : ''), []);
 
   useEffect(() => {
     setIsVisible(true);

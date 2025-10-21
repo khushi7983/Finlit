@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Play, ExternalLink, AlertCircle } from "lucide-react";
+import { ExternalLink, Play } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 const Lecture = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -47,7 +47,7 @@ const Lecture = () => {
   useEffect(() => {
     const fetchLectures = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/lectures`);
+        const response = await fetch('/api/lectures');
         const data = await response.json();
         
         console.log('API Response:', data);
