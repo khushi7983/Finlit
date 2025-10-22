@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
+import React, { useEffect, useMemo, useState } from "react";
 
 const containerVariant = {
   hidden: { opacity: 0 },
@@ -46,7 +46,7 @@ const Offerings = () => {
   const [error, setError] = useState("");
 
   const apiBaseUrl = useMemo(
-    () => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000",
+    () => import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : ''),
     []
   );
 

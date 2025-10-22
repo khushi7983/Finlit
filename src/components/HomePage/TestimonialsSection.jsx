@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 // Empty array - testimonials will be fetched from API
 const fallbackTestimonials = [];
@@ -29,7 +29,7 @@ const TestimonialsSection = () => {
   const carouselRef = useRef(null);
 
   // Prefer env override if provided; falls back to localhost
-  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
+  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : ''), []);
 
   useEffect(() => {
     let isMounted = true;

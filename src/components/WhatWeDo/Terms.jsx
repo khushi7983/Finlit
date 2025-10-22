@@ -1,21 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { X, ChevronLeft, ChevronRight, BookOpen, TrendingUp, Zap } from "lucide-react";
+import { BookOpen, ChevronLeft, ChevronRight, TrendingUp, X } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 // Keep your existing image imports as fallbacks (they won't be used but good to have)
-import algo_13 from '../../assets/finTerms/algo-13.png';
-import Aquisition from '../../assets/finTerms/Aquisition.png';
-import coll_5 from '../../assets/finTerms/coll - 5.png';
-import deb_4 from '../../assets/finTerms/deb - 4.png';
-import fed_7 from '../../assets/finTerms/fed - 7.png';
-import fin_11 from '../../assets/finTerms/fin- 11.png';
-import fixed_12 from '../../assets/finTerms/fixed-12.png';
-import fomc_9 from '../../assets/finTerms/fomc - 9.png';
-import fomc_10 from '../../assets/finTerms/fomc - 10.png';
-import nav_6 from '../../assets/finTerms/nav - 6.png';
-import Nostro_1 from '../../assets/finTerms/Nostro - 1.png';
-import share_14 from '../../assets/finTerms/share- 14.png';
-import skew_8 from '../../assets/finTerms/skew - 8.png';
-import volfo_3 from '../../assets/finTerms/volfo - 3.png';
 
 const categories = ["All", "Corporate Finance", "Trading", "Banking", "Investment", "Economics", "Finance"];
 
@@ -35,8 +21,15 @@ const Terms = () => {
       setLoading(true);
       setError(null);
       
+      // Use the same API base URL pattern as other components
+      const apiBaseUrl = import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
       const categoryParam = activeCategory === 'All' ? '' : `?category=${encodeURIComponent(activeCategory)}`;
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/finterms${categoryParam}`);
+      const response = await fetch(`${apiBaseUrl}/api/finterms${categoryParam}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
       
       if (data.success) {
@@ -47,7 +40,7 @@ const Terms = () => {
       }
     } catch (error) {
       console.error('Error fetching terms:', error);
-      setError('Unable to connect to the server. Please try again later.');
+      setError('Unable to connect to the server. Please ensure the backend is running.');
     } finally {
       setLoading(false);
     }
@@ -323,7 +316,7 @@ const Terms = () => {
       )}
 
       {/* Custom Styles - Same as before */}
-      <style jsx>{`
+      <style jsx="true">{`
         .line-clamp-2 {
           display: -webkit-box;
           -webkit-line-clamp: 2;

@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  TrendingUp,
-  Shield,
-  Target,
-  Smartphone,
-  Globe,
-  Lock,
-  Leaf,
-  Phone,
-  Mail,
-  ChevronRight,
-  BookOpen,
-  Users,
-  PieChart,
-  Zap,
-  Star,
-  CheckCircle,
-  Heart,
   Award,
+  BookOpen,
+  CheckCircle,
+  ChevronRight,
+  Globe,
+  Heart,
+  Leaf,
+  Lock,
+  Mail,
+  Phone,
+  PieChart,
+  Shield,
+  Smartphone,
+  Star,
+  Target,
+  TrendingUp,
+  Users,
+  Zap,
 } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 // Icon mapping for dynamic icons
 const iconMap = {
@@ -53,17 +53,26 @@ const Fund = () => {
   const fetchFundData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/fund`);
+      setError(null);
+      
+      // Use the same API base URL pattern as other components
+      const apiBaseUrl = import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
+      const response = await fetch(`${apiBaseUrl}/api/fund`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
       
       if (data.success) {
         setFundData(data.data);
       } else {
-        setError('Failed to fetch fund data');
+        setError(data.message || 'Failed to fetch fund data');
       }
     } catch (err) {
       console.error('Error fetching fund data:', err);
-      setError('Error fetching fund data');
+      setError('Unable to connect to the server. Please ensure the backend is running.');
     } finally {
       setLoading(false);
     }

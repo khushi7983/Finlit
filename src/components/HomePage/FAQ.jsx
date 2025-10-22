@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import React, { useEffect, useMemo, useState } from "react";
 
 // Fallback FAQs in case API fails
 const fallbackFAQs = [
@@ -60,7 +60,7 @@ const Faq = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   // Prefer env override if provided; falls back to localhost
-  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || "http://localhost:5000", []);
+  const apiBaseUrl = useMemo(() => import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : ''), []);
 
   useEffect(() => {
     let isMounted = true;

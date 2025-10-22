@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Play, ExternalLink } from "lucide-react";
+import { Play } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 const Interview = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -8,6 +8,7 @@ const Interview = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [interviews, setInterviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const generateParticles = () => {
@@ -47,13 +48,24 @@ const Interview = () => {
   useEffect(() => {
     const fetchInterviews = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/interviews`);
+        setLoading(true);
+        setError(null);
+        
+        // Use the same API base URL pattern as other components
+        const apiBaseUrl = import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
+        const response = await fetch(`${apiBaseUrl}/api/interviews`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
         if (data.success) {
           setInterviews(data.data);
         }
       } catch (error) {
         console.error('Error fetching interviews:', error);
+        setError('Unable to connect to the server. Please ensure the backend is running.');
       } finally {
         setLoading(false);
       }

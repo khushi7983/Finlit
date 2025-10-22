@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Play, ExternalLink, AlertCircle } from "lucide-react";
+import { ExternalLink, Play } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 const Lecture = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -8,6 +8,7 @@ const Lecture = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [lectures, setLectures] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const generateParticles = () => {
@@ -47,7 +48,17 @@ const Lecture = () => {
   useEffect(() => {
     const fetchLectures = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/lectures`);
+        setLoading(true);
+        setError(null);
+        
+        // Use the same API base URL pattern as other components
+        const apiBaseUrl = import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
+        const response = await fetch(`${apiBaseUrl}/api/lectures`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
         
         console.log('API Response:', data);

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Video, Users, Mic, GraduationCap, Play, ExternalLink, AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, GraduationCap, Mic, Play, Users, Video } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MediaPresence = () => {
@@ -97,7 +97,7 @@ const MediaPresence = () => {
     const fetchMediaPresence = async () => {
       try {
         setIsLoading(true);
-        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
         const response = await fetch(`${apiBaseUrl}/api/media-presence`);
         
         if (!response.ok) {

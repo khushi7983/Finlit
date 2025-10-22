@@ -1,9 +1,9 @@
+import { AlertCircle, Users } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-import { Users, Star, AlertCircle, Loader2 } from "lucide-react";
-import neha from "../../assets/members/neha.png";
-import dcmishra from "../../assets/members/dcmishra.png";
 import archanah from "../../assets/members/archanah.png";
+import dcmishra from "../../assets/members/dcmishra.png";
 import jimmy from "../../assets/members/jimmy.png";
+import neha from "../../assets/members/neha.png";
 
 const Fraternity = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -72,7 +72,7 @@ const Fraternity = () => {
     const fetchFraternityMembers = async () => {
       try {
         setIsLoading(true);
-        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
         const response = await fetch(`${apiBaseUrl}/api/fraternity`);
         
         if (!response.ok) {
