@@ -6,6 +6,7 @@ const Podcast = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 200);
@@ -16,7 +17,17 @@ const Podcast = () => {
   useEffect(() => {
     const fetchPodcasts = async () => {
       try {
-        const response = await fetch('/api/podcasts');
+        setLoading(true);
+        setError(null);
+        
+        // Use the same API base URL pattern as other components
+        const apiBaseUrl = import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
+        const response = await fetch(`${apiBaseUrl}/api/podcasts`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
         console.log('API Response:', data);
         

@@ -21,8 +21,15 @@ const Terms = () => {
       setLoading(true);
       setError(null);
       
+      // Use the same API base URL pattern as other components
+      const apiBaseUrl = import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
       const categoryParam = activeCategory === 'All' ? '' : `?category=${encodeURIComponent(activeCategory)}`;
-      const response = await fetch(`/api/finterms${categoryParam}`);
+      const response = await fetch(`${apiBaseUrl}/api/finterms${categoryParam}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
       
       if (data.success) {
@@ -33,7 +40,7 @@ const Terms = () => {
       }
     } catch (error) {
       console.error('Error fetching terms:', error);
-      setError('Unable to connect to the server. Please try again later.');
+      setError('Unable to connect to the server. Please ensure the backend is running.');
     } finally {
       setLoading(false);
     }
@@ -309,7 +316,7 @@ const Terms = () => {
       )}
 
       {/* Custom Styles - Same as before */}
-      <style jsx>{`
+      <style jsx="true">{`
         .line-clamp-2 {
           display: -webkit-box;
           -webkit-line-clamp: 2;

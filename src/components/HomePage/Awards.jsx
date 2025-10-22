@@ -19,17 +19,26 @@ const Awards = () => {
   const fetchAwards = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/awards');
+      setError(null);
+      
+      // Use the same API base URL pattern as other components
+      const apiBaseUrl = import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
+      const response = await fetch(`${apiBaseUrl}/api/awards`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
       
       if (data.success) {
         setAwards(data.data);
       } else {
-        setError('Failed to fetch awards');
+        setError(data.message || 'Failed to fetch awards');
       }
     } catch (err) {
       console.error('Error fetching awards:', err);
-      setError('Error fetching awards');
+      setError('Unable to connect to the server. Please ensure the backend is running.');
     } finally {
       setLoading(false);
     }

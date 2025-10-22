@@ -6,6 +6,7 @@ const BlogPage = () => {
   const navigate = useNavigate();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchBlog();
@@ -13,15 +14,22 @@ const BlogPage = () => {
 
   const fetchBlog = async () => {
     try {
-      const response = await fetch(`/api/blogs/${slug}`);
-      if (response.ok) {
-        const blogData = await response.json();
-        setBlog(blogData);
-      } else {
-        console.error('Blog not found');
+      setLoading(true);
+      setError(null);
+      
+      // Use the same API base URL pattern as other components
+      const apiBaseUrl = import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
+      const response = await fetch(`${apiBaseUrl}/api/blogs/${slug}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+      
+      const blogData = await response.json();
+      setBlog(blogData);
     } catch (error) {
       console.error('Error fetching blog:', error);
+      setError('Unable to connect to the server. Please ensure the backend is running.');
     } finally {
       setLoading(false);
     }
@@ -37,6 +45,32 @@ const BlogPage = () => {
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto"></div>
           <p className="mt-6 text-lg text-gray-600 font-medium">Loading blog...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto px-6">
+          <h2 className="text-3xl font-bold text-red-600 mb-4">Connection Error</h2>
+          <p className="text-lg text-gray-600 mb-8 leading-relaxed">{error}</p>
+          <button
+            onClick={() => {
+              setError(null);
+              fetchBlog();
+            }}
+            className="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 mr-4"
+          >
+            Try Again
+          </button>
+          <button
+            onClick={goBack}
+            className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
+          >
+            Back to Blogs
+          </button>
         </div>
       </div>
     );

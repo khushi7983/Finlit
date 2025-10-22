@@ -7,6 +7,7 @@ const Blogs = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsVisible(true);
@@ -15,11 +16,22 @@ const Blogs = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch('/api/blogs');
+      setLoading(true);
+      setError(null);
+      
+      // Use the same API base URL pattern as other components
+      const apiBaseUrl = import.meta?.env?.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
+      const response = await fetch(`${apiBaseUrl}/api/blogs`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
       setBlogs(data);
     } catch (error) {
       console.error('Error fetching blogs:', error);
+      setError('Unable to connect to the server. Please ensure the backend is running.');
     } finally {
       setLoading(false);
     }
@@ -51,13 +63,28 @@ const Blogs = () => {
             </h2>
           </div>
 
+          {/* Error State */}
+          {error && (
+            <div className="text-center py-20">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-8 max-w-md mx-auto">
+                <p className="text-red-600 text-lg mb-4">{error}</p>
+                <button 
+                  onClick={fetchBlogs}
+                  className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                >
+                  Try Again
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Blog Grid */}
           {loading ? (
             <div className="text-center py-20">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
               <p className="mt-4 text-gray-600">Loading blogs...</p>
             </div>
-          ) : (
+          ) : !error && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogs.map((blog, index) => (
                 <div
