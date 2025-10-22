@@ -139,15 +139,15 @@ const Fund = () => {
           transition={{ duration: 0.7 }}
         >
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 leading-tight">
-            <span className="text-slate-800">{fundData.title}</span>
+            <span className="text-slate-800">{fundData.title || 'Mutual Fund Investing'}</span>
             <br />
             <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
-              {fundData.subtitle}
+              {fundData.subtitle || 'Made Simple'}
             </span>
           </h1>
 
           <p className="text-base md:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed mb-4">
-            <span className="font-semibold text-slate-700">{fundData.description}</span>
+            <span className="font-semibold text-slate-700">{fundData.description || 'Invest with Confidence. Learn as You Grow.'}</span>
           </p>
 
           {/* Credentials Banner */}
@@ -158,15 +158,15 @@ const Fund = () => {
           >
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-blue-600" />
-              <span className="text-xs font-semibold text-slate-700">AMFI ARN: {fundData.credentials.amfiArn}</span>
+              <span className="text-xs font-semibold text-slate-700">AMFI ARN: {fundData.credentials?.amfiArn || '249730'}</span>
             </div>
             <div className="flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-green-600" />
-              <span className="text-xs font-semibold text-slate-700">BSE: {fundData.credentials.bseCode}</span>
+              <span className="text-xs font-semibold text-slate-700">BSE: {fundData.credentials?.bseCode || '56333'}</span>
             </div>
             <div className="flex items-center gap-2">
               <PieChart className="w-4 h-4 text-purple-600" />
-              <span className="text-xs font-semibold text-slate-700">NSE: {fundData.credentials.nseCode}</span>
+              <span className="text-xs font-semibold text-slate-700">NSE: {fundData.credentials?.nseCode || '1000906'}</span>
             </div>
           </motion.div>
         </motion.div>
@@ -183,10 +183,10 @@ const Fund = () => {
             <div className="relative z-10">
               <h2 className="text-xl font-bold text-slate-800 mb-3 flex items-center gap-3">
                 <BookOpen className="w-6 h-6 text-yellow-500" />
-                {fundData.mission.title}
+                {fundData.mission?.title || 'Our Mission'}
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed">
-                {fundData.mission.content}
+                {fundData.mission?.content || 'At The Fin Lit Project, we believe that wealth creation should be accessible, transparent, and rooted in financial literacy.'}
               </p>
             </div>
           </div>
@@ -200,7 +200,7 @@ const Fund = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {fundData.whyInvestFeatures.map((feature) => {
+            {fundData.whyInvestFeatures && Array.isArray(fundData.whyInvestFeatures) ? fundData.whyInvestFeatures.map((feature) => {
               const IconComponent = iconMap[feature.icon];
               return (
               <motion.div
@@ -235,7 +235,11 @@ const Fund = () => {
                 </div>
               </motion.div>
               );
-            })}
+            }) : (
+              <div className="col-span-2 text-center py-8">
+                <p className="text-slate-600">Features data is not available</p>
+              </div>
+            )}
           </div>
         </motion.div>
 
@@ -247,7 +251,7 @@ const Fund = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {fundData.whatWeOfferFeatures.map((feature) => {
+            {fundData.whatWeOfferFeatures && Array.isArray(fundData.whatWeOfferFeatures) ? fundData.whatWeOfferFeatures.map((feature) => {
               const IconComponent = iconMap[feature.icon];
               return (
               <motion.div key={feature.id} variants={cardVariant} className="group" whileHover={{ y: -4, scale: 1.01 }} whileTap={{ scale: 0.99 }}>
@@ -266,7 +270,11 @@ const Fund = () => {
                 </div>
               </motion.div>
               );
-            })}
+            }) : (
+              <div className="col-span-2 text-center py-8">
+                <p className="text-slate-600">Offer features data is not available</p>
+              </div>
+            )}
           </div>
         </motion.div>
 
@@ -282,13 +290,13 @@ const Fund = () => {
                   <Lock className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold">{fundData.safety.title}</h3>
-                  <p className="text-green-100 text-sm">{fundData.safety.subtitle}</p>
+                  <h3 className="text-xl font-semibold">{fundData.safety?.title || 'Your Money is Safe'}</h3>
+                  <p className="text-green-100 text-sm">{fundData.safety?.subtitle || '100% Secure & Regulated'}</p>
                 </div>
               </div>
 
               <p className="text-sm text-green-50 leading-relaxed">
-                {fundData.safety.description}
+                {fundData.safety?.description || 'Investments are executed through BSE StarMF and NSE MF platforms. Your money is held with SEBI-regulated fund houses, and we never take custody of your funds.'}
               </p>
             </div>
           </div>
@@ -306,23 +314,23 @@ const Fund = () => {
                     <Leaf className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-semibold text-slate-800">{fundData.esg.title}</h2>
-                    <p className="text-sm text-slate-600">{fundData.esg.subtitle}</p>
+                    <h2 className="text-2xl font-semibold text-slate-800">{fundData.esg?.title || 'Invest with Purpose'}</h2>
+                    <p className="text-sm text-slate-600">{fundData.esg?.subtitle || 'Explore ESG & Sustainable Funds'}</p>
                   </div>
                 </div>
 
                 <p className="text-sm text-slate-700 mb-6 leading-relaxed">
-                  {fundData.esg.description}
+                  {fundData.esg?.description || 'Grow your wealth while staying true to your values with curated ESG Mutual Funds, focusing on climate action, gender equity, and ethical governance.'}
                 </p>
 
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
                   <div className="bg-green-50 rounded-2xl p-4">
                     <h4 className="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2">
                       <Heart className="w-5 h-5 text-green-600" />
-                      {fundData.esg.whyChooseTitle}
+                      {fundData.esg?.whyChooseTitle || 'Why Choose ESG Funds?'}
                     </h4>
                     <div className="space-y-2">
-                      {fundData.esg.features.map((feature, index) => {
+                      {fundData.esg?.features && Array.isArray(fundData.esg.features) ? fundData.esg.features.map((feature, index) => {
                         const IconComponent = iconMap[feature.icon];
                         return (
                         <div key={index} className="flex items-center gap-3">
@@ -330,21 +338,23 @@ const Fund = () => {
                           <span className="text-sm text-slate-700">{feature.text}</span>
                         </div>
                         );
-                      })}
+                      }) : (
+                        <p className="text-sm text-slate-600">ESG features data is not available</p>
+                      )}
                     </div>
                   </div>
 
                   <div className="bg-blue-50 rounded-2xl p-4">
                     <h4 className="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2">
                       <Zap className="w-5 h-5 text-blue-600" />
-                      {fundData.esg.howItWorksTitle}
+                      {fundData.esg?.howItWorksTitle || 'How It Works'}
                     </h4>
                     <p className="text-sm text-slate-700 leading-relaxed mb-3">
-                      {fundData.esg.howItWorksDescription}
+                      {fundData.esg?.howItWorksDescription || 'ESG funds invest in companies with strong environmental, social, and governance practices, excluding polluters and unethical businesses.'}
                     </p>
                     <div className="p-3 bg-white rounded-xl">
                       <p className="text-xs text-slate-600">
-                        <strong>{fundData.esg.startAmount}</strong> • Paperless process • Multilingual support
+                        <strong>{fundData.esg?.startAmount || 'Start with ₹100/month'}</strong> • Paperless process • Multilingual support
                       </p>
                     </div>
                   </div>
@@ -356,7 +366,7 @@ const Fund = () => {
                     className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-2xl font-semibold text-sm hover:from-green-600 hover:to-green-700 hover:shadow-lg transition-all duration-300"
                   >
                     <Leaf className="w-4 h-4" />
-                    {fundData.esg.ctaText}
+                    {fundData.esg?.ctaText || 'Explore ESG Funds Now'}
                     <ChevronRight className="w-4 h-4" />
                   </a>
                 </div>
@@ -368,23 +378,23 @@ const Fund = () => {
         {/* Contact Section */}
         <motion.div className="mb-8" initial={{ opacity: 0, y: 18 }} animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 18 }} transition={{ duration: 0.7, delay: 0.35 }}>
           <div className="text-center mb-6">
-            <h2 className="text-2xl font-semibold text-slate-800 mb-2">{fundData.contact.title}</h2>
-            <p className="text-sm text-slate-600">{fundData.contact.subtitle}</p>
+            <h2 className="text-2xl font-semibold text-slate-800 mb-2">{fundData.contact?.title || 'Talk to Us'}</h2>
+            <p className="text-sm text-slate-600">{fundData.contact?.subtitle || 'Not sure where to begin? We\'re here to guide you.'}</p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
             <motion.a
-              href={`tel:${fundData.contact.phone}`}
+              href={`tel:${fundData.contact?.phone || '+91-9502696570'}`}
               className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-2xl font-semibold text-sm hover:from-blue-600 hover:to-blue-700 hover:shadow-lg transition"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <Phone className="w-4 h-4" />
-              {fundData.contact.phone}
+              {fundData.contact?.phone || '+91-9502696570'}
             </motion.a>
 
             <motion.a
-              href={fundData.contact.whatsapp}
+              href={fundData.contact?.whatsapp || 'https://api.whatsapp.com/message/6EUW7ZLTHSGCB1?autoload=1&app_absent=0'}
               className="flex items-center gap-2 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-2xl font-semibold text-sm hover:from-green-600 hover:to-green-700 hover:shadow-lg transition"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -396,7 +406,7 @@ const Fund = () => {
             </motion.a>
 
             <motion.a
-              href={`mailto:${fundData.contact.email}`}
+              href={`mailto:${fundData.contact?.email || 'info@thefinlitproject.com'}`}
               className="flex items-center gap-2 bg-gradient-to-r from-slate-600 to-slate-700 text-white px-6 py-3 rounded-2xl font-semibold text-sm hover:from-slate-700 hover:to-slate-800 hover:shadow-lg transition"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -414,7 +424,7 @@ const Fund = () => {
               whileTap={{ scale: 0.98 }}
             >
               <TrendingUp className="w-5 h-5" />
-              {fundData.contact.ctaText}
+              {fundData.contact?.ctaText || 'Start Your Investment Journey Now'}
               <ChevronRight className="w-5 h-5" />
             </motion.a>
           </div>
@@ -435,9 +445,9 @@ const Fund = () => {
                 <Globe className="w-8 h-8 text-slate-900" />
               </motion.div>
 
-              <h3 className="text-2xl font-semibold mb-3">{fundData.joinMovement.title}</h3>
+              <h3 className="text-2xl font-semibold mb-3">{fundData.joinMovement?.title || 'Join the Movement'}</h3>
               <p className="text-sm text-slate-200 max-w-3xl mx-auto leading-relaxed">
-                {fundData.joinMovement.description}
+                {fundData.joinMovement?.description || 'The Fin Lit Project is more than just a mutual fund distributor. We are a movement to democratize financial literacy, bring trusted investing tools to the last mile, and help every Indian build real wealth—one SIP at a time.'}
               </p>
             </div>
           </div>
