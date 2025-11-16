@@ -219,10 +219,12 @@ const AllCourses = () => {
       {!isLoading && !error && (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
           {filteredCourses.map((course, index) => (
-          <div
+          <a
             key={index}
+            href="https://play.google.com/store/apps/details?id=com.thefinlitproject.app"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex flex-col items-center bg-white rounded-2xl shadow-md p-2 transition-transform duration-200 hover:scale-105 hover:shadow-xl max-w-xs mx-auto cursor-pointer"
-              onClick={() => openModal(course)}
           >
             <img
                 src={course.imageUrl}
@@ -235,7 +237,7 @@ const AllCourses = () => {
                   <p className="text-xs text-gray-600 mt-1">{course.description}</p>
                 )}
               </div>
-          </div>
+          </a>
         ))}
       </div>
       )}
